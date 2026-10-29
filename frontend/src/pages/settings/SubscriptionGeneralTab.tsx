@@ -1,4 +1,4 @@
-import { Alert, Button, Input, InputNumber, Select, Switch, Tabs } from 'antd';
+import { Alert, Button, Input, InputNumber, Select, Switch } from 'antd';
 import {
   BranchesOutlined,
   CompassOutlined,
@@ -16,11 +16,11 @@ import { onNumber } from '@/utils/onNumber';
 import { DefaultSettingTag, SettingListItem } from '@/components/ui';
 import { RemarkTemplateField } from '@/components/form';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import { sanitizePath, normalizePath } from './uriPath';
 import HappSettingsContent from './HappSettingsContent';
 import IncySettingsContent from './IncySettingsContent';
 import { remoteSourceBadge } from './subscriptionShared';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface SubscriptionGeneralTabProps {
   allSetting: AllSetting;
@@ -43,12 +43,12 @@ export default function SubscriptionGeneralTab({
     searchParams.get('subscriptionTab') === 'happ' ? HAPP_SETTINGS_TAB : PANEL_SETTINGS_TAB;
 
   return (
-    <Tabs
+    <SectionTabs
       defaultActiveKey={initialTab}
       items={[
         {
           key: '1',
-          label: catTabLabel(
+          label: sectionLabel(
             <SettingOutlined aria-hidden />,
             t('pages.settings.panelSettings'),
             isMobile,
@@ -173,7 +173,7 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '2',
-          label: catTabLabel(
+          label: sectionLabel(
             <InfoCircleOutlined aria-hidden />,
             t('pages.settings.information'),
             isMobile,
@@ -297,7 +297,11 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '3',
-          label: catTabLabel(<IdcardOutlined aria-hidden />, t('pages.settings.profile'), isMobile),
+          label: sectionLabel(
+            <IdcardOutlined aria-hidden />,
+            t('pages.settings.profile'),
+            isMobile,
+          ),
           children: (
             <>
               <SettingListItem
@@ -403,7 +407,7 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '4',
-          label: catTabLabel(
+          label: sectionLabel(
             <SafetyCertificateOutlined aria-hidden />,
             t('pages.settings.certs'),
             isMobile,
@@ -435,7 +439,7 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '5',
-          label: catTabLabel(<BranchesOutlined aria-hidden />, 'Happ', isMobile),
+          label: sectionLabel(<BranchesOutlined aria-hidden />, 'Happ', isMobile),
           children: (
             <HappSettingsContent
               allSetting={allSetting}
@@ -447,7 +451,7 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '6',
-          label: catTabLabel(<NodeIndexOutlined aria-hidden />, 'Clash / Mihomo', isMobile),
+          label: sectionLabel(<NodeIndexOutlined aria-hidden />, 'Clash / Mihomo', isMobile),
           children: (
             <>
               <SettingListItem
@@ -490,7 +494,7 @@ export default function SubscriptionGeneralTab({
         },
         {
           key: '7',
-          label: catTabLabel(<CompassOutlined aria-hidden />, 'Incy', isMobile),
+          label: sectionLabel(<CompassOutlined aria-hidden />, 'Incy', isMobile),
           children: (
             <IncySettingsContent
               allSetting={allSetting}

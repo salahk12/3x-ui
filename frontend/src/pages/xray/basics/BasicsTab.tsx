@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { onNumber } from '@/utils/onNumber';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Input, InputNumber, Modal, Select, Space, Switch, Tabs } from 'antd';
+import { Alert, Button, Input, InputNumber, Modal, Select, Space, Switch } from 'antd';
 import {
   BarChartOutlined,
   ClockCircleOutlined,
@@ -14,7 +14,6 @@ import { OutboundDomainStrategies } from '@/schemas/primitives';
 import { HappyEyeballsSchema } from '@/schemas/protocols/stream/sockopt';
 import { SettingListItem } from '@/components/ui';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from '@/pages/settings/catTabLabel';
 import type { XraySettingsValue, SetTemplate } from '@/hooks/useXraySetting';
 import './BasicsTab.css';
 
@@ -32,6 +31,7 @@ import {
   isDirectTagTaken,
   setDirectFreedomStrategy,
 } from './helpers';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface BasicsTabProps {
   templateSettings: XraySettingsValue | null;
@@ -168,7 +168,11 @@ export default function BasicsTab({
   const items = [
     {
       key: '1',
-      label: catTabLabel(<SettingOutlined aria-hidden />, t('pages.xray.generalConfigs'), isMobile),
+      label: sectionLabel(
+        <SettingOutlined aria-hidden />,
+        t('pages.xray.generalConfigs'),
+        isMobile,
+      ),
       children: (
         <>
           <Alert
@@ -296,7 +300,7 @@ export default function BasicsTab({
     },
     {
       key: '2',
-      label: catTabLabel(<BarChartOutlined aria-hidden />, t('pages.xray.statistics'), isMobile),
+      label: sectionLabel(<BarChartOutlined aria-hidden />, t('pages.xray.statistics'), isMobile),
       children: (
         <>
           {[
@@ -351,7 +355,7 @@ export default function BasicsTab({
     },
     {
       key: 'connection',
-      label: catTabLabel(
+      label: sectionLabel(
         <ClockCircleOutlined aria-hidden />,
         t('pages.xray.connectionLimits'),
         isMobile,
@@ -399,7 +403,7 @@ export default function BasicsTab({
     },
     {
       key: '3',
-      label: catTabLabel(<FileTextOutlined aria-hidden />, t('pages.xray.logConfigs'), isMobile),
+      label: sectionLabel(<FileTextOutlined aria-hidden />, t('pages.xray.logConfigs'), isMobile),
       children: (
         <>
           <Alert
@@ -502,7 +506,7 @@ export default function BasicsTab({
     },
     {
       key: 'reset',
-      label: catTabLabel(
+      label: sectionLabel(
         <ReloadOutlined aria-hidden />,
         t('pages.settings.resetDefaultConfig'),
         isMobile,
@@ -525,7 +529,7 @@ export default function BasicsTab({
   return (
     <>
       {modalContextHolder}
-      <Tabs defaultActiveKey="1" items={items} />
+      <SectionTabs defaultActiveKey="1" items={items} />
     </>
   );
 }

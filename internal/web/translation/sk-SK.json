@@ -89,22 +89,9 @@
     "inactive": "Neaktívne",
     "unlimited": "Bez obmedzenia",
     "noExpiry": "Bez obmedzenia platnosti",
-    "copyAllConfigs": "Skopírovať všetky konfigurácie",
-    "copyAllConfigsCopied": "Všetky konfigurácie sú skopírované",
-    "daysLeft": "Zostávajúce dni",
-    "expired": "Platnosť skončila",
-    "depleted": "Dátový limit je vyčerpaný",
-    "ofTotal": "z {total}",
-    "tabLinks": "Odber konfigurácií",
-    "tabApps": "Aplikácie",
-    "tabConfigs": "Konfigurácie",
-    "scanTitle": "Naskenujte telefónom",
-    "scanHint": "Naskenujte tento kód vo svojej VPN aplikácii. Odber konfigurácií sa pridá bez kopírovania odkazu.",
     "updateInterval": "Interval automatického obnovenia (hodiny): {hours}",
     "support": "Podpora",
-    "qrTitle": "Naskenovať. Importovať. Pripojiť sa.",
-    "qrHint": "Naskenujte kód v klientskej aplikácii. Nikomu ho nesprístupňujte.",
-    "saveQr": "Uložiť QR kód"
+    "subId": "Subscription ID"
   },
   "menu": {
     "theme": "Vzhľad",

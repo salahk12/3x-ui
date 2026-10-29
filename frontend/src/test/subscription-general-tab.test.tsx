@@ -70,7 +70,7 @@ describe('SubscriptionGeneralTab', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByRole('tab', { name: /Profile/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Profile/ }));
     expect(screen.getByRole('combobox', { name: 'Profile page' })).toBeTruthy();
     expect(screen.getByTestId('profile-settings').textContent).toBe(`none|${storedUrl}`);
     expect(screen.queryByDisplayValue(storedUrl)).toBeNull();
@@ -105,7 +105,7 @@ describe('SubscriptionGeneralTab', () => {
       </MemoryRouter>,
     );
 
-    fireEvent.click(screen.getByRole('tab', { name: /Profile/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Profile/ }));
     expect(screen.getByRole('combobox', { name: 'Profile page' })).toBeTruthy();
     expect(screen.getByText('Custom website')).toBeTruthy();
     expect(screen.getByDisplayValue(storedUrl)).toBeTruthy();
@@ -178,7 +178,7 @@ describe('SubscriptionGeneralTab', () => {
         </MemoryRouter>,
       );
 
-      fireEvent.click(screen.getByRole('tab', { name: /Happ/ }));
+      fireEvent.click(screen.getByRole('button', { name: /Happ/ }));
       const linkSwitch = screen.getByRole('switch', { name: 'Encrypted subscription links' });
       expect(linkSwitch.getAttribute('aria-checked')).toBe(String(enabled));
       expect(updateSetting).not.toHaveBeenCalled();
@@ -202,7 +202,7 @@ describe('SubscriptionGeneralTab', () => {
         </MemoryRouter>,
       );
 
-      fireEvent.click(screen.getByRole('tab', { name: /Clash/ }));
+      fireEvent.click(screen.getByRole('button', { name: /Clash/ }));
       const remoteDNSSwitch = screen.getByRole('switch', { name: 'Use DNS from remote rules' });
       expect(remoteDNSSwitch.getAttribute('aria-checked')).toBe(String(enabled));
       fireEvent.click(remoteDNSSwitch);
@@ -223,7 +223,7 @@ describe('SubscriptionGeneralTab', () => {
       </MemoryRouter>,
     );
 
-    expect(screen.getByRole('tab', { name: /Happ/ }).getAttribute('aria-selected')).toBe('true');
+    expect(screen.getByRole('button', { name: /Happ/ }).getAttribute('aria-expanded')).toBe('true');
     expect(
       screen
         .getByRole('switch', { name: 'Encrypted subscription links' })

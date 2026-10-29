@@ -15,6 +15,7 @@ import {
   Row,
   Space,
   Spin,
+  Tabs,
 } from 'antd';
 
 import { useTheme } from '@/hooks/useTheme';
@@ -22,6 +23,14 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useXraySetting } from '@/hooks/useXraySetting';
 import type { XraySettingsValue } from '@/hooks/useXraySetting';
 import AppSidebar from '@/layouts/AppSidebar';
+import {
+  ClusterOutlined,
+  CodeOutlined,
+  DatabaseOutlined,
+  ExportOutlined,
+  SettingOutlined,
+  SwapOutlined,
+} from '@ant-design/icons';
 import { JsonEditor } from '@/components/form';
 import { setMessageInstance } from '@/utils/messageBus';
 
@@ -358,7 +367,42 @@ export default function XrayPage() {
                   </Col>
 
                   <Col span={24}>
-                    <Card hoverable>{sectionBody}</Card>
+                    <Card hoverable>
+                      <Tabs
+                        className="page-section-tabs"
+                        activeKey={activeSection}
+                        onChange={(key) => navigate(`/xray#${key}`)}
+                        items={[
+                          {
+                            key: 'basic',
+                            icon: <SettingOutlined aria-hidden />,
+                            label: t('pages.xray.basicTemplate'),
+                          },
+                          {
+                            key: 'routing',
+                            icon: <SwapOutlined aria-hidden />,
+                            label: t('pages.xray.Routings'),
+                          },
+                          {
+                            key: 'outbound',
+                            icon: <ExportOutlined aria-hidden />,
+                            label: t('pages.xray.Outbounds'),
+                          },
+                          {
+                            key: 'balancer',
+                            icon: <ClusterOutlined aria-hidden />,
+                            label: t('pages.xray.Balancers'),
+                          },
+                          { key: 'dns', icon: <DatabaseOutlined aria-hidden />, label: 'DNS' },
+                          {
+                            key: 'advanced',
+                            icon: <CodeOutlined aria-hidden />,
+                            label: t('pages.xray.advancedTemplate'),
+                          },
+                        ]}
+                      />
+                      {sectionBody}
+                    </Card>
                   </Col>
                 </Row>
               )}

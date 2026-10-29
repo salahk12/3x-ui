@@ -25,6 +25,7 @@ import {
   InfoCircleOutlined,
   DeleteOutlined,
   SearchOutlined,
+  SyncOutlined,
 } from '@ant-design/icons';
 
 import { HttpUtil } from '@/utils';
@@ -61,6 +62,7 @@ export default function InboundList({
   hasActiveNode,
   hosts,
   onAddInbound,
+  onRefresh,
   onGeneralAction,
   onRowAction,
   onBulkDelete,
@@ -250,15 +252,6 @@ export default function InboundList({
               aria-label={t('pages.clients.filters.nodes')}
             />
           )}
-          <Input
-            value={searchKey}
-            onChange={(e) => setSearchKey(e.target.value)}
-            placeholder={t('search')}
-            allowClear
-            prefix={<SearchOutlined aria-hidden />}
-            style={{ maxWidth: isMobile ? 110 : 200 }}
-            aria-label={t('search')}
-          />
           {selectedRowKeys.length > 0 && (
             <>
               <Tag
@@ -281,8 +274,29 @@ export default function InboundList({
           )}
         </Space>
       }
+      extra={
+        onRefresh && (
+          <Tooltip title={t('refresh')}>
+            <Button
+              icon={<SyncOutlined aria-hidden />}
+              onClick={onRefresh}
+              aria-label={t('refresh')}
+            />
+          </Tooltip>
+        )
+      }
     >
       <Space orientation="vertical" style={{ width: '100%' }}>
+        <Input
+          className="inbounds-search"
+          value={searchKey}
+          onChange={(e) => setSearchKey(e.target.value)}
+          placeholder={t('search')}
+          allowClear
+          prefix={<SearchOutlined aria-hidden />}
+          style={{ maxWidth: isMobile ? '100%' : 300 }}
+          aria-label={t('search')}
+        />
         {isMobile ? (
           <div className="inbound-cards">
             {visibleInbounds.length === 0 ? (
@@ -378,7 +392,6 @@ export default function InboundList({
             pagination={paginationFor(visibleInbounds)}
             scroll={{ x: tableScrollX }}
             style={{ marginTop: 10 }}
-            size="small"
             locale={{
               emptyText: (
                 <div className="card-empty">

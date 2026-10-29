@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Input, InputNumber, Select, Switch, Tabs } from 'antd';
+import { Input, InputNumber, Select, Switch } from 'antd';
 import {
   ApartmentOutlined,
   BellOutlined,
@@ -15,9 +15,9 @@ import { HttpUtil, LanguageManager } from '@/utils';
 import { onNumber } from '@/utils/onNumber';
 import { DefaultSettingTag, SettingListItem } from '@/components/ui';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import { sanitizePath } from './uriPath';
 import SecretInput from './SecretInput';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface ApiMsg<T = unknown> {
   success?: boolean;
@@ -175,12 +175,12 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
   );
 
   return (
-    <Tabs
+    <SectionTabs
       defaultActiveKey="1"
       items={[
         {
           key: '1',
-          label: catTabLabel(
+          label: sectionLabel(
             <SettingOutlined aria-hidden />,
             t('pages.settings.panelSettings'),
             isMobile,
@@ -353,7 +353,7 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
         },
         {
           key: '2',
-          label: catTabLabel(
+          label: sectionLabel(
             <BellOutlined aria-hidden />,
             t('pages.settings.notifications'),
             isMobile,
@@ -394,7 +394,7 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
         },
         {
           key: '3',
-          label: catTabLabel(
+          label: sectionLabel(
             <SafetyCertificateOutlined aria-hidden />,
             t('pages.settings.certs'),
             isMobile,
@@ -426,7 +426,7 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
         },
         {
           key: '4',
-          label: catTabLabel(
+          label: sectionLabel(
             <GlobalOutlined aria-hidden />,
             t('pages.settings.externalTraffic'),
             isMobile,
@@ -459,7 +459,7 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
         },
         {
           key: '5',
-          label: catTabLabel(
+          label: sectionLabel(
             <ClockCircleOutlined aria-hidden />,
             t('pages.settings.dateAndTime'),
             isMobile,
@@ -496,7 +496,7 @@ export default function GeneralTab({ allSetting, updateSetting }: GeneralTabProp
         },
         {
           key: '6',
-          label: catTabLabel(<ApartmentOutlined aria-hidden />, 'LDAP', isMobile),
+          label: sectionLabel(<ApartmentOutlined aria-hidden />, 'LDAP', isMobile),
           children: (
             <>
               <SettingListItem paddings="small" title={t('pages.settings.ldap.enable')}>

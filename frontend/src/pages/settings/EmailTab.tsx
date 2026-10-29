@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Input, InputNumber, Select, Space, Switch, Tabs } from 'antd';
+import { Alert, Button, Input, InputNumber, Select, Space, Switch } from 'antd';
 import { MailOutlined, SendOutlined, SettingOutlined } from '@ant-design/icons';
 import { HttpUtil } from '@/utils';
 import { onNumber } from '@/utils/onNumber';
@@ -8,8 +8,8 @@ import type { AllSetting } from '@/models/setting';
 import { DefaultSettingTag, SettingListItem } from '@/components/ui';
 import { EmailNotifications } from '@/components/ui/notifications/EmailNotifications';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import SecretInput from './SecretInput';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface EmailTabProps {
   allSetting: AllSetting;
@@ -51,12 +51,12 @@ export default function EmailTab({ allSetting, updateSetting }: EmailTabProps) {
   }
 
   return (
-    <Tabs
+    <SectionTabs
       defaultActiveKey="1"
       items={[
         {
           key: '1',
-          label: catTabLabel(
+          label: sectionLabel(
             <SettingOutlined aria-hidden />,
             t('pages.settings.smtpSettings'),
             isMobile,
@@ -217,7 +217,7 @@ export default function EmailTab({ allSetting, updateSetting }: EmailTabProps) {
         },
         {
           key: '2',
-          label: catTabLabel(
+          label: sectionLabel(
             <MailOutlined aria-hidden />,
             t('pages.settings.emailNotifications'),
             isMobile,

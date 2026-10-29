@@ -41,7 +41,13 @@ const BASE_TOKENS = {
   colorPrimary: V2_PRIMARY,
   colorInfo: V2_PRIMARY,
   colorLink: V2_PRIMARY,
+  colorPrimaryHover: '#18947b',
+  colorPrimaryActive: '#006655',
+  colorPrimaryBorderHover: '#18947b',
+  colorPrimaryTextHover: '#18947b',
+  colorLinkHover: '#18947b',
   borderRadius: 8,
+  lineHeight: 1.5,
   fontFamily:
     "system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
 };
@@ -88,7 +94,7 @@ const MENU_TOKENS = {
   itemBorderRadius: 8,
   itemSelectedBg: '#006655',
   itemSelectedColor: '#ffffff',
-  itemHoverColor: V2_PRIMARY,
+  itemHoverColor: '#008771',
   itemHoverBg: '#e8f4f2',
 };
 const DARK_MENU_TOKENS = {
@@ -120,7 +126,14 @@ const STATISTIC_TOKENS = {
   titleFontSize: 14,
 };
 const CONTROL_TOKENS = { borderRadius: 16 };
-const TABLE_TOKENS = { borderRadiusLG: 16 };
+// antd 1.x button shadows, much softer than antd 6's tinted ones.
+const BUTTON_TOKENS = {
+  ...CONTROL_TOKENS,
+  primaryShadow: '0 2px 0 rgba(0, 0, 0, 0.043)',
+  defaultShadow: '0 2px 0 rgba(0, 0, 0, 0.016)',
+  dangerShadow: '0 2px 0 rgba(0, 0, 0, 0.043)',
+};
+const TABLE_TOKENS = { borderRadiusLG: 16, cellPaddingBlock: 10, cellPaddingInline: 8 };
 const DARK_TABLE_TOKENS = {
   ...TABLE_TOKENS,
   headerBg: '#0a1222',
@@ -137,7 +150,7 @@ const ULTRA_DARK_TABLE_TOKENS = {
   rowSelectedHoverBg: 'rgba(0, 135, 113, 0.3)',
   bodySortBg: 'rgba(0, 135, 113, 0.12)',
 };
-const LIGHT_TABLE_TOKENS = { ...TABLE_TOKENS, headerBg: '#f0f2f5' };
+const LIGHT_TABLE_TOKENS = { ...TABLE_TOKENS, headerBg: '#f0f2f5', rowHoverBg: '#e8f4f2' };
 const LIGHT_CONTRAST_TOKENS = {
   ...BASE_TOKENS,
   colorBgLayout: '#f0f2f5',
@@ -151,12 +164,17 @@ const LIGHT_CONTRAST_TOKENS = {
 };
 const SHARED_COMPONENTS = {
   Statistic: STATISTIC_TOKENS,
-  Button: CONTROL_TOKENS,
+  Button: BUTTON_TOKENS,
   Input: CONTROL_TOKENS,
   InputNumber: CONTROL_TOKENS,
   Select: CONTROL_TOKENS,
   DatePicker: CONTROL_TOKENS,
-  Tabs: { itemSelectedColor: V2_PRIMARY, inkBarColor: V2_PRIMARY },
+  Tabs: {
+    itemSelectedColor: V2_PRIMARY,
+    inkBarColor: V2_PRIMARY,
+    itemHoverColor: '#18947b',
+    itemActiveColor: '#006655',
+  },
   Collapse: { borderRadiusLG: 16 },
   Modal: { borderRadiusLG: 16 },
   Tag: { borderRadiusSM: 16 },

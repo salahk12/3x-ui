@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import {
   Alert,
   Button,
@@ -13,6 +13,7 @@ import {
   Row,
   Space,
   Spin,
+  Tabs,
   message,
 } from 'antd';
 
@@ -23,6 +24,16 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useAllSettings } from '@/api/queries/useAllSettings';
 import { AllSettingSchema } from '@/schemas/setting';
 import AppSidebar from '@/layouts/AppSidebar';
+import {
+  ApartmentOutlined,
+  CloudServerOutlined,
+  CodeOutlined,
+  DiscordOutlined,
+  MailOutlined,
+  SafetyOutlined,
+  SettingOutlined,
+  TelegramFilled,
+} from '@ant-design/icons';
 import GeneralTab from './GeneralTab';
 import SecurityTab from './SecurityTab';
 import TelegramTab from './TelegramTab';
@@ -96,6 +107,7 @@ export default function SettingsPage() {
 
   const [alertVisible, setAlertVisible] = useState(true);
   const location = useLocation();
+  const navigate = useNavigate();
   const slug = location.hash.replace(/^#/, '');
   const activeSlug = tabSlugs.includes(slug) ? slug : 'general';
 
@@ -299,7 +311,64 @@ export default function SettingsPage() {
                     </Col>
 
                     <Col span={24}>
-                      <Card hoverable>{categoryBody}</Card>
+                      <Card hoverable>
+                        <Tabs
+                          className="page-section-tabs"
+                          activeKey={activeSlug}
+                          onChange={(key) => navigate(`/settings#${key}`)}
+                          items={[
+                            {
+                              key: 'general',
+                              icon: <SettingOutlined aria-hidden />,
+                              label: t('pages.settings.panelSettings'),
+                            },
+                            {
+                              key: 'security',
+                              icon: <SafetyOutlined aria-hidden />,
+                              label: t('pages.settings.securitySettings'),
+                            },
+                            {
+                              key: 'telegram',
+                              icon: <TelegramFilled aria-hidden />,
+                              label: t('pages.settings.TGBotSettings'),
+                            },
+                            {
+                              key: 'email',
+                              icon: <MailOutlined aria-hidden />,
+                              label: t('pages.settings.emailSettings'),
+                            },
+                            {
+                              key: 'discord',
+                              icon: <DiscordOutlined aria-hidden />,
+                              label: t('pages.settings.discordSettings'),
+                            },
+                            {
+                              key: 'subscription',
+                              icon: <CloudServerOutlined aria-hidden />,
+                              label: t('pages.settings.subSettings'),
+                            },
+                            ...(allSetting.subJsonEnable || allSetting.subClashEnable
+                              ? [
+                                  {
+                                    key: 'subscription-formats',
+                                    icon: <CodeOutlined aria-hidden />,
+                                    label: t('menu.subFormats'),
+                                  },
+                                ]
+                              : []),
+                            ...(allSetting.subJsonEnable
+                              ? [
+                                  {
+                                    key: 'subscription-balancers',
+                                    icon: <ApartmentOutlined aria-hidden />,
+                                    label: t('pages.settings.subBalancers.menu'),
+                                  },
+                                ]
+                              : []),
+                          ]}
+                        />
+                        {categoryBody}
+                      </Card>
                     </Col>
                   </Row>
                 </>

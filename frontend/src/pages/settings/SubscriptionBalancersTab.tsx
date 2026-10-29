@@ -10,7 +10,6 @@ import {
   Space,
   Switch,
   Table,
-  Tabs,
   Tag,
   Tooltip,
 } from 'antd';
@@ -34,8 +33,8 @@ import type { SubBalancer, SubBalancerFormValues } from '@/schemas/subBalancer';
 import { PingConfigSchema, type PingConfigObject } from '@/schemas/observatory';
 import { DEFAULT_BURST_OBSERVATORY } from '@/pages/xray/balancers/balancer-helpers';
 import SubBalancerFormModal from './SubBalancerFormModal';
-import { catTabLabel } from './catTabLabel';
 import './SubscriptionFormatsTab.css';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 const STRATEGY_COLORS: Record<string, string> = {
   leastLoad: 'geekblue',
@@ -336,12 +335,12 @@ export default function SubscriptionBalancersTab({
 
   return (
     <>
-      <Tabs
+      <SectionTabs
         defaultActiveKey="balancers"
         items={[
           {
             key: 'balancers',
-            label: catTabLabel(
+            label: sectionLabel(
               <DeploymentUnitOutlined aria-hidden />,
               t('pages.settings.subBalancers.tabBalancers'),
               isMobile,
@@ -350,7 +349,7 @@ export default function SubscriptionBalancersTab({
           },
           {
             key: 'observatory',
-            label: catTabLabel(
+            label: sectionLabel(
               <RadarChartOutlined aria-hidden />,
               t('pages.settings.subBalancers.tabObservatory'),
               isMobile,

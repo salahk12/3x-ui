@@ -1,18 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Button,
-  Dropdown,
-  Empty,
-  Modal,
-  Select,
-  Space,
-  Table,
-  Tabs,
-  Tag,
-  Tooltip,
-  message,
-} from 'antd';
+import { Button, Dropdown, Empty, Modal, Select, Space, Table, Tag, Tooltip, message } from 'antd';
 import {
   PlusOutlined,
   MoreOutlined,
@@ -39,7 +27,6 @@ import {
 import { planBalancerDeletion, applyBalancerDeletion } from '../reference-cleanup';
 import DeletionImpactList from '../DeletionImpactList';
 import ObservatorySettingsTab from './ObservatorySettingsTab';
-import { catTabLabel } from '@/pages/settings/catTabLabel';
 import { HttpUtil } from '@/utils';
 import type { XraySettingsValue, SetTemplate } from '@/hooks/useXraySetting';
 import type {
@@ -47,6 +34,7 @@ import type {
   BalancerStrategySettings,
   BalancerStrategyType,
 } from '@/schemas/routing';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 // Live state of one balancer inside the running core, as reported by the
 // panel's /xray/balancerStatus endpoint (RoutingService.GetBalancerInfo).
@@ -517,11 +505,11 @@ export default function BalancersTab({
     <>
       {modalContextHolder}
       {messageContextHolder}
-      <Tabs
+      <SectionTabs
         items={[
           {
             key: 'balancers',
-            label: catTabLabel(
+            label: sectionLabel(
               <DeploymentUnitOutlined aria-hidden />,
               t('pages.xray.tabBalancerSettings'),
               isMobile,
@@ -530,7 +518,7 @@ export default function BalancersTab({
           },
           {
             key: 'observatory',
-            label: catTabLabel(
+            label: sectionLabel(
               <RadarChartOutlined aria-hidden />,
               t('pages.xray.tabObservatory'),
               isMobile,

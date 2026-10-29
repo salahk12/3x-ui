@@ -89,22 +89,9 @@
     "inactive": "無効",
     "unlimited": "無制限",
     "noExpiry": "期限なし",
-    "copyAllConfigs": "すべての設定をコピー",
-    "copyAllConfigsCopied": "すべての設定をコピーしました",
-    "daysLeft": "残り日数",
-    "expired": "期限切れ",
-    "depleted": "データ上限到達",
-    "ofTotal": "/ {total}",
-    "tabLinks": "サブスクリプション",
-    "tabApps": "アプリ",
-    "tabConfigs": "設定",
-    "scanTitle": "スマートフォンでスキャン",
-    "scanHint": "VPN アプリでこのコードをスキャンすると、リンクをコピーせずにサブスクリプションを追加できます。",
     "updateInterval": "{hours} 時間ごとに自動更新",
     "support": "サポート",
-    "qrTitle": "スキャン。インポート。接続。",
-    "qrHint": "クライアントアプリでスキャンしてください。このコードは他人に見せないでください。",
-    "saveQr": "QR を保存"
+    "subId": "サブスクリプションID"
   },
   "menu": {
     "theme": "テーマ",

@@ -81,7 +81,7 @@ html[data-theme-animations='off'] .drawer-menu .ant-menu-item-selected {
 .sider-nav .ant-menu-submenu-title:hover,
 .drawer-menu .ant-menu-item:not(.ant-menu-item-selected):hover,
 .drawer-menu .ant-menu-submenu-title:hover {
-  color: var(--ant-color-primary) !important;
+  color: #008771 !important;
 }
 
 body.light .sider-nav .ant-menu-item:not(.ant-menu-item-selected):hover,

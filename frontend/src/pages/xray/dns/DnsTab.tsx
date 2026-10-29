@@ -11,7 +11,6 @@ import {
   Space,
   Switch,
   Table,
-  Tabs,
 } from 'antd';
 import {
   DatabaseOutlined,
@@ -26,7 +25,6 @@ import {
 import { onNumber } from '@/utils/onNumber';
 import { SettingListItem } from '@/components/ui';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from '@/pages/settings/catTabLabel';
 import DnsServerModal from './DnsServerModal';
 import type { DnsServerValue } from './DnsServerModal';
 import DnsPresetsModal from './DnsPresetsModal';
@@ -36,6 +34,7 @@ import './DnsTab.css';
 import { STRATEGIES, DEFAULT_FAKEDNS } from './helpers';
 import type { DnsConfig, HostRow, FakednsRow } from './types';
 import { useDnsServerColumns, useFakednsColumns } from './useDnsColumns';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface DnsTabProps {
   templateSettings: XraySettingsValue | null;
@@ -245,7 +244,7 @@ export default function DnsTab({ templateSettings, setTemplateSettings }: DnsTab
     const out = [
       {
         key: '1',
-        label: catTabLabel(
+        label: sectionLabel(
           <SettingOutlined aria-hidden />,
           t('pages.xray.generalConfigs'),
           isMobile,
@@ -380,7 +379,7 @@ export default function DnsTab({ templateSettings, setTemplateSettings }: DnsTab
     if (dnsEnabled) {
       out.push({
         key: 'hosts',
-        label: catTabLabel(<ProfileOutlined aria-hidden />, t('pages.xray.dns.hosts'), isMobile),
+        label: sectionLabel(<ProfileOutlined aria-hidden />, t('pages.xray.dns.hosts'), isMobile),
         children:
           hostsList.length === 0 ? (
             <Empty description={t('pages.xray.dns.hostsEmpty')}>
@@ -441,7 +440,7 @@ export default function DnsTab({ templateSettings, setTemplateSettings }: DnsTab
 
       out.push({
         key: '2',
-        label: catTabLabel(<DatabaseOutlined aria-hidden />, 'DNS', isMobile),
+        label: sectionLabel(<DatabaseOutlined aria-hidden />, 'DNS', isMobile),
         children:
           dnsServers.length === 0 ? (
             <Empty description={t('emptyDnsDesc')}>
@@ -487,7 +486,7 @@ export default function DnsTab({ templateSettings, setTemplateSettings }: DnsTab
 
       out.push({
         key: '3',
-        label: catTabLabel(<ExperimentOutlined aria-hidden />, 'Fake DNS', isMobile),
+        label: sectionLabel(<ExperimentOutlined aria-hidden />, 'Fake DNS', isMobile),
         children:
           fakeDnsList.length === 0 ? (
             <Empty description={t('emptyFakeDnsDesc')}>
@@ -520,7 +519,7 @@ export default function DnsTab({ templateSettings, setTemplateSettings }: DnsTab
   return (
     <>
       {modalContextHolder}
-      <Tabs defaultActiveKey="1" items={items} />
+      <SectionTabs defaultActiveKey="1" items={items} />
       <DnsServerModal
         open={serverModalOpen}
         server={editingServer}

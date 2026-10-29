@@ -89,22 +89,9 @@
     "inactive": "Inactivo",
     "unlimited": "Ilimitado",
     "noExpiry": "Sin caducidad",
-    "copyAllConfigs": "Copiar Todas las Configuraciones",
-    "copyAllConfigsCopied": "Todas las configuraciones copiadas",
-    "daysLeft": "Días restantes",
-    "expired": "Caducada",
-    "depleted": "Datos agotados",
-    "ofTotal": "de {total}",
-    "tabLinks": "Suscripción",
-    "tabApps": "Aplicaciones",
-    "tabConfigs": "Configuraciones",
-    "scanTitle": "Escanea con tu teléfono",
-    "scanHint": "Escanea este código en tu aplicación VPN para añadir la suscripción sin copiar el enlace.",
     "updateInterval": "Se actualiza automáticamente cada {hours} horas",
     "support": "Soporte",
-    "qrTitle": "Escanea. Importa. Conéctate.",
-    "qrHint": "Escanéalo con tu aplicación cliente. Mantén este código en privado.",
-    "saveQr": "Guardar QR"
+    "subId": "ID de suscripción"
   },
   "menu": {
     "theme": "Tema",

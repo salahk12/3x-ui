@@ -1,30 +1,18 @@
 import { useCallback, useMemo, useState } from 'react';
-import type { ComponentType, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Checkbox, Drawer, Layout, Menu, Switch } from 'antd';
 import type { MenuProps } from 'antd';
 import {
-  ApartmentOutlined,
   BulbFilled,
   BulbOutlined,
   CloseOutlined,
-  CloudServerOutlined,
-  ClusterOutlined,
-  CodeOutlined,
-  DatabaseOutlined,
-  DiscordOutlined,
   LogoutOutlined,
-  MailOutlined,
   MenuOutlined,
-  SafetyOutlined,
-  SettingOutlined,
-  TelegramFilled,
 } from '@ant-design/icons';
 
 import { HttpUtil } from '@/utils';
 import { pauseAnimationsUntilLeave, useTheme } from '@/hooks/useTheme';
-import { useAllSettings } from '@/api/queries/useAllSettings';
 import { PANEL_ROUTES } from '@/routes/panelRoutes';
 import './AppSidebar.css';
 
@@ -33,6 +21,7 @@ const THEME_KEY = '__theme__';
 const THEME_DARK_KEY = '__theme_dark__';
 const THEME_ULTRA_KEY = '__theme_ultra__';
 const SIDER_WIDTH = 200;
+const SIDEBAR_HIDDEN_PATHS = new Set(['/outbound', '/routing']);
 const COLLAPSED_WIDTH = 80;
 // Same storage key the v2.x panel used, so a returning operator keeps their choice.
 const SIDEBAR_COLLAPSED_KEY = 'isSidebarCollapsed';
@@ -55,10 +44,7 @@ export default function AppSidebar() {
   const { t } = useTranslation();
   const { isDark, isUltra, toggleTheme, toggleUltra } = useTheme();
   const navigate = useNavigate();
-  const { pathname, hash } = useLocation();
-  const { allSetting } = useAllSettings();
-  const showSubFormats = !!(allSetting.subJsonEnable || allSetting.subClashEnable);
-  const showSubBalancers = !!allSetting.subJsonEnable;
+  const { pathname } = useLocation();
 
   const [collapsed, setCollapsed] = useState(readCollapsed);
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -125,124 +111,24 @@ export default function AppSidebar() {
     [t, isDark, isUltra],
   );
 
-  const settingsChildren = useMemo<NonNullable<MenuProps['items']>>(() => {
-    const children: NonNullable<MenuProps['items']> = [
-      {
-        key: '/settings#general',
-        icon: <SettingOutlined aria-hidden />,
-        label: t('pages.settings.panelSettings'),
-      },
-      {
-        key: '/settings#security',
-        icon: <SafetyOutlined aria-hidden />,
-        label: t('pages.settings.securitySettings'),
-      },
-      {
-        key: '/settings#telegram',
-        icon: <TelegramFilled aria-hidden />,
-        label: t('pages.settings.TGBotSettings'),
-      },
-      {
-        key: '/settings#email',
-        icon: <MailOutlined aria-hidden />,
-        label: t('pages.settings.emailSettings'),
-      },
-      {
-        key: '/settings#discord',
-        icon: <DiscordOutlined aria-hidden />,
-        label: t('pages.settings.discordSettings'),
-      },
-      {
-        key: '/settings#subscription',
-        icon: <CloudServerOutlined aria-hidden />,
-        label: t('pages.settings.subSettings'),
-      },
-    ];
-    if (showSubFormats) {
-      children.push({
-        key: '/settings#subscription-formats',
-        icon: <CodeOutlined aria-hidden />,
-        label: t('menu.subFormats'),
-      });
-    }
-    if (showSubBalancers) {
-      children.push({
-        key: '/settings#subscription-balancers',
-        icon: <ApartmentOutlined aria-hidden />,
-        label: t('pages.settings.subBalancers.menu'),
-      });
-    }
-    return children;
-  }, [t, showSubFormats, showSubBalancers]);
-
-  const xrayChildren = useMemo<NonNullable<MenuProps['items']>>(
+  // v2's flat menu: Outbounds and Routing live as tabs inside Xray Configs.
+  const navItems = useMemo<NonNullable<MenuProps['items']>>(
     () => [
-      {
-        key: '/xray#basic',
-        icon: <SettingOutlined aria-hidden />,
-        label: t('pages.xray.basicTemplate'),
-      },
-      {
-        key: '/xray#balancer',
-        icon: <ClusterOutlined aria-hidden />,
-        label: t('pages.xray.Balancers'),
-      },
-      {
-        key: '/xray#dns',
-        icon: <DatabaseOutlined aria-hidden />,
-        label: 'DNS',
-      },
-      {
-        key: '/xray#advanced',
-        icon: <CodeOutlined aria-hidden />,
-        label: t('pages.xray.advancedTemplate'),
-      },
+      ...PANEL_ROUTES.filter((route) => !SIDEBAR_HIDDEN_PATHS.has(route.path)).map((route) => {
+        const Icon = route.icon;
+        return { key: route.path, icon: <Icon aria-hidden />, label: t(route.titleKey) };
+      }),
+      { key: LOGOUT_KEY, icon: <LogoutOutlined aria-hidden />, label: t('logout') },
     ],
     [t],
   );
 
-  const navItems = useMemo<NonNullable<MenuProps['items']>>(() => {
-    const item = (
-      key: string,
-      Icon: ComponentType,
-      label: ReactNode,
-      children?: MenuProps['items'],
-    ) =>
-      children
-        ? { key, icon: <Icon aria-hidden />, label, children }
-        : { key, icon: <Icon aria-hidden />, label };
-    return [
-      ...PANEL_ROUTES.map((route) =>
-        item(
-          route.path,
-          route.icon,
-          t(route.titleKey),
-          route.path === '/settings'
-            ? settingsChildren
-            : route.path === '/xray'
-              ? xrayChildren
-              : undefined,
-        ),
-      ),
-      item(LOGOUT_KEY, LogoutOutlined, t('logout')),
-    ];
-  }, [t, settingsChildren, xrayChildren]);
-
-  const settingsActive = pathname === '/settings';
-  const xrayActive = pathname === '/xray';
-  const selectedKey = settingsActive
-    ? `/settings${hash || '#general'}`
-    : xrayActive
-      ? `/xray${hash || '#basic'}`
+  const selectedKey =
+    pathname === '/outbound' || pathname === '/routing'
+      ? '/xray'
       : pathname === ''
         ? '/'
         : pathname;
-
-  const openSubmenu = settingsActive ? '/settings' : xrayActive ? '/xray' : null;
-  const [openKeys, setOpenKeys] = useState<string[]>(() => (openSubmenu ? [openSubmenu] : []));
-  if (openSubmenu && !openKeys.includes(openSubmenu)) {
-    setOpenKeys([...openKeys, openSubmenu]);
-  }
 
   const onMenuClick = useCallback(
     async (key: string, idSuffix: string) => {
@@ -282,8 +168,6 @@ export default function AppSidebar() {
           theme={currentTheme}
           mode="inline"
           selectedKeys={[selectedKey]}
-          openKeys={collapsed ? undefined : openKeys}
-          onOpenChange={(keys) => setOpenKeys(keys as string[])}
           className="sider-nav"
           items={siderItems}
           onClick={({ key }) => {
@@ -325,8 +209,6 @@ export default function AppSidebar() {
           theme={currentTheme}
           mode="inline"
           selectedKeys={[selectedKey]}
-          openKeys={openKeys}
-          onOpenChange={(keys) => setOpenKeys(keys as string[])}
           className="drawer-menu"
           items={drawerItems}
           onClick={({ key }) => {

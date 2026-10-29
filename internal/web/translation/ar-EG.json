@@ -89,22 +89,9 @@
     "inactive": "غير نشط",
     "unlimited": "غير محدود",
     "noExpiry": "بدون انتهاء",
-    "copyAllConfigs": "نسخ جميع الإعدادات",
-    "copyAllConfigsCopied": "تم نسخ جميع الإعدادات",
-    "daysLeft": "الأيام المتبقية",
-    "expired": "منتهي الصلاحية",
-    "depleted": "نفدت البيانات",
-    "ofTotal": "من {total}",
-    "tabLinks": "الاشتراك",
-    "tabApps": "التطبيقات",
-    "tabConfigs": "الكونفيجات",
-    "scanTitle": "امسح بهاتفك",
-    "scanHint": "امسح هذا الرمز في تطبيق VPN لإضافة الاشتراك دون نسخ الرابط.",
     "updateInterval": "تحديث تلقائي كل {hours} ساعة",
     "support": "الدعم",
-    "qrTitle": "امسح. استورد. اتصل.",
-    "qrHint": "امسح الرمز بتطبيق العميل. لا تشارك هذا الرمز مع أحد.",
-    "saveQr": "حفظ QR"
+    "subId": "معرّف الاشتراك"
   },
   "menu": {
     "theme": "الثيم",

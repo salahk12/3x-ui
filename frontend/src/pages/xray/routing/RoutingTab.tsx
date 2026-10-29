@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Dropdown, Modal, Space, Table, Tabs, message } from 'antd';
+import { Alert, Button, Dropdown, Modal, Space, Table, message } from 'antd';
 import {
   AimOutlined,
   ControlOutlined,
@@ -11,7 +11,6 @@ import {
   UnorderedListOutlined,
 } from '@ant-design/icons';
 
-import { catTabLabel } from '@/pages/settings/catTabLabel';
 import PromptModal from '@/components/feedback/PromptModal';
 import TextModal from '@/components/feedback/TextModal';
 import { isBalancerLoopbackTag } from '../balancers/balancer-loopback';
@@ -27,6 +26,7 @@ import type { XraySettingsValue, SetTemplate } from '@/hooks/useXraySetting';
 import type { RuleObject } from '@/schemas/routing';
 import { usePointerRowReorder } from '@/hooks/usePointerRowReorder';
 import './RoutingTab.css';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface RoutingTabProps {
   templateSettings: XraySettingsValue | null;
@@ -317,12 +317,12 @@ export default function RoutingTab({
           title={t('pages.xray.routingScriptActive', { section: t('pages.xray.basicTemplate') })}
         />
       )}
-      <Tabs
+      <SectionTabs
         defaultActiveKey="basic"
         items={[
           {
             key: 'basic',
-            label: catTabLabel(
+            label: sectionLabel(
               <ControlOutlined aria-hidden />,
               t('pages.xray.basicRouting'),
               isMobile,
@@ -336,7 +336,7 @@ export default function RoutingTab({
           },
           {
             key: 'rules',
-            label: catTabLabel(
+            label: sectionLabel(
               <UnorderedListOutlined aria-hidden />,
               t('pages.xray.Routings'),
               isMobile,
@@ -412,7 +412,7 @@ export default function RoutingTab({
           },
           {
             key: 'tester',
-            label: catTabLabel(<AimOutlined aria-hidden />, t('pages.xray.routeTester'), isMobile),
+            label: sectionLabel(<AimOutlined aria-hidden />, t('pages.xray.routeTester'), isMobile),
             children: <RouteTester inboundTags={inboundTagOptions} isMobile={isMobile} />,
           },
         ]}

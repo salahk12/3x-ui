@@ -44,7 +44,7 @@ function ruleOrder() {
 
 function openRouting(mobile: boolean) {
   const view = renderWithProviders(<Harness mobile={mobile} />);
-  fireEvent.click(screen.getByRole('tab', { name: /Routing Rules/ }));
+  fireEvent.click(screen.getByRole('button', { name: /Routing Rules/ }));
   return {
     ...view,
     rows: () =>

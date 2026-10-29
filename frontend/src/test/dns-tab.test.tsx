@@ -30,7 +30,7 @@ describe('DnsTab', () => {
 
     renderWithProviders(<Harness />);
 
-    fireEvent.click(screen.getByRole('tab', { name: /Hosts$/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Hosts$/ }));
     fireEvent.click(screen.getByRole('button', { name: /Add Host$/ }));
 
     expect(screen.getAllByLabelText('Domain (e.g. domain:example.com)')).toHaveLength(2);
@@ -49,7 +49,7 @@ describe('DnsTab', () => {
     }
 
     renderWithProviders(<Harness />);
-    fireEvent.click(screen.getByRole('tab', { name: /Hosts$/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Hosts$/ }));
     fireEvent.change(screen.getByLabelText('Domain (e.g. domain:example.com)'), {
       target: { value: '' },
     });
@@ -83,7 +83,7 @@ describe('DnsTab', () => {
 
     renderWithProviders(<Harness />);
 
-    fireEvent.click(screen.getByRole('tab', { name: /Hosts$/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Hosts$/ }));
     expect(
       (screen.getByLabelText('Domain (e.g. domain:example.com)') as HTMLInputElement).value,
     ).toBe('first.example');
@@ -117,13 +117,12 @@ describe('DnsTab', () => {
     }
 
     renderWithProviders(<Harness />);
-    fireEvent.click(screen.getByRole('tab', { name: /Hosts$/ }));
+    fireEvent.click(screen.getByRole('button', { name: /Hosts$/ }));
     fireEvent.change(screen.getByLabelText('Domain (e.g. domain:example.com)'), {
       target: { value: '' },
     });
     fireEvent.click(screen.getByRole('button', { name: 'Disable DNS' }));
     fireEvent.click(screen.getByRole('button', { name: 'Enable DNS' }));
-    fireEvent.click(screen.getByRole('tab', { name: /Hosts$/ }));
 
     expect(screen.queryByLabelText('Domain (e.g. domain:example.com)')).toBeNull();
   });

@@ -33,7 +33,7 @@ describe('API token creation date', () => {
     render(
       <SecurityTab allSetting={{} as AllSetting} updateSetting={vi.fn()} saveSetting={vi.fn()} />,
     );
-    fireEvent.click(screen.getByRole('tab', { name: /API Token/ }));
+    fireEvent.click(screen.getByRole('button', { name: /API Token/ }));
 
     expect(await screen.findByText('seconds-token')).toBeTruthy();
     expect(screen.getByText('legacy-milliseconds-token')).toBeTruthy();
@@ -53,7 +53,7 @@ describe('API token creation date', () => {
     render(
       <SecurityTab allSetting={{} as AllSetting} updateSetting={vi.fn()} saveSetting={vi.fn()} />,
     );
-    fireEvent.click(screen.getByRole('tab', { name: /API Token/ }));
+    fireEvent.click(screen.getByRole('button', { name: /API Token/ }));
     fireEvent.click(await screen.findByRole('button', { name: /New token/ }));
     fireEvent.change(screen.getByPlaceholderText('e.g. central-panel-a'), {
       target: { value: 'central-node' },

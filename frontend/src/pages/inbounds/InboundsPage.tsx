@@ -7,10 +7,13 @@ import {
   ConfigProvider,
   Layout,
   Modal,
+  Popover,
   Result,
   Row,
+  Space,
   Spin,
   Statistic,
+  Tag,
   message,
 } from 'antd';
 
@@ -20,6 +23,7 @@ import {
   ArrowDownOutlined,
   PieChartOutlined,
   BarsOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 
 import { HttpUtil, SizeFormatter, RandomUtil } from '@/utils';
@@ -709,6 +713,25 @@ export default function InboundsPage() {
     ],
   );
 
+  const clientTotals = useMemo(() => {
+    const totals = {
+      clients: 0,
+      deactive: [] as string[],
+      depleted: [] as string[],
+      expiring: [] as string[],
+      online: [] as string[],
+    };
+    for (const entry of Object.values(clientCount)) {
+      if (!entry) continue;
+      totals.clients += entry.clients || 0;
+      totals.deactive.push(...entry.deactive);
+      totals.depleted.push(...entry.depleted);
+      totals.expiring.push(...entry.expiring);
+      totals.online.push(...entry.online);
+    }
+    return totals;
+  }, [clientCount]);
+
   return (
     <ConfigProvider theme={antdThemeConfig}>
       {messageContextHolder}
@@ -748,7 +771,7 @@ export default function InboundsPage() {
                   <Col span={24}>
                     <Card size="small" hoverable className="summary-card">
                       <Row gutter={[16, 12]}>
-                        <Col xs={12} sm={12} md={8}>
+                        <Col xs={12} sm={12} md={6}>
                           <Statistic
                             title={t('pages.inbounds.totalDownUp')}
                             value={0}
@@ -763,18 +786,50 @@ export default function InboundsPage() {
                             )}
                           />
                         </Col>
-                        <Col xs={12} sm={12} md={8}>
+                        <Col xs={12} sm={12} md={6}>
                           <Statistic
                             title={t('pages.inbounds.totalUsage')}
                             value={SizeFormatter.sizeFormat(totals.up + totals.down)}
                             prefix={<PieChartOutlined aria-hidden />}
                           />
                         </Col>
-                        <Col xs={24} sm={24} md={8}>
+                        <Col xs={12} sm={12} md={6}>
                           <Statistic
                             title={t('pages.inbounds.inboundCount')}
                             value={String(dbInbounds.length)}
                             prefix={<BarsOutlined aria-hidden />}
+                          />
+                        </Col>
+                        <Col xs={24} sm={24} md={6}>
+                          <Statistic
+                            title={t('clients')}
+                            value={0}
+                            prefix={<TeamOutlined aria-hidden />}
+                            formatter={() => (
+                              <Space size={2} wrap>
+                                <Tag color="green">{clientTotals.clients}</Tag>
+                                {(
+                                  [
+                                    ['deactive', 'disabled', undefined],
+                                    ['depleted', 'depleted', 'red'],
+                                    ['expiring', 'depletingSoon', 'orange'],
+                                    ['online', 'online', 'blue'],
+                                  ] as const
+                                ).map(([field, label, color]) =>
+                                  clientTotals[field].length ? (
+                                    <Popover
+                                      key={field}
+                                      title={t(label)}
+                                      content={clientTotals[field].map((email) => (
+                                        <div key={email}>{email}</div>
+                                      ))}
+                                    >
+                                      <Tag color={color}>{clientTotals[field].length}</Tag>
+                                    </Popover>
+                                  ) : null,
+                                )}
+                              </Space>
+                            )}
                           />
                         </Col>
                       </Row>
@@ -797,6 +852,7 @@ export default function InboundsPage() {
                       hasActiveNode={showNodeInfo}
                       hosts={hosts}
                       onAddInbound={onAddInbound}
+                      onRefresh={refresh}
                       onGeneralAction={onGeneralAction}
                       onRowAction={({ key, dbInbound }) =>
                         onRowAction({ key, dbInbound: dbInbound as unknown as DBInbound })

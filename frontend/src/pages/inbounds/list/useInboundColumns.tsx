@@ -145,7 +145,7 @@ export function useInboundColumns({
         dataIndex: 'remark',
         key: 'remark',
         align: 'center',
-        width: 140,
+        width: 120,
         sorter: (a, b) => compareText(a.remark, b.remark),
         render: (_, record) => {
           const hostRemarks = hostRemarksByInboundId.get(record.id) ?? [];
@@ -213,7 +213,7 @@ export function useInboundColumns({
         title: t('pages.inbounds.protocol'),
         key: 'protocol',
         align: 'left',
-        width: 190,
+        width: 150,
         sorter: (a, b) => compareText(a.protocol, b.protocol),
         render: (_, record) => {
           const tags: ReactElement[] = [
@@ -286,7 +286,7 @@ export function useInboundColumns({
         title: t('clients'),
         key: 'clients',
         align: 'left',
-        width: 200,
+        width: 140,
         sorter: (a, b) => clientTotal(a) - clientTotal(b),
         render: (_, record) => {
           const cc = clientCount[record.id] || fallbackClientCount(record);

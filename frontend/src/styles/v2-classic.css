@@ -334,3 +334,299 @@ body.dark .ant-alert-error {
 .ant-table-wrapper .ant-table-thead > tr > th {
   font-weight: 500;
 }
+
+/* QR frames (v2 .qr-bg / .qr-bg-sub), shared by the sub page and QR modals. */
+@property --tr-rotate {
+  syntax: '<angle>';
+  initial-value: 45deg;
+  inherits: false;
+}
+
+.qr-tag {
+  text-align: center;
+  margin-bottom: 10px;
+  width: 100%;
+  overflow: hidden;
+  margin-inline: 0;
+}
+
+.qr-bg {
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  border: solid 1px #e8e8e8;
+  height: 220px;
+  width: 220px;
+  transition: all 0.1s;
+}
+
+.qr-bg:hover {
+  border-color: #76ccb4;
+  background-color: #eafff9;
+}
+
+body.dark .qr-bg {
+  background-color: #111929;
+  border-color: var(--dark-color-surface-300);
+}
+
+body.dark .qr-bg:hover {
+  background-color: rgb(var(--dark-color-tag-green-bg));
+  border-color: rgb(var(--dark-color-tag-green-border));
+}
+
+.qr-bg-sub {
+  background-image: linear-gradient(var(--tr-rotate), #76ccb4, transparent, #d5bed2);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 1px;
+  border-radius: 1rem;
+  height: 220px;
+  width: 220px;
+}
+
+body.dark .qr-bg-sub {
+  background-image: linear-gradient(var(--tr-rotate), #195141, transparent, #5a2969);
+}
+
+.qr-bg-sub:hover {
+  animation: tr-rotate-gradient 3.5s linear infinite;
+}
+
+@keyframes tr-rotate-gradient {
+  from {
+    --tr-rotate: 45deg;
+  }
+  to {
+    --tr-rotate: 405deg;
+  }
+}
+
+.qr-bg-sub-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  background-color: #fff;
+  padding: 0.8rem;
+  border-radius: 1rem;
+  transition: all 0.1s;
+}
+
+.qr-bg-sub-inner:hover {
+  background-color: rgb(255 255 255 / 60%);
+  backdrop-filter: blur(25px);
+}
+
+.qr-bg-sub-inner:hover:active {
+  background-color: rgb(255 255 255 / 30%);
+}
+
+body.dark .qr-bg-sub-inner {
+  background-color: rgb(17 25 41);
+}
+
+body.dark .qr-bg-sub-inner:hover {
+  background-color: rgba(17, 25, 41, 0.5);
+}
+
+body.dark .qr-bg-sub-inner:hover:active {
+  background-color: rgba(17, 25, 41, 0.2);
+}
+
+.qr-cv.ant-qrcode {
+  padding: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.qr-cv canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+body.dark .qr-cv {
+  background-color: #fff;
+  padding: 1px;
+  border-radius: 0.25rem;
+}
+
+/* Bordered descriptions: label column on the page background (v2). */
+body.dark .ant-descriptions-bordered .ant-descriptions-item-label {
+  background-color: var(--dark-color-background) !important;
+}
+
+body.dark .ant-descriptions-bordered .ant-descriptions-view,
+body.dark .ant-descriptions-bordered .ant-descriptions-row,
+body.dark .ant-descriptions-bordered .ant-descriptions-item-label,
+body.dark .ant-descriptions-bordered .ant-descriptions-item-content {
+  border-color: var(--dark-color-surface-400) !important;
+}
+
+.ant-descriptions-bordered .ant-descriptions-view {
+  border-radius: 1rem;
+}
+
+/* antd 6's dark algorithm darkens the seed colour; v2 kept #008771 and hovered to #18947b. */
+body.dark .xui,
+body.dark.xui {
+  --ant-color-primary: #008771;
+  --ant-color-primary-hover: #18947b;
+  --ant-color-primary-active: #006655;
+  --ant-color-primary-text: #008771;
+  --ant-color-primary-text-hover: #18947b;
+  --ant-color-primary-text-active: #006655;
+  --ant-color-primary-border: #195141;
+  --ant-color-primary-border-hover: #18947b;
+  --ant-color-primary-bg: rgba(0, 135, 113, 0.15);
+  --ant-color-primary-bg-hover: rgba(0, 135, 113, 0.25);
+  --ant-color-link: #008771;
+  --ant-color-link-hover: #18947b;
+  --ant-color-link-active: #006655;
+  --ant-color-info: #008771;
+  --ant-control-outline: rgba(0, 135, 113, 0.2);
+}
+
+/* Sidebar hover: v2 dark menu greys the row and whitens the label (no teal). */
+body.dark .sider-nav .ant-menu-item:not(.ant-menu-item-selected):hover,
+body.dark .sider-nav .ant-menu-submenu-title:hover,
+body.dark .drawer-menu .ant-menu-item:not(.ant-menu-item-selected):hover,
+body.dark .drawer-menu .ant-menu-submenu-title:hover {
+  color: #fff !important;
+  background-color: var(--dark-color-surface-300) !important;
+}
+
+body.dark .sider-nav .ant-menu-item:not(.ant-menu-item-selected),
+body.dark .drawer-menu .ant-menu-item:not(.ant-menu-item-selected) {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* v2 switches don't change colour on hover. */
+.ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
+  background: var(--ant-color-primary);
+}
+
+/* Light hover states from v2: #e8f4f2 wash + #18947b accent. */
+body.light .xui,
+body.light.xui {
+  --ant-color-primary-hover: #18947b;
+  --ant-color-primary-border-hover: #18947b;
+  --ant-color-primary-text-hover: #18947b;
+  --ant-color-link-hover: #18947b;
+}
+
+body.light .ant-card.ant-card-bordered {
+  border-color: #e8e8e8;
+}
+
+body.light .ant-card.ant-card-hoverable:hover {
+  border-color: rgba(0, 0, 0, 0.09);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09) !important;
+}
+
+body.light .ant-card .ant-card-actions > li {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+body.light
+  .ant-btn-default:not(.ant-btn-dangerous):not(:disabled):not(.ant-btn-background-ghost):hover,
+body.light .ant-btn-color-default.ant-btn-variant-outlined:not(:disabled):hover {
+  background-color: #e8f4f2;
+}
+
+body.light .ant-input-outlined:not(.ant-input-disabled):hover,
+body.light .ant-input-outlined:not(.ant-input-disabled):focus-within,
+body.light .ant-input-number-outlined:not(.ant-input-number-disabled):hover,
+body.light .ant-input-number-outlined:not(.ant-input-number-disabled):focus-within,
+body.light .ant-select-outlined.ant-select:not(.ant-select-disabled):hover,
+body.light .ant-select-outlined.ant-select-focused:not(.ant-select-disabled),
+body.light .ant-picker-outlined:not(.ant-picker-disabled):hover {
+  background-color: #e8f4f2;
+}
+
+body.light .ant-input-outlined .ant-input {
+  background-color: transparent;
+}
+
+body.dark .ant-tabs .ant-tabs-tab:not(.ant-tabs-tab-disabled):hover,
+body.light .ant-tabs .ant-tabs-tab:not(.ant-tabs-tab-disabled):hover {
+  color: #18947b;
+}
+
+/* Dropdown/select option hover (v2 dark: teal-tinted). */
+body.dark
+  .ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: rgb(0 93 78 / 0.3);
+}
+
+body.dark
+  .ant-select-dropdown
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-pagination .ant-pagination-item:hover a,
+body.dark .ant-pagination .ant-pagination-item-active a {
+  color: var(--color-primary-100);
+}
+
+/* v2 tables had no sort arrows; keep sorting but show the arrows only on header hover or when active. */
+.ant-table-wrapper .ant-table-column-sorter {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.ant-table-wrapper th:hover .ant-table-column-sorter,
+.ant-table-wrapper .ant-table-column-sorter:has(.active) {
+  opacity: 1;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  text-align: center;
+}
+
+.ant-table-wrapper
+  .ant-table:not(.ant-table-small):not(.ant-table-middle)
+  .ant-table-thead
+  > tr
+  > th {
+  padding-block: 12px;
+}
+
+/* Settings rows: v2 had no dividers between items, and panels sat inside a rounded collapse. */
+.setting-list-item {
+  border-bottom: none !important;
+}
+
+.section-tabs.ant-collapse {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.section-tabs.ant-collapse > .ant-collapse-item:last-child,
+.section-tabs.ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  border-radius: 0 0 1rem 1rem;
+}
+
+.section-tabs .ant-collapse-content > .ant-collapse-content-box {
+  padding: 16px;
+}
+
+body.light .section-tabs.ant-collapse {
+  background-color: #fafafa;
+}
+
+body.dark .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: var(--dark-color-text-primary);
+}
+
+body.light .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  color: rgba(0, 0, 0, 0.85);
+}

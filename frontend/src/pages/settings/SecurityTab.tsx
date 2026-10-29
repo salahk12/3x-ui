@@ -1,27 +1,14 @@
 import { useCallback, useEffect, useId, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Button,
-  Empty,
-  Form,
-  Input,
-  Modal,
-  Select,
-  Space,
-  Spin,
-  Switch,
-  Tabs,
-  Tag,
-  message,
-} from 'antd';
+import { Button, Empty, Form, Input, Modal, Select, Space, Spin, Switch, Tag, message } from 'antd';
 import { ApiOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons';
 import { ClipboardManager, HttpUtil, IntlUtil, RandomUtil } from '@/utils';
 import type { AllSetting } from '@/models/setting';
 import { SettingListItem } from '@/components/ui';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import TwoFactorModal from './TwoFactorModal';
 import './SecurityTab.css';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface ApiMsg<T = unknown> {
   success?: boolean;
@@ -304,12 +291,12 @@ export default function SecurityTab({ allSetting, updateSetting, saveSetting }: 
     <>
       {messageContextHolder}
       {modalContextHolder}
-      <Tabs
+      <SectionTabs
         defaultActiveKey="1"
         items={[
           {
             key: '1',
-            label: catTabLabel(
+            label: sectionLabel(
               <UserOutlined aria-hidden />,
               t('pages.settings.security.admin'),
               isMobile,
@@ -355,7 +342,7 @@ export default function SecurityTab({ allSetting, updateSetting, saveSetting }: 
           },
           {
             key: '2',
-            label: catTabLabel(
+            label: sectionLabel(
               <SafetyOutlined aria-hidden />,
               t('pages.settings.security.twoFactor'),
               isMobile,
@@ -372,7 +359,7 @@ export default function SecurityTab({ allSetting, updateSetting, saveSetting }: 
           },
           {
             key: '3',
-            label: catTabLabel(<ApiOutlined aria-hidden />, t('pages.nodes.apiToken'), isMobile),
+            label: sectionLabel(<ApiOutlined aria-hidden />, t('pages.nodes.apiToken'), isMobile),
             children: (
               <div className="api-token-section">
                 <div className="api-token-header">

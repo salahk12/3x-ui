@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Input, InputNumber, Select, Switch, Tabs } from 'antd';
+import { Card, Input, InputNumber, Select, Switch } from 'antd';
 import {
   FileTextOutlined,
   NodeIndexOutlined,
@@ -15,11 +15,11 @@ import { onNumber } from '@/utils/onNumber';
 import { SettingListItem } from '@/components/ui';
 import { GoRegexInput } from '@/components/form';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import { sanitizePath, normalizePath } from './uriPath';
 import { remoteSourceBadge } from './subscriptionShared';
 import SubJsonFinalMaskForm from './SubJsonFinalMaskForm';
 import './SubscriptionFormatsTab.css';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface SubscriptionFormatsTabProps {
   allSetting: AllSetting;
@@ -153,12 +153,12 @@ export default function SubscriptionFormatsTab({
   }
 
   return (
-    <Tabs
+    <SectionTabs
       defaultActiveKey="1"
       items={[
         {
           key: '1',
-          label: catTabLabel(
+          label: sectionLabel(
             <SettingOutlined aria-hidden />,
             t('pages.settings.panelSettings'),
             isMobile,
@@ -325,7 +325,7 @@ export default function SubscriptionFormatsTab({
         },
         {
           key: '2',
-          label: catTabLabel(
+          label: sectionLabel(
             <RocketOutlined aria-hidden />,
             t('pages.settings.subFormats.finalMask'),
             isMobile,
@@ -346,7 +346,7 @@ export default function SubscriptionFormatsTab({
         },
         {
           key: '3',
-          label: catTabLabel(<PartitionOutlined aria-hidden />, t('pages.settings.mux'), isMobile),
+          label: sectionLabel(<PartitionOutlined aria-hidden />, t('pages.settings.mux'), isMobile),
           children: (
             <>
               <SettingListItem
@@ -400,7 +400,7 @@ export default function SubscriptionFormatsTab({
         },
         {
           key: '4',
-          label: catTabLabel(<SendOutlined aria-hidden />, t('pages.settings.direct'), isMobile),
+          label: sectionLabel(<SendOutlined aria-hidden />, t('pages.settings.direct'), isMobile),
           children: (
             <>
               <SettingListItem
@@ -449,7 +449,7 @@ export default function SubscriptionFormatsTab({
         },
         {
           key: '5',
-          label: catTabLabel(<StopOutlined aria-hidden />, t('pages.settings.block'), isMobile),
+          label: sectionLabel(<StopOutlined aria-hidden />, t('pages.settings.block'), isMobile),
           children: (
             <>
               <SettingListItem

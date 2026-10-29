@@ -1,15 +1,15 @@
 import { useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Button, Input, Select, Space, Switch, Tabs } from 'antd';
+import { Alert, Button, Input, Select, Space, Switch } from 'antd';
 import { BellOutlined, SendOutlined, SettingOutlined, WarningOutlined } from '@ant-design/icons';
 import { HttpUtil, LanguageManager } from '@/utils';
 import type { AllSetting } from '@/models/setting';
 import { SettingListItem } from '@/components/ui';
 import { TelegramNotifications } from '@/components/ui/notifications/TelegramNotifications';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
-import { catTabLabel } from './catTabLabel';
 import { NotifyTimeField } from './NotifyTimeField';
 import SecretInput from './SecretInput';
+import { SectionTabs, sectionLabel } from '@/components/ui/SectionTabs';
 
 interface TelegramTabProps {
   allSetting: AllSetting;
@@ -88,12 +88,12 @@ export default function TelegramTab({ allSetting, updateSetting }: TelegramTabPr
   );
 
   return (
-    <Tabs
+    <SectionTabs
       defaultActiveKey="1"
       items={[
         {
           key: '1',
-          label: catTabLabel(
+          label: sectionLabel(
             <SettingOutlined aria-hidden />,
             t('pages.settings.panelSettings'),
             isMobile,
@@ -216,7 +216,7 @@ export default function TelegramTab({ allSetting, updateSetting }: TelegramTabPr
         },
         {
           key: '2',
-          label: catTabLabel(
+          label: sectionLabel(
             <BellOutlined aria-hidden />,
             t('pages.settings.notifications'),
             isMobile,
