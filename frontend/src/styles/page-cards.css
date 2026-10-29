@@ -6,8 +6,8 @@
 .nodes-page .ant-card,
 .groups-page .ant-card,
 .api-docs-page .ant-card {
-  border-radius: 12px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 1.5rem;
+  box-shadow: none;
   transition:
     transform 0.2s ease,
     box-shadow 0.25s ease,
@@ -22,9 +22,7 @@
 .nodes-page.is-dark .ant-card,
 .groups-page.is-dark .ant-card,
 .api-docs-page.is-dark .ant-card {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
 .index-page.is-dark.is-ultra .ant-card,
@@ -35,9 +33,7 @@
 .nodes-page.is-dark.is-ultra .ant-card,
 .groups-page.is-dark.is-ultra .ant-card,
 .api-docs-page.is-dark.is-ultra .ant-card {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  box-shadow: none;
 }
 
 .index-page .ant-card.ant-card-hoverable:hover,
@@ -49,7 +45,7 @@
 .groups-page .ant-card.ant-card-hoverable:hover,
 .api-docs-page .ant-card.ant-card-hoverable:hover {
   cursor: default;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .index-page.is-dark .ant-card.ant-card-hoverable:hover,
@@ -60,9 +56,7 @@
 .nodes-page.is-dark .ant-card.ant-card-hoverable:hover,
 .groups-page.is-dark .ant-card.ant-card-hoverable:hover,
 .api-docs-page.is-dark .ant-card.ant-card-hoverable:hover {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: none;
 }
 
 .index-page.is-dark.is-ultra .ant-card.ant-card-hoverable:hover,
@@ -73,9 +67,7 @@
 .nodes-page.is-dark.is-ultra .ant-card.ant-card-hoverable:hover,
 .groups-page.is-dark.is-ultra .ant-card.ant-card-hoverable:hover,
 .api-docs-page.is-dark.is-ultra .ant-card.ant-card-hoverable:hover {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
 .index-page .ant-card .ant-card-actions,
@@ -92,8 +84,8 @@
 /* Hosts page shares the same card styling + hover shadows (without the default
    antd hoverable pointer/blur), matching Clients/Inbounds/etc. */
 .hosts-page .ant-card {
-  border-radius: 12px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: 1.5rem;
+  box-shadow: none;
   transition:
     transform 0.2s ease,
     box-shadow 0.25s ease,
@@ -101,32 +93,24 @@
 }
 
 .hosts-page.is-dark .ant-card {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
 .hosts-page.is-dark.is-ultra .ant-card {
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.025);
+  box-shadow: none;
 }
 
 .hosts-page .ant-card.ant-card-hoverable:hover {
   cursor: default;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: none;
 }
 
 .hosts-page.is-dark .ant-card.ant-card-hoverable:hover {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  box-shadow: none;
 }
 
 .hosts-page.is-dark.is-ultra .ant-card.ant-card-hoverable:hover {
-  box-shadow:
-    0 8px 24px rgba(0, 0, 0, 0.75),
-    inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  box-shadow: none;
 }
 
 .hosts-page .ant-card .ant-card-actions {

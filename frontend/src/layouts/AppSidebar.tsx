@@ -1,207 +1,129 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ComponentType, CSSProperties } from 'react';
+import { useCallback, useMemo, useState } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { useLocation, useNavigate } from 'react-router';
 import { useTranslation } from 'react-i18next';
-import { Drawer, Layout, Menu, Tooltip } from 'antd';
+import { Checkbox, Drawer, Layout, Menu, Switch } from 'antd';
 import type { MenuProps } from 'antd';
 import {
   ApartmentOutlined,
+  BulbFilled,
+  BulbOutlined,
   CloseOutlined,
   CloudServerOutlined,
   ClusterOutlined,
   CodeOutlined,
   DatabaseOutlined,
   DiscordOutlined,
-  GithubOutlined,
-  HeartOutlined,
   LogoutOutlined,
   MailOutlined,
   MenuOutlined,
-  MoonFilled,
-  MoonOutlined,
-  PushpinFilled,
-  PushpinOutlined,
-  ReadOutlined,
   SafetyOutlined,
-  SearchOutlined,
   SettingOutlined,
-  SunOutlined,
   TelegramFilled,
 } from '@ant-design/icons';
 
 import { HttpUtil } from '@/utils';
-import { formatPanelVersion } from '@/lib/panel-version';
 import { pauseAnimationsUntilLeave, useTheme } from '@/hooks/useTheme';
 import { useAllSettings } from '@/api/queries/useAllSettings';
-import { useCommandPalette } from '@/components/command-palette/useCommandPalette';
 import { PANEL_ROUTES } from '@/routes/panelRoutes';
 import './AppSidebar.css';
 
-const DONATE_URL = 'https://donate.sanaei.dev/';
-// The palette listens for Ctrl as well as Cmd, so the chip must not show a
-// Mac glyph to the Linux and Windows operators who are most of this panel's.
-const SHORTCUT_MODIFIER = /Mac|iPhone|iPad|iPod/.test(navigator.userAgent) ? '⌘' : 'Ctrl';
-const DOCS_URL = 'https://docs.sanaei.dev/';
-const REPO_URL = 'https://github.com/MHSanaei/3x-ui';
 const LOGOUT_KEY = '__logout__';
-const RAIL_WIDTH = 72;
-const SIDER_WIDTH = 220;
-const SIDEBAR_PINNED_KEY = 'sidebar-pinned';
+const THEME_KEY = '__theme__';
+const THEME_DARK_KEY = '__theme_dark__';
+const THEME_ULTRA_KEY = '__theme_ultra__';
+const SIDER_WIDTH = 200;
+const COLLAPSED_WIDTH = 80;
+// Same storage key the v2.x panel used, so a returning operator keeps their choice.
+const SIDEBAR_COLLAPSED_KEY = 'isSidebarCollapsed';
 
-let hoveredAcrossRemounts = false;
-
-function DonateButton({ ariaLabel }: { ariaLabel: string }) {
-  return (
-    <a
-      href={DONATE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="sidebar-donate"
-      aria-label={ariaLabel}
-      title={ariaLabel}
-    >
-      <HeartOutlined aria-hidden />
-    </a>
-  );
-}
-
-function DocsButton({ ariaLabel }: { ariaLabel: string }) {
-  return (
-    <a
-      href={DOCS_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="sidebar-docs"
-      aria-label={ariaLabel}
-      title={ariaLabel}
-    >
-      <ReadOutlined aria-hidden />
-    </a>
-  );
-}
-
-function VersionBadge({ version, collapsed }: { version: string; collapsed?: boolean }) {
-  if (!version) return null;
-  const label = formatPanelVersion(version);
-  return (
-    <a
-      href={REPO_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="sider-version"
-      aria-label={`GitHub ${label}`}
-      title={label}
-    >
-      <GithubOutlined aria-hidden />
-      {!collapsed && <span className="sider-version-text">{label}</span>}
-    </a>
-  );
-}
-
-function ThemeCycleButton({
-  id,
-  isDark,
-  isUltra,
-  onCycle,
-  ariaLabel,
-}: {
-  id: string;
-  isDark: boolean;
-  isUltra: boolean;
-  onCycle: () => void;
-  ariaLabel: string;
-}) {
-  const icon = !isDark ? (
-    <SunOutlined aria-hidden />
-  ) : !isUltra ? (
-    <MoonOutlined aria-hidden />
-  ) : (
-    <MoonFilled aria-hidden />
-  );
-  return (
-    <button
-      id={id}
-      type="button"
-      className="sidebar-theme-cycle"
-      aria-label={ariaLabel}
-      title={ariaLabel}
-      onClick={onCycle}
-    >
-      {icon}
-    </button>
-  );
-}
-
-function readSidebarPinned() {
+function readCollapsed() {
   try {
-    return localStorage.getItem(SIDEBAR_PINNED_KEY) === 'true';
+    return localStorage.getItem(SIDEBAR_COLLAPSED_KEY) === 'true';
   } catch {
     return false;
   }
 }
 
-function saveSidebarPinned(pinned: boolean) {
+function saveCollapsed(collapsed: boolean) {
   try {
-    localStorage.setItem(SIDEBAR_PINNED_KEY, String(pinned));
+    localStorage.setItem(SIDEBAR_COLLAPSED_KEY, String(collapsed));
   } catch {}
 }
 
 export default function AppSidebar() {
   const { t } = useTranslation();
   const { isDark, isUltra, toggleTheme, toggleUltra } = useTheme();
-  const { open: openCommandPalette } = useCommandPalette();
   const navigate = useNavigate();
   const { pathname, hash } = useLocation();
   const { allSetting } = useAllSettings();
   const showSubFormats = !!(allSetting.subJsonEnable || allSetting.subClashEnable);
   const showSubBalancers = !!allSetting.subJsonEnable;
 
-  const [hovered, setHovered] = useState(() => hoveredAcrossRemounts);
-  const [pinned, setPinned] = useState(readSidebarPinned);
+  const [collapsed, setCollapsed] = useState(readCollapsed);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const railCollapsed = !hovered && !pinned;
-  const railStyle = useMemo(
-    () => ({ '--sider-rail': `${pinned ? SIDER_WIDTH : RAIL_WIDTH}px` }) as CSSProperties,
-    [pinned],
-  );
-  const rootRef = useRef<HTMLDivElement>(null);
 
-  const updateHovered = useCallback((value: boolean) => {
-    hoveredAcrossRemounts = value;
-    setHovered(value);
+  const onCollapse = useCallback((value: boolean) => {
+    saveCollapsed(value);
+    setCollapsed(value);
   }, []);
 
-  const togglePinned = useCallback(() => {
-    const next = !pinned;
-    saveSidebarPinned(next);
-    setPinned(next);
-  }, [pinned]);
-
-  useEffect(() => {
-    const timer = window.setTimeout(() => {
-      const el = rootRef.current;
-      if (el) updateHovered(el.matches(':hover'));
-    }, 150);
-    return () => window.clearTimeout(timer);
-  }, [updateHovered]);
-
   const currentTheme: 'light' | 'dark' = isDark ? 'dark' : 'light';
-  const panelVersion = window.X_UI_CUR_VER || '';
 
-  const tabs = useMemo<{ key: string; icon: ComponentType; title: string }[]>(
-    () => [
-      ...PANEL_ROUTES.map((route) => ({
-        key: route.path,
-        icon: route.icon,
-        title: t(route.titleKey),
-      })),
-      { key: LOGOUT_KEY, icon: LogoutOutlined, title: t('logout') },
-    ],
-    [t],
+  const onToggleDark = useCallback(
+    (id: string) => {
+      pauseAnimationsUntilLeave(id);
+      if (isDark && isUltra) toggleUltra();
+      toggleTheme();
+    },
+    [isDark, isUltra, toggleTheme, toggleUltra],
   );
 
-  const navItems = useMemo(() => tabs.filter((tab) => tab.key !== LOGOUT_KEY), [tabs]);
-  const utilItems = useMemo(() => tabs.filter((tab) => tab.key === LOGOUT_KEY), [tabs]);
+  const onToggleUltra = useCallback(
+    (id: string) => {
+      pauseAnimationsUntilLeave(id);
+      toggleUltra();
+    },
+    [toggleUltra],
+  );
+
+  const themeItem = useCallback(
+    (idSuffix: string): NonNullable<MenuProps['items']>[number] => {
+      const darkId = `change-theme${idSuffix}`;
+      const ultraId = `change-theme-ultra${idSuffix}`;
+      const children: NonNullable<MenuProps['items']> = [
+        {
+          key: THEME_DARK_KEY,
+          className: 'ant-menu-theme-switch',
+          label: (
+            <span id={darkId} className="theme-switch-row">
+              <span>{t('menu.dark')}</span>
+              <Switch size="small" checked={isDark} aria-label={t('menu.dark')} />
+            </span>
+          ),
+        },
+      ];
+      if (isDark) {
+        children.push({
+          key: THEME_ULTRA_KEY,
+          className: 'ant-menu-theme-switch',
+          label: (
+            <span id={ultraId} className="theme-switch-row">
+              <span>{t('menu.ultraDark')}</span>
+              <Checkbox checked={isUltra} aria-label={t('menu.ultraDark')} />
+            </span>
+          ),
+        });
+      }
+      return {
+        key: THEME_KEY,
+        icon: isDark ? <BulbFilled aria-hidden /> : <BulbOutlined aria-hidden />,
+        label: t('menu.theme'),
+        children,
+      };
+    },
+    [t, isDark, isUltra],
+  );
 
   const settingsChildren = useMemo<NonNullable<MenuProps['items']>>(() => {
     const children: NonNullable<MenuProps['items']> = [
@@ -265,7 +187,11 @@ export default function AppSidebar() {
         icon: <ClusterOutlined aria-hidden />,
         label: t('pages.xray.Balancers'),
       },
-      { key: '/xray#dns', icon: <DatabaseOutlined aria-hidden />, label: 'DNS' },
+      {
+        key: '/xray#dns',
+        icon: <DatabaseOutlined aria-hidden />,
+        label: 'DNS',
+      },
       {
         key: '/xray#advanced',
         icon: <CodeOutlined aria-hidden />,
@@ -274,6 +200,33 @@ export default function AppSidebar() {
     ],
     [t],
   );
+
+  const navItems = useMemo<NonNullable<MenuProps['items']>>(() => {
+    const item = (
+      key: string,
+      Icon: ComponentType,
+      label: ReactNode,
+      children?: MenuProps['items'],
+    ) =>
+      children
+        ? { key, icon: <Icon aria-hidden />, label, children }
+        : { key, icon: <Icon aria-hidden />, label };
+    return [
+      ...PANEL_ROUTES.map((route) =>
+        item(
+          route.path,
+          route.icon,
+          t(route.titleKey),
+          route.path === '/settings'
+            ? settingsChildren
+            : route.path === '/xray'
+              ? xrayChildren
+              : undefined,
+        ),
+      ),
+      item(LOGOUT_KEY, LogoutOutlined, t('logout')),
+    ];
+  }, [t, settingsChildren, xrayChildren]);
 
   const settingsActive = pathname === '/settings';
   const xrayActive = pathname === '/xray';
@@ -291,153 +244,52 @@ export default function AppSidebar() {
     setOpenKeys([...openKeys, openSubmenu]);
   }
 
-  const toMenuItems = useCallback(
-    (items: typeof tabs): MenuProps['items'] =>
-      items.map((tab) => {
-        const Icon = tab.icon;
-        if (tab.key === '/settings') {
-          return {
-            key: tab.key,
-            icon: <Icon aria-hidden />,
-            label: tab.title,
-            children: settingsChildren,
-          };
-        }
-        if (tab.key === '/xray') {
-          return {
-            key: tab.key,
-            icon: <Icon aria-hidden />,
-            label: tab.title,
-            children: xrayChildren,
-          };
-        }
-        return { key: tab.key, icon: <Icon aria-hidden />, label: tab.title, title: '' };
-      }),
-    [settingsChildren, xrayChildren],
-  );
-
-  const openLink = useCallback(
-    async (key: string) => {
+  const onMenuClick = useCallback(
+    async (key: string, idSuffix: string) => {
+      if (key === THEME_DARK_KEY) {
+        onToggleDark(`change-theme${idSuffix}`);
+        return false;
+      }
+      if (key === THEME_ULTRA_KEY) {
+        onToggleUltra(`change-theme-ultra${idSuffix}`);
+        return false;
+      }
       if (key === LOGOUT_KEY) {
         await HttpUtil.post('/logout');
         window.location.href = window.X_UI_BASE_PATH || '/';
-        return;
+        return true;
       }
       navigate(key);
+      return true;
     },
-    [navigate],
+    [navigate, onToggleDark, onToggleUltra],
   );
 
-  const onMenuClick = useCallback<NonNullable<MenuProps['onClick']>>(
-    ({ key }) => {
-      openLink(String(key));
-    },
-    [openLink],
-  );
-
-  const cycleTheme = useCallback(
-    (id: string) => {
-      pauseAnimationsUntilLeave(id);
-      if (!isDark) {
-        toggleTheme();
-        if (isUltra) toggleUltra();
-      } else if (!isUltra) {
-        toggleUltra();
-      } else {
-        toggleUltra();
-        toggleTheme();
-      }
-    },
-    [isDark, isUltra, toggleTheme, toggleUltra],
-  );
+  const siderItems = useMemo(() => [themeItem(''), ...navItems], [themeItem, navItems]);
+  const drawerItems = useMemo(() => [themeItem('-drawer'), ...navItems], [themeItem, navItems]);
 
   return (
-    <div
-      ref={rootRef}
-      className={`ant-sidebar${pinned ? ' sidebar-pinned' : ''}`}
-      style={railStyle}
-      onMouseEnter={() => updateHovered(true)}
-      onMouseLeave={() => updateHovered(false)}
-    >
+    <div className="ant-sidebar" style={{ width: collapsed ? COLLAPSED_WIDTH : SIDER_WIDTH }}>
       <Layout.Sider
         theme={currentTheme}
         width={SIDER_WIDTH}
-        collapsedWidth={RAIL_WIDTH}
-        collapsed={railCollapsed}
+        collapsedWidth={COLLAPSED_WIDTH}
+        collapsible
+        collapsed={collapsed}
+        onCollapse={onCollapse}
       >
-        <div className="sider-brand">
-          <div className="brand-block">
-            <span className="brand-text">{railCollapsed ? '3X' : '3X-UI'}</span>
-          </div>
-          {!railCollapsed && (
-            <div className="brand-actions">
-              <button
-                type="button"
-                className="sidebar-pin"
-                aria-label={t('menu.pinSidebar')}
-                aria-pressed={pinned}
-                title={t(pinned ? 'menu.unpinSidebar' : 'menu.pinSidebar')}
-                onClick={togglePinned}
-              >
-                {pinned ? <PushpinFilled aria-hidden /> : <PushpinOutlined aria-hidden />}
-              </button>
-              <DocsButton ariaLabel={t('menu.docs') || 'Documentation'} />
-              <DonateButton ariaLabel={t('menu.donate') || 'Donate'} />
-              <ThemeCycleButton
-                id="theme-cycle"
-                isDark={isDark}
-                isUltra={isUltra}
-                onCycle={() => cycleTheme('theme-cycle')}
-                ariaLabel={t('menu.theme')}
-              />
-            </div>
-          )}
-        </div>
-        <Tooltip
-          title={
-            railCollapsed ? t('commandPalette.title') || 'Command Palette (Ctrl + K)' : undefined
-          }
-          placement="right"
-        >
-          <button
-            type="button"
-            className={`sidebar-command-trigger${railCollapsed ? ' collapsed' : ''}`}
-            onClick={openCommandPalette}
-            aria-label={t('commandPalette.title') || 'Command Palette (Ctrl + K)'}
-          >
-            <span className="sidebar-command-left">
-              <SearchOutlined aria-hidden className="sidebar-command-icon" />
-              <span className="sidebar-command-text">
-                {t('commandPalette.search') || 'Search...'}
-              </span>
-            </span>
-            <span className="sidebar-command-kbd">
-              <span className="kbd-cmd">{SHORTCUT_MODIFIER}</span>
-              <span className="kbd-key">K</span>
-            </span>
-          </button>
-        </Tooltip>
         <Menu
           theme={currentTheme}
           mode="inline"
           selectedKeys={[selectedKey]}
-          openKeys={railCollapsed ? undefined : openKeys}
+          openKeys={collapsed ? undefined : openKeys}
           onOpenChange={(keys) => setOpenKeys(keys as string[])}
           className="sider-nav"
-          items={toMenuItems(navItems)}
-          onClick={onMenuClick}
+          items={siderItems}
+          onClick={({ key }) => {
+            void onMenuClick(String(key), '');
+          }}
         />
-        <Menu
-          theme={currentTheme}
-          mode="inline"
-          selectedKeys={[selectedKey]}
-          className="sider-utility"
-          items={toMenuItems(utilItems)}
-          onClick={onMenuClick}
-        />
-        <div className="sider-footer">
-          <VersionBadge version={panelVersion} collapsed={railCollapsed} />
-        </div>
       </Layout.Sider>
 
       <Drawer
@@ -445,84 +297,44 @@ export default function AppSidebar() {
         closable={false}
         open={drawerOpen}
         rootClassName={currentTheme}
-        size="min(82vw, 320px)"
+        size="min(82vw, 280px)"
         styles={{
           wrapper: { padding: 0 },
-          body: { padding: 0, display: 'flex', flexDirection: 'column', height: '100%' },
+          body: {
+            padding: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            height: '100%',
+          },
           header: { display: 'none' },
         }}
         onClose={() => setDrawerOpen(false)}
       >
         <div className="drawer-header">
-          <div className="brand-block">
-            <span className="drawer-brand">3X-UI</span>
-          </div>
-          <div className="drawer-header-actions">
-            <DocsButton ariaLabel={t('menu.docs') || 'Documentation'} />
-            <DonateButton ariaLabel={t('menu.donate') || 'Donate'} />
-            <ThemeCycleButton
-              id="theme-cycle-drawer"
-              isDark={isDark}
-              isUltra={isUltra}
-              onCycle={() => cycleTheme('theme-cycle-drawer')}
-              ariaLabel={t('menu.theme')}
-            />
-            <button
-              className="drawer-close"
-              type="button"
-              aria-label={t('close')}
-              onClick={() => setDrawerOpen(false)}
-            >
-              <CloseOutlined aria-hidden />
-            </button>
-          </div>
+          <span className="drawer-brand">3X-UI</span>
+          <button
+            className="drawer-close"
+            type="button"
+            aria-label={t('close')}
+            onClick={() => setDrawerOpen(false)}
+          >
+            <CloseOutlined aria-hidden />
+          </button>
         </div>
-        <button
-          type="button"
-          className="sidebar-command-trigger"
-          onClick={() => {
-            setDrawerOpen(false);
-            openCommandPalette();
-          }}
-          aria-label={t('commandPalette.title') || 'Command Palette (Ctrl + K)'}
-          style={{ margin: '8px 12px 4px', width: 'calc(100% - 24px)' }}
-        >
-          <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <SearchOutlined aria-hidden className="sidebar-command-icon" />
-            <span>{t('commandPalette.search') || 'Search...'}</span>
-          </span>
-          <span className="sidebar-command-kbd">
-            <span className="kbd-cmd">{SHORTCUT_MODIFIER}</span>
-            <span className="kbd-key">K</span>
-          </span>
-        </button>
         <Menu
           theme={currentTheme}
           mode="inline"
           selectedKeys={[selectedKey]}
           openKeys={openKeys}
           onOpenChange={(keys) => setOpenKeys(keys as string[])}
-          className="drawer-menu drawer-nav"
-          items={toMenuItems(navItems)}
-          onClick={(info) => {
-            onMenuClick(info);
-            setDrawerOpen(false);
+          className="drawer-menu"
+          items={drawerItems}
+          onClick={({ key }) => {
+            void onMenuClick(String(key), '-drawer').then((navigated) => {
+              if (navigated) setDrawerOpen(false);
+            });
           }}
         />
-        <Menu
-          theme={currentTheme}
-          mode="inline"
-          selectedKeys={[selectedKey]}
-          className="drawer-menu drawer-utility"
-          items={toMenuItems(utilItems)}
-          onClick={(info) => {
-            onMenuClick(info);
-            setDrawerOpen(false);
-          }}
-        />
-        <div className="drawer-footer">
-          <VersionBadge version={panelVersion} />
-        </div>
       </Drawer>
 
       {!drawerOpen && (

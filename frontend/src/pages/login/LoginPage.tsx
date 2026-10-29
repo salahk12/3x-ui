@@ -2,23 +2,23 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
+  Checkbox,
   ConfigProvider,
   Form,
   Input,
   Layout,
-  Menu,
   Popover,
+  Select,
   Space,
   Spin,
+  Switch,
   message,
 } from 'antd';
 import {
   KeyOutlined,
   LockOutlined,
-  MoonFilled,
-  MoonOutlined,
-  SunOutlined,
-  TranslationOutlined,
+  PoweroffOutlined,
+  SettingOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
@@ -26,7 +26,6 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { HttpUtil, LanguageManager } from '@/utils';
 import { FormField, rhfZodValidate } from '@/components/form/rhf';
 import { setMessageInstance } from '@/utils/messageBus';
-import SponsorSlot from '@/components/sponsor/SponsorSlot';
 import { pauseAnimationsUntilLeave, useTheme } from '@/hooks/useTheme';
 import { LoginFormSchema, TwoFactorCodeSchema, type LoginFormValues } from '@/schemas/login';
 import './LoginPage.css';
@@ -92,18 +91,16 @@ export default function LoginPage() {
     LanguageManager.setLanguage(next);
   }, []);
 
-  const cycleTheme = useCallback(() => {
-    pauseAnimationsUntilLeave('login-theme-cycle');
-    if (!isDark) {
-      toggleTheme();
-      if (isUltra) toggleUltra();
-    } else if (!isUltra) {
-      toggleUltra();
-    } else {
-      toggleUltra();
-      toggleTheme();
-    }
+  const onToggleDark = useCallback(() => {
+    pauseAnimationsUntilLeave('login-theme-dark');
+    if (isDark && isUltra) toggleUltra();
+    toggleTheme();
   }, [isDark, isUltra, toggleTheme, toggleUltra]);
+
+  const onToggleUltra = useCallback(() => {
+    pauseAnimationsUntilLeave('login-theme-ultra');
+    toggleUltra();
+  }, [toggleUltra]);
 
   const pageClass = useMemo(() => {
     const classes = ['login-app'];
@@ -112,28 +109,48 @@ export default function LoginPage() {
     return classes.join(' ');
   }, [isDark, isUltra]);
 
-  const langMenuItems = useMemo(
+  const langOptions = useMemo(
     () =>
-      (LanguageManager.supportedLanguages as { value: string; name: string; icon: string }[]).map(
-        (l) => ({
-          key: l.value,
-          label: (
-            <Space size={8}>
-              <span aria-hidden="true">{l.icon}</span>
-              <span>{l.name}</span>
-            </Space>
-          ),
-        }),
-      ),
+      (
+        LanguageManager.supportedLanguages as {
+          value: string;
+          name: string;
+          icon: string;
+        }[]
+      ).map((l) => ({
+        value: l.value,
+        label: (
+          <Space size={8}>
+            <span aria-hidden="true">{l.icon}</span>
+            <span>{l.name}</span>
+          </Space>
+        ),
+      })),
     [],
   );
 
-  const themeIcon = !isDark ? (
-    <SunOutlined aria-hidden />
-  ) : !isUltra ? (
-    <MoonOutlined aria-hidden />
-  ) : (
-    <MoonFilled aria-hidden />
+  const settingsContent = (
+    <Space orientation="vertical" size={10} className="login-settings">
+      <Space id="login-theme-dark" size={8}>
+        <Switch size="small" checked={isDark} onChange={onToggleDark} aria-label={t('menu.dark')} />
+        <span>{t('menu.dark')}</span>
+      </Space>
+      {isDark && (
+        <Space id="login-theme-ultra" size={8}>
+          <Checkbox checked={isUltra} onChange={onToggleUltra} aria-label={t('menu.ultraDark')} />
+          <span>{t('menu.ultraDark')}</span>
+        </Space>
+      )}
+      <span>{t('pages.settings.language')}</span>
+      <Select
+        className="login-lang-select"
+        value={lang}
+        options={langOptions}
+        onChange={onLangChange}
+        aria-label={t('pages.settings.language')}
+        classNames={{ popup: { root: isDark ? 'dark' : 'light' } }}
+      />
+    </Space>
   );
 
   return (
@@ -141,122 +158,126 @@ export default function LoginPage() {
       {messageContextHolder}
       <Layout className={pageClass}>
         <Layout.Content className="login-content">
-          <div className="login-toolbar">
-            <Button
-              id="login-theme-cycle"
-              shape="circle"
-              size="large"
-              className="toolbar-btn"
-              aria-label={t('menu.theme')}
-              title={t('menu.theme')}
-              icon={themeIcon}
-              onClick={cycleTheme}
-            />
-            <Popover
-              rootClassName={isDark ? 'dark' : 'light'}
-              placement="bottomRight"
-              trigger="click"
-              styles={{ content: { padding: 4 } }}
-              content={
-                <Menu
-                  mode="vertical"
-                  selectable
-                  selectedKeys={[lang]}
-                  items={langMenuItems}
-                  onClick={({ key }) => onLangChange(key)}
-                  style={{ border: 'none', minWidth: 160 }}
-                />
-              }
+          <div className="waves-header" aria-hidden="true">
+            <div className="waves-inner-header" />
+            <svg
+              className="waves"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 24 150 28"
+              preserveAspectRatio="none"
+              shapeRendering="auto"
             >
-              <Button
-                shape="circle"
-                size="large"
-                className="toolbar-btn"
-                aria-label={t('pages.settings.language')}
-                icon={<TranslationOutlined aria-hidden />}
-              />
-            </Popover>
+              <defs>
+                <path
+                  id="gentle-wave"
+                  d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"
+                />
+              </defs>
+              <g className="parallax">
+                <use href="#gentle-wave" x="48" y="0" />
+                <use href="#gentle-wave" x="48" y="3" />
+                <use href="#gentle-wave" x="48" y="5" />
+                <use href="#gentle-wave" x="48" y="7" />
+              </g>
+            </svg>
           </div>
 
           <div className="login-wrapper">
-            {!fetched ? (
-              <div className="login-loading">
-                <Spin size="large" />
-              </div>
-            ) : (
-              <div className="login-card">
-                <div className="brand">
-                  <span className="brand-name">3X-UI</span>
-                  <span className="brand-accent" aria-hidden="true" />
+            <div id="login" className="login-card">
+              {!fetched ? (
+                <div className="login-loading">
+                  <Spin size="large" />
                 </div>
-                <h2 className="welcome">
-                  <b key={headlineIndex}>{headlineWords[headlineIndex]}</b>
-                </h2>
-
-                <FormProvider {...methods}>
-                  <Form
-                    layout="vertical"
-                    className="login-form"
-                    onFinish={methods.handleSubmit(onSubmit)}
-                  >
-                    <FormField
-                      name="username"
-                      label={t('username')}
-                      rules={{ validate: rhfZodValidate(LoginFormSchema.shape.username) }}
+              ) : (
+                <>
+                  <div className="setting-section">
+                    <Popover
+                      rootClassName={isDark ? 'dark' : 'light'}
+                      title={t('menu.settings')}
+                      placement="bottomRight"
+                      trigger="click"
+                      content={settingsContent}
                     >
-                      <Input
-                        prefix={<UserOutlined aria-hidden />}
-                        autoComplete="username"
-                        size="large"
-                        placeholder={t('username')}
-                        autoFocus
+                      <Button
+                        shape="circle"
+                        icon={<SettingOutlined aria-hidden />}
+                        aria-label={t('menu.settings')}
                       />
-                    </FormField>
+                    </Popover>
+                  </div>
+                  <h2 className="welcome">
+                    <b key={headlineIndex}>{headlineWords[headlineIndex]}</b>
+                  </h2>
 
-                    <FormField
-                      name="password"
-                      label={t('password')}
-                      rules={{ validate: rhfZodValidate(LoginFormSchema.shape.password) }}
-                    >
-                      <Input.Password
-                        prefix={<LockOutlined aria-hidden />}
-                        autoComplete="current-password"
-                        size="large"
-                        placeholder={t('password')}
-                      />
-                    </FormField>
-
-                    {twoFactorEnable && (
+                  <FormProvider {...methods}>
+                    <Form className="login-form" onFinish={methods.handleSubmit(onSubmit)}>
                       <FormField
-                        name="twoFactorCode"
-                        label={t('twoFactorCode')}
-                        rules={{ validate: rhfZodValidate(TwoFactorCodeSchema) }}
+                        name="username"
+                        rules={{
+                          validate: rhfZodValidate(LoginFormSchema.shape.username),
+                        }}
                       >
                         <Input
-                          prefix={<KeyOutlined aria-hidden />}
-                          autoComplete="one-time-code"
-                          size="large"
-                          placeholder={t('twoFactorCode')}
+                          prefix={<UserOutlined aria-hidden />}
+                          autoComplete="username"
+                          placeholder={t('username')}
+                          aria-label={t('username')}
+                          autoFocus
                         />
                       </FormField>
-                    )}
 
-                    <Form.Item className="submit-row">
-                      <Button
-                        type="primary"
-                        htmlType="submit"
-                        loading={submitting}
-                        size="large"
-                        block
+                      <FormField
+                        name="password"
+                        rules={{
+                          validate: rhfZodValidate(LoginFormSchema.shape.password),
+                        }}
                       >
-                        {t('login')}
-                      </Button>
-                    </Form.Item>
-                  </Form>
-                </FormProvider>
-                <SponsorSlot slot="login" variant="compact" className="login-sponsor" />
-              </div>
-            )}
+                        <Input.Password
+                          prefix={<LockOutlined aria-hidden />}
+                          autoComplete="current-password"
+                          placeholder={t('password')}
+                          aria-label={t('password')}
+                        />
+                      </FormField>
+
+                      {twoFactorEnable && (
+                        <FormField
+                          name="twoFactorCode"
+                          rules={{
+                            validate: rhfZodValidate(TwoFactorCodeSchema),
+                          }}
+                        >
+                          <Input
+                            prefix={<KeyOutlined aria-hidden />}
+                            autoComplete="one-time-code"
+                            placeholder={t('twoFactorCode')}
+                            aria-label={t('twoFactorCode')}
+                          />
+                        </FormField>
+                      )}
+
+                      <Form.Item className="submit-row">
+                        <div className={`wave-btn-bg${submitting ? ' is-loading' : ''}`}>
+                          <Button
+                            className="ant-btn-primary-login"
+                            type="primary"
+                            htmlType="submit"
+                            loading={
+                              submitting && {
+                                icon: <PoweroffOutlined aria-hidden />,
+                              }
+                            }
+                            aria-label={t('login')}
+                          >
+                            {submitting ? null : t('login')}
+                          </Button>
+                        </div>
+                      </Form.Item>
+                    </Form>
+                  </FormProvider>
+                </>
+              )}
+            </div>
           </div>
         </Layout.Content>
       </Layout>

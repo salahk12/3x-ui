@@ -1,0 +1,100 @@
+/* v2.x dashboard: gauge row + titled cards with icon actions. */
+.classic-overview .text-center {
+  text-align: center;
+}
+
+.classic-gauge-label {
+  margin-top: 4px;
+}
+
+.classic-overview .ant-progress-dashboard .ant-progress-text {
+  font-size: 14px;
+}
+
+.classic-overview .ant-card-actions {
+  background: transparent;
+}
+
+.index-page.is-dark .classic-overview .ant-card-actions,
+.index-page.is-dark .classic-overview .ant-card-actions > li:not(:last-child) {
+  border-color: var(--dark-color-surface-300);
+}
+
+.classic-card-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.index-page.is-dark .classic-overview .ant-card-actions > li {
+  color: rgb(255 255 255 / 0.55);
+}
+
+.classic-card-action:hover {
+  color: var(--ant-color-primary);
+}
+
+.classic-icon-button {
+  border: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.classic-overview .ant-statistic-content {
+  font-size: 16px;
+}
+
+.classic-overview .ip-hidden {
+  user-select: none;
+  filter: blur(10px);
+}
+
+.classic-xray-error {
+  max-width: 400px;
+  white-space: pre-wrap;
+}
+
+.classic-overview .xray-running-animation .ant-badge-status-dot,
+.classic-overview .xray-processing-animation .ant-badge-status-dot {
+  animation: runningAnimation 1.2s linear infinite;
+}
+
+.classic-overview .xray-running-animation .ant-badge-status-processing::after {
+  border-color: var(--color-primary-100);
+}
+
+.classic-overview .xray-stop-animation .ant-badge-status-processing::after {
+  border-color: #fa8c16;
+}
+
+.classic-overview .xray-error-animation .ant-badge-status-processing::after {
+  border-color: #f5222d;
+}
+
+@keyframes runningAnimation {
+  0%,
+  50%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  10% {
+    transform: scale(1.5);
+    opacity: 0.2;
+  }
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

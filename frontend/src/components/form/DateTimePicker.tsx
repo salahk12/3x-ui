@@ -25,7 +25,7 @@ interface DateTimePickerProps {
 }
 
 const LIGHT_THEME = {
-  primaryColor: '#1677ff',
+  primaryColor: '#008771',
   backgroundColor: '#ffffff',
   borderColor: '#d9d9d9',
   hoverColor: 'rgba(22, 119, 255, 0.10)',
@@ -34,8 +34,8 @@ const LIGHT_THEME = {
 };
 
 const DARK_THEME = {
-  primaryColor: '#1677ff',
-  backgroundColor: '#23252b',
+  primaryColor: '#008771',
+  backgroundColor: '#151f31',
   borderColor: 'rgba(255, 255, 255, 0.12)',
   hoverColor: 'rgba(22, 119, 255, 0.18)',
   selectedTextColor: '#ffffff',
@@ -43,8 +43,8 @@ const DARK_THEME = {
 };
 
 const ULTRA_DARK_THEME = {
-  primaryColor: '#1677ff',
-  backgroundColor: '#101013',
+  primaryColor: '#008771',
+  backgroundColor: '#0c0e12',
   borderColor: 'rgba(255, 255, 255, 0.08)',
   hoverColor: 'rgba(22, 119, 255, 0.16)',
   selectedTextColor: '#ffffff',

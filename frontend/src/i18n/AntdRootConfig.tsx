@@ -33,9 +33,12 @@ const FORM_CONFIG: ConfigProviderProps['form'] = {
   tooltip: { icon: <QuestionCircleOutlined aria-hidden /> },
 };
 
+// v2.x tags were always outlined chips.
+const TAG_CONFIG: ConfigProviderProps['tag'] = { variant: 'outlined' };
+
 export function AntdRootConfig({ children }: { children: ReactNode }) {
   return (
-    <ConfigProvider locale={antdLocale} form={FORM_CONFIG}>
+    <ConfigProvider locale={antdLocale} form={FORM_CONFIG} tag={TAG_CONFIG}>
       {children}
     </ConfigProvider>
   );

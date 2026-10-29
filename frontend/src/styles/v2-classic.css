@@ -1,0 +1,336 @@
+/* Classic v2.x look layered over antd 6. Values mirror v2.9.4 custom.css. */
+@font-face {
+  font-display: swap;
+  font-family: 'Vazirmatn';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/Vazirmatn-UI-NL-Regular.woff2') format('woff2');
+  unicode-range:
+    U+0600-06FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE80-FEFC, U+0030-0039;
+}
+
+:root {
+  --color-primary-100: #008771;
+}
+
+body {
+  font-family:
+    system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu,
+    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body.dark {
+  --dark-color-background: #0a1222;
+  --dark-color-surface-100: #151f31;
+  --dark-color-surface-200: #222d42;
+  --dark-color-surface-300: #2c3950;
+  --dark-color-surface-400: rgba(65, 85, 119, 0.5);
+  --dark-color-surface-500: #2c3950;
+  --dark-color-text-primary: rgba(255, 255, 255, 0.75);
+  --dark-color-table-ring: rgb(38 52 77);
+  --dark-color-tag-bg: rgba(255, 255, 255, 0.05);
+  --dark-color-tag-border: rgba(255, 255, 255, 0.15);
+  --dark-color-tag-color: rgba(255, 255, 255, 0.75);
+  --dark-color-tag-green-bg: 17, 36, 33;
+  --dark-color-tag-green-border: 25, 81, 65;
+  --dark-color-tag-green-color: #3ad3ba;
+  --dark-color-tag-purple-bg: #201425;
+  --dark-color-tag-purple-border: #5a2969;
+  --dark-color-tag-purple-color: #d988cd;
+  --dark-color-tag-red-bg: #291515;
+  --dark-color-tag-red-border: #5c2626;
+  --dark-color-tag-red-color: #e04141;
+  --dark-color-tag-orange-bg: #312313;
+  --dark-color-tag-orange-border: #593914;
+  --dark-color-tag-orange-color: #ffa031;
+  --dark-color-tag-blue-bg: #111a2c;
+  --dark-color-tag-blue-border: #1348ab;
+  --dark-color-tag-blue-color: #529fff;
+  --dark-color-scrollbar: #313f5a;
+  background-color: var(--dark-color-background);
+}
+
+html[data-theme='ultra-dark'] body.dark {
+  --dark-color-background: #21242a;
+  --dark-color-surface-100: #0c0e12;
+  --dark-color-surface-200: #222327;
+  --dark-color-surface-300: #32353b;
+  --dark-color-surface-400: rgba(255, 255, 255, 0.1);
+  --dark-color-surface-500: #3b404b;
+  --dark-color-text-primary: rgb(255 255 255 / 85%);
+  --dark-color-table-ring: rgb(37 39 42);
+  --dark-color-tag-green-border: 29, 95, 77;
+  --dark-color-tag-green-color: #59cbac;
+  --dark-color-tag-purple-bg: #241121;
+  --dark-color-tag-purple-color: #d686ca;
+  --dark-color-tag-red-bg: #2a1215;
+  --dark-color-tag-red-border: #58181c;
+  --dark-color-tag-red-color: #e84749;
+  --dark-color-tag-orange-bg: #2b1d11;
+  --dark-color-tag-orange-border: #593815;
+  --dark-color-tag-orange-color: #e89a3c;
+  --dark-color-tag-blue-border: #0f367e;
+  --dark-color-tag-blue-color: #3c89e8;
+  --dark-color-scrollbar: rgb(107, 107, 107);
+}
+
+body.light {
+  background-color: #f0f2f5;
+}
+
+::selection {
+  color: var(--color-primary-100);
+  background-color: #cfe8e4;
+}
+
+body.dark ::selection {
+  color: #fff;
+  background-color: var(--color-primary-100);
+}
+
+body.dark * {
+  scrollbar-color: var(--dark-color-scrollbar) transparent;
+  scrollbar-width: thin;
+}
+
+/* Cards: borderless, 1.5rem radius, header divider in surface-400. */
+body .ant-card {
+  border-radius: 1.5rem;
+  box-shadow: none !important;
+}
+
+body.dark .ant-card-bordered {
+  border-color: var(--dark-color-background);
+}
+
+body.dark .ant-card-head {
+  border-bottom-color: var(--dark-color-surface-400);
+}
+
+/* Default buttons: v2's translucent teal. */
+body.dark .ant-btn-default:not(.ant-btn-dangerous):not(:disabled):not(.ant-btn-background-ghost),
+body.dark .ant-btn-color-default.ant-btn-variant-outlined:not(:disabled) {
+  color: var(--dark-color-text-primary);
+  background-color: rgb(10 117 87 / 30%);
+  border: 1px solid var(--color-primary-100);
+}
+
+body.dark
+  .ant-btn-default:not(.ant-btn-dangerous):not(:disabled):not(.ant-btn-background-ghost):hover,
+body.dark .ant-btn-color-default.ant-btn-variant-outlined:not(:disabled):hover {
+  color: #fff;
+  background-color: rgb(10 117 87 / 50%);
+  border-color: var(--color-primary-100);
+}
+
+body.dark .ant-btn:disabled {
+  color: rgb(255 255 255 / 35%);
+  background-color: var(--dark-color-surface-200);
+  border-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled) {
+  background-color: #cd3838;
+}
+
+body.dark .ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled):hover {
+  background-color: #e94b4b;
+}
+
+/* Inputs / selects / pickers: surface-200 fill, teal wash on hover/focus. */
+body.dark .ant-input-outlined,
+body.dark .ant-input-number-outlined,
+body.dark .ant-select-outlined:not(.ant-select-customize-input) .ant-select-selector,
+body.dark .ant-select-outlined.ant-select,
+body.dark .ant-picker-outlined,
+body.dark .ant-input-group-addon {
+  background-color: var(--dark-color-surface-200);
+  border-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-input-outlined:not(.ant-input-disabled):hover,
+body.dark .ant-input-outlined:not(.ant-input-disabled):focus-within,
+body.dark .ant-input-number-outlined:not(.ant-input-number-disabled):hover,
+body.dark .ant-input-number-outlined:not(.ant-input-number-disabled):focus-within,
+body.dark .ant-select-outlined.ant-select:not(.ant-select-disabled):hover,
+body.dark .ant-select-outlined.ant-select-focused:not(.ant-select-disabled),
+body.dark .ant-picker-outlined:not(.ant-picker-disabled):hover,
+body.dark .ant-picker-outlined.ant-picker-focused {
+  background-color: rgb(0 135 113 / 0.3);
+  border-color: var(--color-primary-100);
+}
+
+body.dark .ant-input-outlined .ant-input {
+  background-color: transparent;
+}
+
+body.dark
+  .ant-radio-button-wrapper:not(.ant-radio-button-wrapper-checked):not(
+    .ant-radio-button-wrapper-disabled
+  ) {
+  color: var(--dark-color-text-primary);
+  background-color: rgb(0 135 113 / 0.3);
+  border-color: var(--color-primary-100);
+}
+
+body.dark .ant-switch:not(.ant-switch-checked) {
+  background-color: var(--dark-color-surface-500);
+}
+
+body.dark .ant-progress-line .ant-progress-rail {
+  background-color: var(--dark-color-surface-500);
+}
+
+body.dark .ant-progress-circle .ant-progress-circle-trail {
+  stroke: var(--dark-color-surface-300) !important;
+}
+
+/* Tags: v2's tinted chips. antd injects its colour rules at runtime, hence !important. */
+body.light .ant-tag.ant-tag-green,
+body.light .ant-tag.ant-tag-success {
+  color: #199270 !important;
+  background-color: #eafff9 !important;
+  border-color: #76ccb4 !important;
+}
+
+body.light .ant-tag.ant-tag-purple {
+  color: #7a316f !important;
+  background-color: #f2eaf1 !important;
+  border-color: #d5bed2 !important;
+}
+
+body.light .ant-tag.ant-tag-orange,
+body.light .ant-tag.ant-tag-warning {
+  color: #f37b24 !important;
+  background-color: #ffeee1 !important;
+  border-color: #fec093 !important;
+}
+
+body.dark
+  .ant-tag.ant-tag-outlined:not(.ant-tag-green):not(.ant-tag-purple):not(.ant-tag-red):not(
+    .ant-tag-orange
+  ):not(.ant-tag-blue):not(.ant-tag-success):not(.ant-tag-error):not(.ant-tag-warning):not(
+    .ant-tag-processing
+  ):not([style*='color']) {
+  color: var(--dark-color-tag-color) !important;
+  background-color: var(--dark-color-tag-bg) !important;
+  border-color: var(--dark-color-tag-border) !important;
+}
+
+body.dark .ant-tag.ant-tag-green,
+body.dark .ant-tag.ant-tag-success {
+  color: var(--dark-color-tag-green-color) !important;
+  background-color: rgb(var(--dark-color-tag-green-bg)) !important;
+  border-color: rgb(var(--dark-color-tag-green-border)) !important;
+}
+
+body.dark .ant-tag.ant-tag-purple {
+  color: var(--dark-color-tag-purple-color) !important;
+  background-color: var(--dark-color-tag-purple-bg) !important;
+  border-color: var(--dark-color-tag-purple-border) !important;
+}
+
+body.dark .ant-tag.ant-tag-red,
+body.dark .ant-tag.ant-tag-error {
+  color: var(--dark-color-tag-red-color) !important;
+  background-color: var(--dark-color-tag-red-bg) !important;
+  border-color: var(--dark-color-tag-red-border) !important;
+}
+
+body.dark .ant-tag.ant-tag-orange,
+body.dark .ant-tag.ant-tag-warning {
+  color: var(--dark-color-tag-orange-color) !important;
+  background-color: var(--dark-color-tag-orange-bg) !important;
+  border-color: var(--dark-color-tag-orange-border) !important;
+}
+
+body.dark .ant-tag.ant-tag-blue,
+body.dark .ant-tag.ant-tag-processing {
+  color: var(--dark-color-tag-blue-color) !important;
+  background-color: var(--dark-color-tag-blue-bg) !important;
+  border-color: var(--dark-color-tag-blue-border) !important;
+}
+
+.ant-tag {
+  border-radius: 2rem;
+}
+
+/* Tables: 1rem ring around the whole table, header on page background. */
+.ant-table-wrapper .ant-table:not(.ant-table-expanded-row .ant-table) {
+  outline: 1px solid #f0f0f0;
+  outline-offset: -1px;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+body.dark .ant-table-wrapper .ant-table:not(.ant-table-expanded-row .ant-table) {
+  outline-color: var(--dark-color-table-ring);
+}
+
+body.dark .ant-table-wrapper .ant-table-tbody > tr > td,
+body.dark .ant-table-wrapper .ant-table-thead > tr > th {
+  border-bottom-color: var(--dark-color-surface-400);
+}
+
+body.dark .ant-table-wrapper .ant-table-thead > tr > th::before {
+  background-color: transparent !important;
+}
+
+/* Collapse / tabs / modals / popovers on v2 surfaces. */
+body.dark .ant-collapse {
+  background-color: var(--dark-color-surface-200);
+  border-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-collapse > .ant-collapse-item {
+  border-bottom-color: var(--dark-color-surface-400);
+}
+
+body.dark .ant-collapse .ant-collapse-content {
+  background-color: var(--dark-color-surface-100);
+  border-top-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-modal .ant-modal-content,
+body.dark .ant-modal .ant-modal-header {
+  background-color: var(--dark-color-surface-100);
+}
+
+body.dark .ant-popover .ant-popover-inner,
+body.dark .ant-dropdown .ant-dropdown-menu {
+  background-color: var(--dark-color-surface-500);
+}
+
+body.dark .ant-popover .ant-popover-arrow::before {
+  background-color: var(--dark-color-surface-500);
+}
+
+.ant-dropdown-menu-item,
+.ant-select-item {
+  border-radius: 0.5rem !important;
+}
+
+.ant-checkbox-inner {
+  border-radius: 6px;
+}
+
+body.dark .ant-alert-error {
+  background-color: var(--dark-color-tag-red-bg);
+  border-color: var(--dark-color-tag-red-border);
+}
+
+.ant-alert {
+  border-radius: 1.5rem;
+}
+
+.ant-card .ant-card-head-title {
+  font-weight: 500;
+}
+
+.ant-progress-circle .ant-progress-indicator {
+  font-size: 14px !important;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  font-weight: 500;
+}

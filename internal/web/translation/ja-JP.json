@@ -118,14 +118,13 @@
     "routing": "ルーティング",
     "outbounds": "アウトバウンド",
     "apiDocs": "API ドキュメント",
-    "donate": "寄付",
     "sponsors": "スポンサー",
     "hosts": "ホスト",
-    "docs": "ドキュメント",
     "openMenu": "メニューを開く",
-    "pinSidebar": "サイドバーを固定",
-    "unpinSidebar": "サイドバーの固定を解除",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "ダーク",
+    "ultraDark": "ウルトラダーク",
+    "link": "リンク管理"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "データベースを復元するために PostgreSQL バックアップ (.dump)、SQLite データベース (.db)、または SQLite 移行ダンプを選択してアップロードするにはクリックしてください。現在のすべてのデータが置き換えられます。",
       "migrationDownload": "移行ファイルをダウンロード",
       "migrationDownloadPgDesc": "PostgreSQL のデータから作成した .db SQLite データベースをダウンロードします。このパネルを SQLite で実行する準備が整います。",
-      "avg": "平均",
-      "peak": "ピーク",
-      "free": "空き",
-      "openSockets": "オープンソケット",
-      "throughputSub": "インターフェース合計",
-      "avgWindow": "期間平均",
-      "healthWarm": "{list} — 高めです",
-      "healthCritical": "{list} — 危険水準",
-      "panel": "パネル",
       "threads": "スレッド",
       "uptime": "稼働時間",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "このマシンの設定を保持する",
       "importKeepHostSettingsDesc": "アップロードしたファイルの値ではなく、このパネルのリッスンアドレス、ポート、ベースパス、証明書、ノード ID を保持します。",
       "logLines": "行数",
-      "timeRange": "期間"
+      "timeRange": "期間",
+      "logicalProcessors": "論理プロセッサ",
+      "frequency": "周波数",
+      "xrayErrorPopoverTitle": "Xrayの実行中にエラーが発生しました",
+      "operationHours": "システム稼働時間",
+      "systemLoad": "システム負荷",
+      "systemLoadDesc": "過去1、5、15分間のシステム平均負荷",
+      "totalData": "総データ量",
+      "documentation": "ドキュメント",
+      "backup": "バックアップ"
     },
     "inbounds": {
       "totalDownUp": "総アップロード / ダウンロード",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "コマンドパレット",
     "placeholder": "コマンドを入力するか、クライアント、インバウンド、ページを検索...",
-    "search": "検索...",
     "navigation": "ナビゲーション",
     "actions": "操作",
     "navigate": "移動",

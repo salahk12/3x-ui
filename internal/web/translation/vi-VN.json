@@ -118,14 +118,13 @@
     "routing": "Định tuyến",
     "outbounds": "Outbound",
     "apiDocs": "Tài liệu API",
-    "donate": "Quyên góp",
     "sponsors": "Nhà tài trợ",
     "hosts": "Hosts",
-    "docs": "Tài liệu",
     "openMenu": "Mở menu",
-    "pinSidebar": "Ghim thanh bên",
-    "unpinSidebar": "Bỏ ghim thanh bên",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "Tối",
+    "ultraDark": "Siêu tối",
+    "link": "Quản lý"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "Nhấn để chọn và tải lên bản sao lưu PostgreSQL (.dump), cơ sở dữ liệu SQLite (.db) hoặc tệp kết xuất di trú SQLite nhằm khôi phục cơ sở dữ liệu của bạn. Thao tác này sẽ thay thế toàn bộ dữ liệu hiện tại.",
       "migrationDownload": "Tải tệp di trú",
       "migrationDownloadPgDesc": "Nhấp để tải xuống cơ sở dữ liệu SQLite .db được tạo từ dữ liệu PostgreSQL của bạn, sẵn sàng chạy bảng điều khiển này trên SQLite.",
-      "avg": "TB",
-      "peak": "đỉnh",
-      "free": "trống",
-      "openSockets": "socket đang mở",
-      "throughputSub": "Tổng theo giao diện mạng",
-      "avgWindow": "Trung bình trong khoảng",
-      "healthWarm": "{list} — đang cao",
-      "healthCritical": "{list} — nguy cấp",
-      "panel": "Panel",
       "threads": "Luồng",
       "uptime": "Thời gian chạy",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "Giữ cài đặt của máy này",
       "importKeepHostSettingsDesc": "Giữ nguyên địa chỉ lắng nghe, cổng, đường dẫn cơ sở, chứng chỉ và danh tính node của bảng điều khiển này thay vì lấy chúng từ tệp đã tải lên.",
       "logLines": "Số dòng",
-      "timeRange": "Khoảng thời gian"
+      "timeRange": "Khoảng thời gian",
+      "logicalProcessors": "Bộ xử lý logic",
+      "frequency": "Tần số",
+      "xrayErrorPopoverTitle": "Đã xảy ra lỗi khi chạy Xray",
+      "operationHours": "Thời gian hoạt động",
+      "systemLoad": "Tải hệ thống",
+      "systemLoadDesc": "trung bình tải hệ thống trong 1, 5 và 15 phút qua",
+      "totalData": "Tổng dữ liệu",
+      "documentation": "Tài liệu",
+      "backup": "Sao lưu"
     },
     "inbounds": {
       "totalDownUp": "Tổng tải lên/tải xuống",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "Bảng lệnh",
     "placeholder": "Nhập lệnh hoặc tìm kiếm khách hàng, cổng vào, trang...",
-    "search": "Tìm kiếm...",
     "navigation": "Điều hướng",
     "actions": "Hành động",
     "navigate": "Điều hướng",

@@ -7,7 +7,7 @@
 .groups-page,
 .api-docs-page,
 .sponsors-page {
-  --bg-page: #e6e8ec;
+  --bg-page: #f0f2f5;
   --bg-card: #ffffff;
   min-height: 100vh;
   background: var(--bg-page);
@@ -22,8 +22,8 @@
 .groups-page.is-dark,
 .api-docs-page.is-dark,
 .sponsors-page.is-dark {
-  --bg-page: #1a1b1f;
-  --bg-card: #23252b;
+  --bg-page: #0a1222;
+  --bg-card: #151f31;
 }
 
 .index-page.is-dark.is-ultra,
@@ -35,8 +35,8 @@
 .groups-page.is-dark.is-ultra,
 .api-docs-page.is-dark.is-ultra,
 .sponsors-page.is-dark.is-ultra {
-  --bg-page: #000;
-  --bg-card: #101013;
+  --bg-page: #21242a;
+  --bg-card: #0c0e12;
 }
 
 .index-page .ant-layout,
@@ -193,20 +193,20 @@ body.dark .ant-dropdown-menu-item-divider {
 /* Hosts page shares the standard panel page shell (background, transparent
    layout, content padding, summary-card padding). */
 .hosts-page {
-  --bg-page: #e6e8ec;
+  --bg-page: #f0f2f5;
   --bg-card: #ffffff;
   min-height: 100vh;
   background: var(--bg-page);
 }
 
 .hosts-page.is-dark {
-  --bg-page: #1a1b1f;
-  --bg-card: #23252b;
+  --bg-page: #0a1222;
+  --bg-card: #151f31;
 }
 
 .hosts-page.is-dark.is-ultra {
-  --bg-page: #000;
-  --bg-card: #101013;
+  --bg-page: #21242a;
+  --bg-card: #0c0e12;
 }
 
 .hosts-page .ant-layout,

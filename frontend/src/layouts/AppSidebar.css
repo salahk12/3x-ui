@@ -1,8 +1,9 @@
+/* Classic v2.x sidebar: always-labelled 200px menu, bottom collapse trigger. */
 .ant-sidebar {
-  flex: 0 0 var(--sider-rail, 72px);
-  width: var(--sider-rail, 72px);
+  flex: 0 0 auto;
   position: relative;
   z-index: 210;
+  transition: width 0.2s;
 }
 
 .ant-sidebar > .ant-layout-sider {
@@ -12,17 +13,102 @@
   align-self: flex-start;
 }
 
-.ant-sidebar:not(.sidebar-pinned) > .ant-layout-sider:not(.ant-layout-sider-collapsed) {
-  box-shadow: 0 0 32px rgba(0, 0, 0, 0.22);
+.ant-sidebar > .ant-layout-sider .ant-layout-sider-children {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.5rem;
+}
+
+.ant-sidebar > .ant-layout-sider-collapsed .ant-layout-sider-children {
+  padding: 0.5rem 0;
+}
+
+.sider-nav.ant-menu,
+.drawer-menu.ant-menu {
+  border-inline-end: none !important;
+  background: transparent;
+}
+
+.sider-nav .ant-menu-item,
+.sider-nav .ant-menu-submenu-title,
+.drawer-menu .ant-menu-item,
+.drawer-menu .ant-menu-submenu-title {
+  border-radius: 0.5rem;
 }
 
 .sider-nav .ant-menu-item .anticon,
-.sider-nav .ant-menu-submenu-title .anticon,
-.sider-utility .ant-menu-item .anticon {
-  font-size: 16px;
+.sider-nav .ant-menu-submenu-title .anticon {
+  font-size: 14px;
 }
 
-.sider-brand,
+/* Selected item: the v2 teal pill with its slow shimmer. */
+.sider-nav .ant-menu-item-selected,
+.drawer-menu .ant-menu-item-selected {
+  background-color: #006655 !important;
+  background-image: linear-gradient(270deg, transparent 30%, #009980, transparent 100%);
+  background-repeat: no-repeat;
+  animation: ma-bg-move linear 6.6s infinite;
+  color: #fff !important;
+}
+
+.sider-nav .ant-menu-item-selected .anticon,
+.drawer-menu .ant-menu-item-selected .anticon {
+  color: #fff !important;
+}
+
+.ant-layout-sider-collapsed .sider-nav .ant-menu-item-selected {
+  border-radius: 0;
+}
+
+@keyframes ma-bg-move {
+  0% {
+    background-position: -500px 0;
+  }
+  50% {
+    background-position: 1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+html[data-theme-animations='off'] .sider-nav .ant-menu-item-selected,
+html[data-theme-animations='off'] .drawer-menu .ant-menu-item-selected {
+  animation: none;
+}
+
+.sider-nav .ant-menu-item:not(.ant-menu-item-selected):hover,
+.sider-nav .ant-menu-submenu-title:hover,
+.drawer-menu .ant-menu-item:not(.ant-menu-item-selected):hover,
+.drawer-menu .ant-menu-submenu-title:hover {
+  color: var(--ant-color-primary) !important;
+}
+
+body.light .sider-nav .ant-menu-item:not(.ant-menu-item-selected):hover,
+body.light .sider-nav .ant-menu-submenu-title:hover {
+  background-color: #e8f4f2 !important;
+}
+
+/* Theme submenu rows carry their own switch / checkbox. */
+.ant-menu-theme-switch.ant-menu-item-selected,
+.ant-menu-theme-switch.ant-menu-item-selected:hover {
+  background: transparent !important;
+  animation: none !important;
+  color: inherit !important;
+}
+
+.theme-switch-row {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+
+.ant-sidebar .ant-layout-sider-trigger {
+  border-top: none;
+}
+
 .drawer-brand {
   font-weight: 600;
   font-size: 18px;
@@ -30,155 +116,23 @@
   color: var(--ant-color-text);
 }
 
-.sider-brand {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  height: 58px;
-  padding: 0 16px 0 24px;
-  border-bottom: 1px solid var(--ant-color-border-secondary);
-  user-select: none;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.brand-block {
-  display: inline-flex;
-  align-items: center;
-  min-width: 0;
-  line-height: 1.1;
-}
-
-.brand-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  flex-shrink: 0;
-}
-
-.brand-actions .sidebar-pin,
-.brand-actions .sidebar-docs,
-.brand-actions .sidebar-donate,
-.brand-actions .sidebar-theme-cycle {
-  width: 26px;
-  height: 26px;
-}
-
-.sidebar-donate {
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ant-color-text-secondary);
-  text-decoration: none;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
-}
-
-.sidebar-donate:hover,
-.sidebar-donate:focus-visible {
-  background-color: rgba(236, 72, 153, 0.12);
-  color: #ec4899;
-  transform: scale(1.08);
-  outline: none;
-}
-
-.sidebar-donate .anticon {
-  font-size: 16px;
-}
-
-.sidebar-docs {
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--ant-color-text-secondary);
-  text-decoration: none;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
-}
-
-.sidebar-docs:hover,
-.sidebar-docs:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 12%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
-  outline: none;
-}
-
-.sidebar-docs .anticon {
-  font-size: 16px;
-}
-
-.sidebar-theme-cycle {
-  background: transparent;
-  border: none;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--ant-color-text-secondary);
-  padding: 0;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
-}
-
-.sidebar-theme-cycle:hover,
-.sidebar-theme-cycle:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 12%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
-  outline: none;
-}
-
-.sidebar-theme-cycle .anticon {
-  font-size: 16px;
-}
-
-.drawer-header-actions {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
 .drawer-handle {
   position: fixed;
   top: 12px;
   left: 12px;
   z-index: 1100;
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
+  background: var(--ant-color-bg-container);
+  color: var(--ant-color-text);
   border: none;
-  width: 40px;
+  width: 41px;
   height: 40px;
-  border-radius: 50%;
+  border-radius: 0 4px 4px 0;
   cursor: pointer;
   display: none;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
 }
 
 .drawer-header {
@@ -208,120 +162,17 @@
   background: var(--ant-color-fill-tertiary);
 }
 
-.drawer-menu .ant-menu-item {
-  height: 48px;
-  line-height: 48px;
-  margin: 0;
-  border-radius: 0;
-}
-
-.drawer-menu .ant-menu-item .anticon {
-  font-size: 16px;
-}
-
-.drawer-utility {
-  margin-top: auto;
-  border-top: 1px solid var(--ant-color-border-secondary);
-}
-
-.ant-sidebar > .ant-layout-sider .ant-layout-sider-children {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.sider-nav {
-  flex: 1 1 auto;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: 0;
-}
-
-.sider-utility {
-  flex: 0 0 auto;
-  border-top: 1px solid var(--ant-color-border-secondary);
-}
-
-.sider-footer {
-  flex: 0 0 auto;
-  padding: 8px 8px 12px;
-}
-
-.sidebar-pin {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--ant-color-text-secondary);
-  cursor: pointer;
-  flex-shrink: 0;
-  transition:
-    background-color 0.2s,
-    transform 0.15s,
-    color 0.2s;
-}
-
-.sidebar-pin:hover,
-.sidebar-pin:focus-visible {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 10%, transparent);
-  color: var(--ant-color-primary);
-  transform: scale(1.08);
-  outline: none;
-}
-
-.sidebar-pin .anticon {
-  font-size: 16px;
-}
-
-.sider-version {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  width: 100%;
-  padding: 8px 16px;
-  color: var(--ant-color-text-secondary);
-  font-size: 13px;
-  font-weight: 500;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.ant-layout-sider-collapsed .sider-version {
-  justify-content: center;
-  padding: 8px 0;
-}
-
-.sider-version .anticon {
-  font-size: 16px;
-}
-
-.sider-version:hover,
-.sider-version:focus-visible {
-  color: var(--ant-color-primary);
-  outline: none;
-}
-
-.drawer-footer {
-  flex: 0 0 auto;
-  padding: 8px 8px 12px;
+.drawer-menu {
+  padding: 0.5rem;
 }
 
 @media (max-width: 768px) {
   .drawer-handle {
     display: inline-flex;
+    left: 0;
   }
 
-  .ant-sidebar > .ant-layout-sider .ant-layout-sider-children {
-    display: none;
-  }
-
+  .ant-sidebar,
   .ant-sidebar > .ant-layout-sider {
     flex: 0 0 0 !important;
     max-width: 0 !important;
@@ -329,43 +180,18 @@
     width: 0 !important;
   }
 
-  .ant-sidebar {
-    flex: 0 0 0;
-    width: 0;
+  .ant-sidebar > .ant-layout-sider .ant-layout-sider-children,
+  .ant-sidebar > .ant-layout-sider .ant-layout-sider-trigger {
+    display: none;
   }
 }
 
 body.dark .ant-drawer-content,
 body.dark .ant-drawer-body {
-  background-color: #15161a;
+  background-color: #151f31;
 }
 
 html[data-theme='ultra-dark'] body.dark .ant-drawer-content,
 html[data-theme='ultra-dark'] body.dark .ant-drawer-body {
-  background-color: #050507;
-}
-
-body.dark .ant-drawer-body .drawer-menu,
-body.dark .ant-drawer-body .drawer-menu.ant-menu-dark,
-body.dark .ant-drawer-body .drawer-menu .ant-menu-item,
-body.dark .ant-drawer-body .drawer-menu .ant-menu-sub,
-body.dark .ant-drawer-body .drawer-menu .ant-menu-item-group-list {
-  background-color: transparent;
-}
-
-.sider-nav .ant-menu-item-selected,
-.sider-utility .ant-menu-item-selected,
-.drawer-menu .ant-menu-item-selected {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 20%, transparent) !important;
-  color: var(--ant-color-primary) !important;
-}
-
-.sider-nav .ant-menu-item-active:not(.ant-menu-item-selected),
-.sider-utility .ant-menu-item-active:not(.ant-menu-item-selected),
-.drawer-menu .ant-menu-item-active:not(.ant-menu-item-selected),
-.sider-nav .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
-.sider-utility .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover,
-.drawer-menu .ant-menu-item:not(.ant-menu-item-selected):not(.ant-menu-item-disabled):hover {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 10%, transparent) !important;
-  color: var(--ant-color-primary) !important;
+  background-color: #0c0e12;
 }

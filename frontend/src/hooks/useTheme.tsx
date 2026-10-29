@@ -34,57 +34,114 @@ const initialDark = readBool(STORAGE_DARK, true);
 const initialUltra = readBool(STORAGE_ULTRA, false);
 applyDom(initialDark, initialUltra);
 
+// Classic v2.x palette: navy surfaces, teal primary, rounded 1.5rem cards.
+// v2 used #008771; one step darker clears WCAG 4.5:1 for white button text.
+const V2_PRIMARY = '#00846e';
+const BASE_TOKENS = {
+  colorPrimary: V2_PRIMARY,
+  colorInfo: V2_PRIMARY,
+  colorLink: V2_PRIMARY,
+  borderRadius: 8,
+  fontFamily:
+    "system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+};
 const DARK_TOKENS = {
-  colorBgBase: '#1a1b1f',
-  colorBgLayout: '#1a1b1f',
-  colorBgContainer: '#23252b',
-  colorBgElevated: '#2d2f37',
+  ...BASE_TOKENS,
+  colorBgBase: '#0a1222',
+  colorBgLayout: '#0a1222',
+  colorBgContainer: '#151f31',
+  colorBgElevated: '#222d42',
+  colorBorder: '#2c3950',
+  colorBorderSecondary: 'rgba(65, 85, 119, 0.5)',
+  colorText: 'rgba(255, 255, 255, 0.75)',
+  colorTextHeading: 'rgba(255, 255, 255, 0.85)',
 };
 const ULTRA_DARK_TOKENS = {
-  colorBgBase: '#000',
-  colorBgLayout: '#000',
-  colorBgContainer: '#101013',
-  colorBgElevated: '#1a1a1e',
+  ...BASE_TOKENS,
+  colorBgBase: '#21242a',
+  colorBgLayout: '#21242a',
+  colorBgContainer: '#0c0e12',
+  colorBgElevated: '#222327',
+  colorBorder: '#32353b',
+  colorBorderSecondary: 'rgba(255, 255, 255, 0.1)',
+  colorText: 'rgb(255 255 255 / 85%)',
 };
 const DARK_LAYOUT_TOKENS = {
-  bodyBg: '#1a1b1f',
-  headerBg: '#15161a',
+  bodyBg: '#0a1222',
+  headerBg: '#151f31',
   headerColor: '#ffffff',
-  footerBg: '#1a1b1f',
-  siderBg: '#15161a',
-  triggerBg: '#23252b',
-  triggerColor: '#ffffff',
+  footerBg: '#0a1222',
+  siderBg: '#151f31',
+  triggerBg: '#151f31',
+  triggerColor: 'rgba(255, 255, 255, 0.75)',
 };
 const ULTRA_DARK_LAYOUT_TOKENS = {
-  bodyBg: '#000',
-  headerBg: '#050507',
+  bodyBg: '#21242a',
+  headerBg: '#0c0e12',
   headerColor: '#ffffff',
-  footerBg: '#000',
-  siderBg: '#050507',
-  triggerBg: '#1a1a1e',
-  triggerColor: '#ffffff',
+  footerBg: '#21242a',
+  siderBg: '#0c0e12',
+  triggerBg: '#0c0e12',
+  triggerColor: 'rgb(255 255 255 / 85%)',
+};
+const MENU_TOKENS = {
+  itemBorderRadius: 8,
+  itemSelectedBg: '#006655',
+  itemSelectedColor: '#ffffff',
+  itemHoverColor: V2_PRIMARY,
+  itemHoverBg: '#e8f4f2',
 };
 const DARK_MENU_TOKENS = {
-  darkItemBg: '#15161a',
-  darkSubMenuItemBg: '#1a1b1f',
-  darkPopupBg: '#23252b',
+  ...MENU_TOKENS,
+  darkItemBg: '#151f31',
+  darkSubMenuItemBg: '#151f31',
+  darkPopupBg: '#222d42',
+  darkItemSelectedBg: '#006655',
+  darkItemHoverBg: 'rgba(0, 135, 113, 0.18)',
+  darkItemColor: 'rgba(255, 255, 255, 0.75)',
 };
 const ULTRA_DARK_MENU_TOKENS = {
-  darkItemBg: '#050507',
-  darkSubMenuItemBg: '#000',
-  darkPopupBg: '#101013',
+  ...MENU_TOKENS,
+  darkItemBg: '#0c0e12',
+  darkSubMenuItemBg: '#0c0e12',
+  darkPopupBg: '#222327',
+  darkItemSelectedBg: '#006655',
+  darkItemHoverBg: 'rgba(0, 135, 113, 0.18)',
+  darkItemColor: 'rgb(255 255 255 / 85%)',
 };
-const DARK_CARD_TOKENS = {
-  colorBorderSecondary: 'rgba(255, 255, 255, 0.06)',
-};
+const CARD_TOKENS = { borderRadiusLG: 24 };
+const DARK_CARD_TOKENS = { ...CARD_TOKENS, colorBorderSecondary: '#0a1222' };
 const ULTRA_DARK_CARD_TOKENS = {
-  colorBorderSecondary: 'rgba(255, 255, 255, 0.04)',
+  ...CARD_TOKENS,
+  colorBorderSecondary: '#21242a',
 };
 const STATISTIC_TOKENS = {
   contentFontSize: 17,
-  titleFontSize: 11,
+  titleFontSize: 14,
 };
+const CONTROL_TOKENS = { borderRadius: 16 };
+const TABLE_TOKENS = { borderRadiusLG: 16 };
+const DARK_TABLE_TOKENS = {
+  ...TABLE_TOKENS,
+  headerBg: '#0a1222',
+  rowHoverBg: 'rgba(44, 57, 80, 0.2)',
+  rowSelectedBg: 'rgba(0, 135, 113, 0.14)',
+  rowSelectedHoverBg: 'rgba(0, 135, 113, 0.22)',
+  bodySortBg: 'rgba(0, 135, 113, 0.08)',
+};
+const ULTRA_DARK_TABLE_TOKENS = {
+  ...TABLE_TOKENS,
+  headerBg: '#21242a',
+  rowHoverBg: 'rgba(89, 89, 89, 0.15)',
+  rowSelectedBg: 'rgba(0, 135, 113, 0.2)',
+  rowSelectedHoverBg: 'rgba(0, 135, 113, 0.3)',
+  bodySortBg: 'rgba(0, 135, 113, 0.12)',
+};
+const LIGHT_TABLE_TOKENS = { ...TABLE_TOKENS, headerBg: '#f0f2f5' };
 const LIGHT_CONTRAST_TOKENS = {
+  ...BASE_TOKENS,
+  colorBgLayout: '#f0f2f5',
+  colorText: 'rgba(0, 0, 0, 0.65)',
   colorTextDescription: 'rgba(0, 0, 0, 0.58)',
   colorTextTertiary: 'rgba(0, 0, 0, 0.58)',
   colorTextPlaceholder: '#767676',
@@ -92,10 +149,17 @@ const LIGHT_CONTRAST_TOKENS = {
   colorErrorText: '#cf1322',
   colorSuccessText: '#237804',
 };
-const LIGHT_BUTTON_TOKENS = {
-  colorPrimary: '#0958d9',
-  colorPrimaryHover: '#2468e5',
-  colorPrimaryActive: '#073ea8',
+const SHARED_COMPONENTS = {
+  Statistic: STATISTIC_TOKENS,
+  Button: CONTROL_TOKENS,
+  Input: CONTROL_TOKENS,
+  InputNumber: CONTROL_TOKENS,
+  Select: CONTROL_TOKENS,
+  DatePicker: CONTROL_TOKENS,
+  Tabs: { itemSelectedColor: V2_PRIMARY, inkBarColor: V2_PRIMARY },
+  Collapse: { borderRadiusLG: 16 },
+  Modal: { borderRadiusLG: 16 },
+  Tag: { borderRadiusSM: 16 },
 };
 
 // hashed:false drops the `:where(.css-<hash>)` wrapper antd puts around every
@@ -119,8 +183,16 @@ export function buildAntdThemeConfig(isDark: boolean, isUltra: boolean): ThemeCo
       algorithm: antdTheme.defaultAlgorithm,
       token: LIGHT_CONTRAST_TOKENS,
       components: {
-        Statistic: STATISTIC_TOKENS,
-        Button: LIGHT_BUTTON_TOKENS,
+        ...SHARED_COMPONENTS,
+        Layout: {
+          bodyBg: '#f0f2f5',
+          siderBg: '#ffffff',
+          triggerBg: '#ffffff',
+          triggerColor: 'rgba(0, 0, 0, 0.65)',
+        },
+        Menu: MENU_TOKENS,
+        Card: CARD_TOKENS,
+        Table: LIGHT_TABLE_TOKENS,
       },
     };
   }
@@ -129,10 +201,11 @@ export function buildAntdThemeConfig(isDark: boolean, isUltra: boolean): ThemeCo
     algorithm: antdTheme.darkAlgorithm,
     token: isUltra ? ULTRA_DARK_TOKENS : DARK_TOKENS,
     components: {
+      ...SHARED_COMPONENTS,
       Layout: isUltra ? ULTRA_DARK_LAYOUT_TOKENS : DARK_LAYOUT_TOKENS,
       Menu: isUltra ? ULTRA_DARK_MENU_TOKENS : DARK_MENU_TOKENS,
       Card: isUltra ? ULTRA_DARK_CARD_TOKENS : DARK_CARD_TOKENS,
-      Statistic: STATISTIC_TOKENS,
+      Table: isUltra ? ULTRA_DARK_TABLE_TOKENS : DARK_TABLE_TOKENS,
     },
   };
 }

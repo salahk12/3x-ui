@@ -118,14 +118,13 @@
     "routing": "Roteamento",
     "outbounds": "Saídas",
     "apiDocs": "Documentação da API",
-    "donate": "Doar",
     "sponsors": "Patrocinadores",
     "hosts": "Hosts",
-    "docs": "Documentação",
     "openMenu": "Abrir menu",
-    "pinSidebar": "Fixar barra lateral",
-    "unpinSidebar": "Desafixar barra lateral",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "Escuro",
+    "ultraDark": "Ultra Escuro",
+    "link": "Gerenciar"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "Clique para selecionar e enviar um backup do PostgreSQL (.dump), um banco de dados SQLite (.db) ou um dump de migração do SQLite para restaurar seu banco de dados. Isso substitui todos os dados atuais.",
       "migrationDownload": "Baixar migração",
       "migrationDownloadPgDesc": "Clique para baixar um banco de dados SQLite .db criado a partir dos seus dados do PostgreSQL, pronto para executar este painel no SQLite.",
-      "avg": "média",
-      "peak": "pico",
-      "free": "livre",
-      "openSockets": "sockets abertos",
-      "throughputSub": "Total da interface",
-      "avgWindow": "Média do período",
-      "healthWarm": "{list} — um pouco alto",
-      "healthCritical": "{list} — crítico",
-      "panel": "Painel",
       "threads": "Threads",
       "uptime": "Tempo ativo",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "Manter as configurações desta máquina",
       "importKeepHostSettingsDesc": "Mantém os endereços de escuta, as portas, o caminho base, os certificados e a identidade de nó deste painel em vez de obtê-los do arquivo enviado.",
       "logLines": "Número de linhas",
-      "timeRange": "Intervalo de tempo"
+      "timeRange": "Intervalo de tempo",
+      "logicalProcessors": "Processadores lógicos",
+      "frequency": "Frequência",
+      "xrayErrorPopoverTitle": "Ocorreu um erro ao executar o Xray",
+      "operationHours": "Tempo de Atividade",
+      "systemLoad": "Carga do Sistema",
+      "systemLoadDesc": "Média de carga do sistema nos últimos 1, 5 e 15 minutos",
+      "totalData": "Dados totais",
+      "documentation": "Documentação",
+      "backup": "Backup"
     },
     "inbounds": {
       "totalDownUp": "Total Enviado/Recebido",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "Paleta de comandos",
     "placeholder": "Digite um comando ou busque clientes, inbounds, páginas...",
-    "search": "Buscar...",
     "navigation": "Navegação",
     "actions": "Ações",
     "navigate": "Navegar",

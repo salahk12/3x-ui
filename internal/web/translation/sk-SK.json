@@ -119,13 +119,12 @@
     "routing": "Smerovanie",
     "outbounds": "Výstupy",
     "apiDocs": "Dokumentácia API",
-    "donate": "Podporiť projekt",
     "sponsors": "Sponzori",
-    "docs": "Dokumentácia",
     "openMenu": "Otvoriť menu",
-    "pinSidebar": "Pripnúť bočné menu",
-    "unpinSidebar": "Odopnúť bočné menu",
-    "subFormats": "Formáty odberu"
+    "subFormats": "Formáty odberu",
+    "dark": "Tmavá",
+    "ultraDark": "Ultra tmavá",
+    "link": "Manage"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "Vyberte a nahrajte zálohu PostgreSQL (.dump), databázu SQLite (.db) alebo migračný súbor SQLite. Obnovením sa nahradia všetky aktuálne údaje.",
       "migrationDownload": "Stiahnuť migračnú databázu",
       "migrationDownloadPgDesc": "Stiahne sa databáza SQLite (.db) vytvorená z vašich údajov PostgreSQL, pripravená na spustenie panelu so SQLite.",
-      "avg": "priemer",
-      "peak": "maximum",
-      "free": "voľné",
-      "openSockets": "otvorené sockety",
-      "throughputSub": "Celkom za rozhranie",
-      "avgWindow": "Priemer za zobrazené obdobie",
-      "healthWarm": "{list} — zvýšená záťaž",
-      "healthCritical": "{list} — kritický stav",
-      "panel": "Panel",
       "threads": "Vlákna",
       "uptime": "Čas prevádzky",
       "logLevelDebug": "Ladenie",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "Ponechať nastavenia tohto servera",
       "importKeepHostSettingsDesc": "Ponechajú sa adresy počúvania, porty, základná cesta, certifikáty a identita tohto servera namiesto nastavení z nahraného súboru.",
       "logLines": "Počet riadkov",
-      "timeRange": "Časový rozsah"
+      "timeRange": "Časový rozsah",
+      "logicalProcessors": "Logical Processors",
+      "frequency": "Frequency",
+      "xrayErrorPopoverTitle": "An error occurred while running Xray",
+      "operationHours": "Uptime",
+      "systemLoad": "System Load",
+      "systemLoadDesc": "System load average for the past 1, 5, and 15 minutes",
+      "totalData": "Total Data",
+      "documentation": "Documentation",
+      "backup": "Backup"
     },
     "inbounds": {
       "totalDownUp": "Celkom odoslané/prijaté",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "Rýchle vyhľadávanie a príkazy",
     "placeholder": "Zadajte príkaz alebo hľadajte klientov, vstupy či stránky…",
-    "search": "Hľadať…",
     "navigation": "Navigácia",
     "actions": "Akcie",
     "navigate": "Prejsť na",

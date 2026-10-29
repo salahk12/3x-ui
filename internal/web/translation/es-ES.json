@@ -118,14 +118,13 @@
     "routing": "Enrutamiento",
     "outbounds": "Salidas",
     "apiDocs": "Documentación de la API",
-    "donate": "Donar",
     "sponsors": "Patrocinadores",
     "hosts": "Hosts",
-    "docs": "Documentación",
     "openMenu": "Abrir menú",
-    "pinSidebar": "Fijar barra lateral",
-    "unpinSidebar": "Desfijar barra lateral",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "Oscuro",
+    "ultraDark": "Ultra Oscuro",
+    "link": "Gestionar"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "Haz clic para seleccionar y subir una copia de seguridad de PostgreSQL (.dump), una base de datos SQLite (.db) o un volcado de migración de SQLite para restaurar tu base de datos. Esto reemplaza todos los datos actuales.",
       "migrationDownload": "Descargar migración",
       "migrationDownloadPgDesc": "Haz clic para descargar una base de datos SQLite .db creada a partir de tus datos de PostgreSQL, lista para ejecutar este panel en SQLite.",
-      "avg": "media",
-      "peak": "pico",
-      "free": "libre",
-      "openSockets": "sockets abiertos",
-      "throughputSub": "Total de la interfaz",
-      "avgWindow": "Media del periodo",
-      "healthWarm": "{list} — algo elevado",
-      "healthCritical": "{list} — crítico",
-      "panel": "Panel",
       "threads": "Hilos",
       "uptime": "Tiempo activo",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "Mantener la configuración de esta máquina",
       "importKeepHostSettingsDesc": "Conserva las direcciones de escucha, los puertos, la ruta base, los certificados y la identidad de nodo de este panel en lugar de tomarlos del archivo subido.",
       "logLines": "Número de líneas",
-      "timeRange": "Rango de tiempo"
+      "timeRange": "Rango de tiempo",
+      "logicalProcessors": "Procesadores lógicos",
+      "frequency": "Frecuencia",
+      "xrayErrorPopoverTitle": "Se produjo un error al ejecutar Xray",
+      "operationHours": "Tiempo de Funcionamiento",
+      "systemLoad": "Carga del Sistema",
+      "systemLoadDesc": "promedio de carga del sistema en los últimos 1, 5 y 15 minutos",
+      "totalData": "Datos totales",
+      "documentation": "Documentación",
+      "backup": "Сopia de Seguridad"
     },
     "inbounds": {
       "totalDownUp": "Subidas/Descargas Totales",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "Paleta de comandos",
     "placeholder": "Escriba un comando o busque clientes, inbounds, páginas...",
-    "search": "Buscar...",
     "navigation": "Navegación",
     "actions": "Acciones",
     "navigate": "Navegar",

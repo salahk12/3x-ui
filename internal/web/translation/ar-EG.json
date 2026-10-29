@@ -118,14 +118,13 @@
     "routing": "التوجيه",
     "outbounds": "الصادرات",
     "apiDocs": "توثيق API",
-    "donate": "تبرع",
     "sponsors": "الرعاة",
     "hosts": "المضيفات",
-    "docs": "التوثيق",
     "openMenu": "فتح القائمة",
-    "pinSidebar": "تثبيت الشريط الجانبي",
-    "unpinSidebar": "إلغاء تثبيت الشريط الجانبي",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "داكن",
+    "ultraDark": "داكن جدًا",
+    "link": "إدارة"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "انقر لاختيار ورفع نسخة احتياطية من PostgreSQL (.dump) أو قاعدة بيانات SQLite (.db) أو ملف ترحيل SQLite لاستعادة قاعدة البيانات. سيؤدي هذا إلى استبدال جميع البيانات الحالية.",
       "migrationDownload": "تنزيل ملف الترحيل",
       "migrationDownloadPgDesc": "انقر لتنزيل قاعدة بيانات SQLite بامتداد .db مبنية من بيانات PostgreSQL الخاصة بك، جاهزة لتشغيل هذه اللوحة على SQLite.",
-      "avg": "متوسط",
-      "peak": "ذروة",
-      "free": "متاح",
-      "openSockets": "مقابس مفتوحة",
-      "throughputSub": "إجمالي الواجهة",
-      "avgWindow": "متوسط الفترة",
-      "healthWarm": "{list} — مرتفع قليلاً",
-      "healthCritical": "{list} — حرج",
-      "panel": "اللوحة",
       "threads": "الخيوط",
       "uptime": "مدة التشغيل",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "الاحتفاظ بإعدادات هذا الجهاز",
       "importKeepHostSettingsDesc": "يحتفظ بعناوين الاستماع والمنافذ والمسار الأساسي والشهادات وهوية العقدة الخاصة بهذه اللوحة بدلًا من أخذها من الملف المرفوع.",
       "logLines": "عدد الأسطر",
-      "timeRange": "النطاق الزمني"
+      "timeRange": "النطاق الزمني",
+      "logicalProcessors": "المعالجات المنطقية",
+      "frequency": "التردد",
+      "xrayErrorPopoverTitle": "حصل خطأ أثناء تشغيل Xray",
+      "operationHours": "مدة التشغيل",
+      "systemLoad": "تحميل النظام",
+      "systemLoadDesc": "متوسط تحميل النظام في الدقائق 1, 5, و15",
+      "totalData": "إجمالي البيانات",
+      "documentation": "التوثيق",
+      "backup": "نسخة احتياطية"
     },
     "inbounds": {
       "totalDownUp": "إجمالي المرسل/المستقبل",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "لوحة الأوامر",
     "placeholder": "اكتب أمرًا أو ابحث عن العملاء، المنافذ، الصفحات...",
-    "search": "بحث...",
     "navigation": "التنقل",
     "actions": "الإجراءات",
     "navigate": "تنقل",

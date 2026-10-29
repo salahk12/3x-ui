@@ -118,14 +118,13 @@
     "routing": "مسیریابی",
     "outbounds": "خروجی‌ها",
     "apiDocs": "مستندات API",
-    "donate": "حمایت مالی",
     "sponsors": "اسپانسرها",
     "hosts": "میزبان‌ها",
-    "docs": "مستندات",
     "openMenu": "باز کردن منو",
-    "pinSidebar": "ثابت کردن نوار کناری",
-    "unpinSidebar": "برداشتن تثبیت نوار کناری",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "تیره",
+    "ultraDark": "فوق تیره",
+    "link": "مدیریت"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "برای انتخاب و بارگذاری یک پشتیبان PostgreSQL (.dump)، پایگاه‌دادهٔ SQLite (.db) یا فایل مهاجرت SQLite جهت بازیابی پایگاه داده کلیک کنید. این کار همه داده‌های فعلی را جایگزین می‌کند.",
       "migrationDownload": "دانلود فایل مهاجرت",
       "migrationDownloadPgDesc": "برای دانلود یک پایگاه‌دادهٔ SQLite با پسوند ‎.db که از داده‌های PostgreSQL شما ساخته می‌شود کلیک کنید؛ آمادهٔ اجرای این پنل روی SQLite.",
-      "avg": "میانگین",
-      "peak": "اوج",
-      "free": "آزاد",
-      "openSockets": "اتصال باز",
-      "throughputSub": "کل اینترفیس",
-      "avgWindow": "میانگین بازه",
-      "healthWarm": "{list} — رو به گرم شدن",
-      "healthCritical": "{list} — بحرانی",
-      "panel": "پنل",
       "threads": "نخ‌ها",
       "uptime": "مدت کارکرد",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "حفظ تنظیمات این دستگاه",
       "importKeepHostSettingsDesc": "آدرس‌ها و پورت‌های شنود، مسیر پایه، گواهی‌ها و هویت نودِ همین پنل را نگه می‌دارد و آن‌ها را از فایل بارگذاری‌شده نمی‌گیرد.",
       "logLines": "تعداد خطوط",
-      "timeRange": "بازه زمانی"
+      "timeRange": "بازه زمانی",
+      "logicalProcessors": "پردازنده‌های منطقی",
+      "frequency": "فرکانس",
+      "xrayErrorPopoverTitle": "خطا در هنگام اجرای Xray رخ داد",
+      "operationHours": "مدت‌کارکرد",
+      "systemLoad": "بارسیستم",
+      "systemLoadDesc": "میانگین بار سیستم برای 1، 5 و 15 دقیقه گذشته",
+      "totalData": "داده‌های کل",
+      "documentation": "مستندات",
+      "backup": "پشتیبان‌گیری"
     },
     "inbounds": {
       "totalDownUp": "دریافت/ارسال کل",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "پالت دستورات",
     "placeholder": "جستجوی کلاینت‌ها، اینباندها، صفحات یا تایپ دستور...",
-    "search": "جستجو...",
     "navigation": "ناوبری و صفحات",
     "actions": "دستورات سیستمی",
     "navigate": "پیمایش",

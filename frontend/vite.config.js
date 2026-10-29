@@ -216,6 +216,8 @@ export default defineConfig({
           runtime: `((window.X_UI_BASE_PATH||'/')+${JSON.stringify(filename)})`,
         };
       }
+      // CSS lives in assets/ next to the fonts it references; relative URLs survive a custom base path.
+      if (hostType === 'css') return { relative: true };
       return undefined;
     },
   },

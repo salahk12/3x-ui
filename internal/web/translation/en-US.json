@@ -119,13 +119,12 @@
     "routing": "Routing",
     "outbounds": "Outbounds",
     "apiDocs": "API Docs",
-    "donate": "Donate",
     "sponsors": "Sponsors",
-    "docs": "Documentation",
     "openMenu": "Open menu",
-    "pinSidebar": "Pin sidebar",
-    "unpinSidebar": "Unpin sidebar",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "Dark",
+    "ultraDark": "Ultra Dark",
+    "link": "Manage"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "Click to select and upload a PostgreSQL backup (.dump), a SQLite database (.db), or a SQLite migration dump to restore your database. This replaces all current data.",
       "migrationDownload": "Download Migration",
       "migrationDownloadPgDesc": "Click to download a .db SQLite database built from your PostgreSQL data, ready to run this panel on SQLite.",
-      "avg": "avg",
-      "peak": "peak",
-      "free": "free",
-      "openSockets": "open sockets",
-      "throughputSub": "Interface total",
-      "avgWindow": "Avg over window",
-      "healthWarm": "{list} — running warm",
-      "healthCritical": "{list} — critical",
-      "panel": "Panel",
       "threads": "Threads",
       "uptime": "Uptime",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "Keep this machine's settings",
       "importKeepHostSettingsDesc": "Keeps this panel's listen addresses, ports, base path, certificates and node identity instead of taking them from the uploaded file.",
       "logLines": "Number of lines",
-      "timeRange": "Time range"
+      "timeRange": "Time range",
+      "logicalProcessors": "Logical Processors",
+      "frequency": "Frequency",
+      "xrayErrorPopoverTitle": "An error occurred while running Xray",
+      "operationHours": "Uptime",
+      "systemLoad": "System Load",
+      "systemLoadDesc": "System load average for the past 1, 5, and 15 minutes",
+      "totalData": "Total Data",
+      "documentation": "Documentation",
+      "backup": "Backup"
     },
     "inbounds": {
       "totalDownUp": "Total Sent/Received",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "Command Palette",
     "placeholder": "Type a command or search clients, inbounds, pages...",
-    "search": "Search...",
     "navigation": "Navigation",
     "actions": "Actions",
     "navigate": "Navigate",

@@ -24,53 +24,40 @@ async function renderSidebar() {
   return view;
 }
 
-test('keeps the sidebar expanded after pinning it from the header and restores the choice', async () => {
-  const first = await renderSidebar();
-  const sidebar = first.container.querySelector('.ant-layout-sider');
-  const sidebarRoot = first.container.querySelector('.ant-sidebar');
-
-  expect(sidebar?.classList.contains('ant-layout-sider-collapsed')).toBe(true);
-
-  fireEvent.mouseEnter(sidebarRoot!);
-
-  const pinButton = screen.getByRole('button', { name: 'Pin sidebar' });
-  expect(pinButton.closest('.brand-actions')).not.toBeNull();
-
-  fireEvent.click(pinButton);
-  fireEvent.mouseLeave(sidebarRoot!);
-
+test('starts expanded with labels like the v2 sidebar', async () => {
+  const view = await renderSidebar();
+  const sidebar = view.container.querySelector('.ant-layout-sider');
   expect(sidebar?.classList.contains('ant-layout-sider-collapsed')).toBe(false);
-  expect(sidebarRoot?.getAttribute('style')).toContain('--sider-rail: 220px');
-  expect(localStorage.getItem('sidebar-pinned')).toBe('true');
+  expect(view.container.querySelector('.ant-sidebar')?.getAttribute('style')).toContain(
+    'width: 200px',
+  );
+});
 
+test('collapses from the bottom trigger and restores the choice', async () => {
+  const first = await renderSidebar();
+  const trigger = first.container.querySelector('.ant-layout-sider-trigger');
+  fireEvent.click(trigger!);
+
+  expect(
+    first.container
+      .querySelector('.ant-layout-sider')
+      ?.classList.contains('ant-layout-sider-collapsed'),
+  ).toBe(true);
+  expect(localStorage.getItem('isSidebarCollapsed')).toBe('true');
   first.unmount();
 
   const second = await renderSidebar();
-  const restoredSidebar = second.container.querySelector('.ant-layout-sider');
-  const restoredSidebarRoot = second.container.querySelector('.ant-sidebar');
-
-  expect(restoredSidebar?.classList.contains('ant-layout-sider-collapsed')).toBe(false);
-  expect(restoredSidebarRoot?.getAttribute('style')).toContain('--sider-rail: 220px');
-  expect(screen.getByRole('button', { name: 'Pin sidebar' })).not.toBeNull();
+  expect(
+    second.container
+      .querySelector('.ant-layout-sider')
+      ?.classList.contains('ant-layout-sider-collapsed'),
+  ).toBe(true);
+  expect(second.container.querySelector('.ant-sidebar')?.getAttribute('style')).toContain(
+    'width: 80px',
+  );
 });
 
-test('returns to the compact rail after unpinning', async () => {
-  const view = await renderSidebar();
-  const sidebar = view.container.querySelector('.ant-layout-sider');
-  const sidebarRoot = view.container.querySelector('.ant-sidebar');
-
-  fireEvent.mouseEnter(sidebarRoot!);
-  fireEvent.click(screen.getByRole('button', { name: 'Pin sidebar' }));
-  fireEvent.click(screen.getByRole('button', { name: 'Pin sidebar' }));
-  fireEvent.mouseLeave(sidebarRoot!);
-
-  expect(sidebar?.classList.contains('ant-layout-sider-collapsed')).toBe(true);
-  expect(sidebarRoot?.getAttribute('style')).toContain('--sider-rail: 72px');
-  expect(localStorage.getItem('sidebar-pinned')).toBe('false');
-});
-
-test('labels the palette shortcut with the modifier the platform actually uses', async () => {
-  const view = await renderSidebar();
-  const chip = view.container.querySelector('.sidebar-command-kbd');
-  expect(chip?.textContent).toBe('CtrlK');
+test('shows the theme submenu first', async () => {
+  await renderSidebar();
+  expect(screen.getAllByText('Theme').length).toBeGreaterThan(0);
 });

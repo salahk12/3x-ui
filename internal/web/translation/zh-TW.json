@@ -118,14 +118,13 @@
     "routing": "路由",
     "outbounds": "出站",
     "apiDocs": "API 文件",
-    "donate": "捐贈",
     "sponsors": "贊助商",
     "hosts": "主機",
-    "docs": "文件",
     "openMenu": "開啟選單",
-    "pinSidebar": "固定側邊欄",
-    "unpinSidebar": "取消固定側邊欄",
-    "subFormats": "Sub Formats"
+    "subFormats": "Sub Formats",
+    "dark": "深色",
+    "ultraDark": "超深色",
+    "link": "管理"
   },
   "pages": {
     "login": {
@@ -270,15 +269,6 @@
       "importDatabasePgDesc": "點擊選擇並上傳 PostgreSQL 備份（.dump）、SQLite 資料庫（.db）或 SQLite 遷移匯出檔以還原您的資料庫。此操作將取代所有目前的資料。",
       "migrationDownload": "下載遷移檔案",
       "migrationDownloadPgDesc": "點擊下載由 PostgreSQL 資料建立的 .db SQLite 資料庫，可用於在 SQLite 上執行本面板。",
-      "avg": "均值",
-      "peak": "峰值",
-      "free": "剩餘",
-      "openSockets": "開啟的通訊端",
-      "throughputSub": "網路介面總計",
-      "avgWindow": "視窗均值",
-      "healthWarm": "{list} — 偏高",
-      "healthCritical": "{list} — 危險",
-      "panel": "面板",
       "threads": "執行緒",
       "uptime": "執行時間",
       "logLevelDebug": "Debug",
@@ -292,7 +282,16 @@
       "importKeepHostSettings": "保留本機設定",
       "importKeepHostSettingsDesc": "保留本面板的監聽位址、連接埠、基礎路徑、憑證與節點身分，而不是使用上傳檔案中的值。",
       "logLines": "行數",
-      "timeRange": "時間範圍"
+      "timeRange": "時間範圍",
+      "logicalProcessors": "邏輯處理器",
+      "frequency": "頻率",
+      "xrayErrorPopoverTitle": "執行Xray時發生錯誤",
+      "operationHours": "系統正常執行時間",
+      "systemLoad": "系統負載",
+      "systemLoadDesc": "過去 1、5 和 15 分鐘的系統平均負載",
+      "totalData": "總數據",
+      "documentation": "文件",
+      "backup": "備份和恢復"
     },
     "inbounds": {
       "totalDownUp": "總上傳 / 下載",
@@ -2845,7 +2844,6 @@
   "commandPalette": {
     "title": "命令面板",
     "placeholder": "輸入命令或搜尋客戶端、入站、頁面...",
-    "search": "搜尋...",
     "navigation": "頁面導航",
     "actions": "系統操作",
     "navigate": "導航",
