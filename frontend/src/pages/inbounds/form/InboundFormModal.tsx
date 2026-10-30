@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useId } from 'react';
+import { useDeferredValue, useEffect, useRef, useState, useId } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import dayjs from 'dayjs';
@@ -229,6 +229,10 @@ export default function InboundFormModal({
   const [scanning, setScanning] = useState(false);
   const [scanResult, setScanResult] = useState<RealityScanResult | null>(null);
   const [activeTab, setActiveTab] = useState('basic');
+  // The modal paints with only the visible tab; the other tabs (Advanced holds
+  // several code editors) mount in the deferred render that follows, so every
+  // field is registered before submit without holding up the modal's first frame.
+  const eagerTabs = useDeferredValue(open);
   const {
     fallbacks,
     fallbackChildOptions,
@@ -1159,7 +1163,7 @@ export default function InboundFormModal({
                   key: 'basic',
                   label: t('pages.xray.basicTemplate'),
                   children: basicTab,
-                  forceRender: true,
+                  forceRender: eagerTabs,
                 },
                 ...((
                   [
@@ -1181,7 +1185,7 @@ export default function InboundFormModal({
                         key: 'protocol',
                         label: t('pages.inbounds.protocol'),
                         children: protocolTab,
-                        forceRender: true,
+                        forceRender: eagerTabs,
                       },
                     ]
                   : []),
@@ -1191,7 +1195,7 @@ export default function InboundFormModal({
                         key: 'stream',
                         label: t('pages.inbounds.streamTab'),
                         children: streamTab,
-                        forceRender: true,
+                        forceRender: eagerTabs,
                       },
                       ...(protocol !== Protocols.WIREGUARD && protocol !== Protocols.TUNNEL
                         ? [
@@ -1199,7 +1203,7 @@ export default function InboundFormModal({
                               key: 'security',
                               label: t('pages.inbounds.securityTab'),
                               children: securityTab,
-                              forceRender: true,
+                              forceRender: eagerTabs,
                             },
                           ]
                         : []),
@@ -1211,7 +1215,7 @@ export default function InboundFormModal({
                         key: 'sniffing',
                         label: t('pages.inbounds.sniffingTab'),
                         children: sniffingTab,
-                        forceRender: true,
+                        forceRender: eagerTabs,
                       },
                     ]
                   : []),
@@ -1219,7 +1223,7 @@ export default function InboundFormModal({
                   key: 'advanced',
                   label: t('pages.xray.advancedTemplate'),
                   children: advancedTab,
-                  forceRender: true,
+                  forceRender: eagerTabs,
                 },
               ]}
             />

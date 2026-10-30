@@ -48,8 +48,7 @@ const BASE_TOKENS = {
   colorLinkHover: '#18947b',
   borderRadius: 8,
   lineHeight: 1.5,
-  // antd 1.x timing and popup shadow: hover fades ran 0.3s, popups used one soft shadow.
-  motionDurationMid: '0.3s',
+  // antd 1.x popup shadow: one soft shadow instead of antd 6's layered one.
   boxShadowSecondary: '0 2px 8px rgba(0, 0, 0, 0.15)',
   fontFamily:
     "system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
@@ -132,6 +131,9 @@ const CONTROL_TOKENS = { borderRadius: 16 };
 // antd 1.x button shadows, much softer than antd 6's tinted ones.
 const BUTTON_TOKENS = {
   ...CONTROL_TOKENS,
+  // v2 buttons faded their hover colours over 0.3s; only buttons get the slower
+  // timing so switches, selects and panels keep antd 6's quicker motion.
+  motionDurationMid: '0.3s',
   primaryShadow: '0 2px 0 rgba(0, 0, 0, 0.043)',
   defaultShadow: '0 2px 0 rgba(0, 0, 0, 0.016)',
   dangerShadow: '0 2px 0 rgba(0, 0, 0, 0.043)',

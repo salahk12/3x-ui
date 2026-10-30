@@ -1,4 +1,4 @@
-import { lazy, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, ConfigProvider, Layout, Modal, Result, Spin, message } from 'antd';
 import { CopyOutlined, CloudDownloadOutlined } from '@ant-design/icons';
@@ -8,19 +8,19 @@ import { useTheme } from '@/hooks/useTheme';
 import { useStatusQuery } from '@/api/queries/useStatusQuery';
 import { useMediaQuery } from '@/hooks/useMediaQuery';
 import AppSidebar from '@/layouts/AppSidebar';
-import { LazyMount } from '@/components/utility';
+import { LazyMount, lazyWithPreload } from '@/components/utility';
 import { setMessageInstance } from '@/utils/messageBus';
 import ClassicOverview from './ClassicOverview';
 import type { PanelUpdateInfo } from './PanelUpdateModal';
-const JsonEditor = lazy(() => import('@/components/form/JsonEditor'));
-const PanelUpdateModal = lazy(() => import('./PanelUpdateModal'));
-const LogModal = lazy(() => import('./LogModal'));
-const BackupModal = lazy(() => import('./BackupModal'));
-const SystemHistoryModal = lazy(() => import('./SystemHistoryModal'));
-const XrayMetricsModal = lazy(() => import('./XrayMetricsModal'));
-const XrayLogModal = lazy(() => import('./XrayLogModal'));
-const AmneziaWGLogModal = lazy(() => import('./AmneziaWGLogModal'));
-const VersionModal = lazy(() => import('./VersionModal'));
+const JsonEditor = lazyWithPreload(() => import('@/components/form/JsonEditor'));
+const PanelUpdateModal = lazyWithPreload(() => import('./PanelUpdateModal'));
+const LogModal = lazyWithPreload(() => import('./LogModal'));
+const BackupModal = lazyWithPreload(() => import('./BackupModal'));
+const SystemHistoryModal = lazyWithPreload(() => import('./SystemHistoryModal'));
+const XrayMetricsModal = lazyWithPreload(() => import('./XrayMetricsModal'));
+const XrayLogModal = lazyWithPreload(() => import('./XrayLogModal'));
+const AmneziaWGLogModal = lazyWithPreload(() => import('./AmneziaWGLogModal'));
+const VersionModal = lazyWithPreload(() => import('./VersionModal'));
 
 export default function IndexPage() {
   const { t } = useTranslation();

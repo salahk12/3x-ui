@@ -99,24 +99,23 @@
   overflow-y: auto;
 }
 
-.ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
-    .ant-dropdown-menu-item-danger
-  ):hover,
-.ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
-    .ant-dropdown-menu-item-danger
-  ):hover
-  .ant-dropdown-menu-title-content,
-.ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
-    .ant-dropdown-menu-item-danger
-  ):hover
-  > .anticon {
-  color: var(--ant-color-primary) !important;
+/* v2 menu items keep their text colour and only fade in a surface tint. */
+.ant-dropdown-menu-item {
+  transition: background-color 0.3s !important;
 }
 
-.ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
+body.light
+  .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
     .ant-dropdown-menu-item-danger
   ):hover {
-  background-color: color-mix(in srgb, var(--ant-color-primary) 14%, transparent) !important;
+  background-color: #e8f4f2 !important;
+}
+
+body.dark
+  .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-disabled):not(
+    .ant-dropdown-menu-item-danger
+  ):hover {
+  background-color: var(--dark-color-surface-600) !important;
 }
 
 .ant-dropdown-menu-item-divider {

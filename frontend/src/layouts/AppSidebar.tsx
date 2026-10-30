@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons';
 
 import { HttpUtil } from '@/utils';
+import { AntdStyleWarmup } from '@/components/utility';
 import { pauseAnimationsUntilLeave, useTheme } from '@/hooks/useTheme';
 import { PANEL_ROUTES } from '@/routes/panelRoutes';
 import './AppSidebar.css';
@@ -175,6 +176,8 @@ export default function AppSidebar() {
           }}
         />
       </Layout.Sider>
+      {/* Every panel page renders the sidebar inside its ConfigProvider, so this warms that theme's styles. */}
+      <AntdStyleWarmup />
 
       <Drawer
         placement="left"

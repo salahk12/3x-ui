@@ -32,6 +32,7 @@
   color: inherit;
   font: inherit;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
 .index-page.is-dark .classic-overview .ant-card-actions > li {
@@ -49,6 +50,7 @@
   font-size: 1rem;
   cursor: pointer;
   padding: 0;
+  transition: color 0.3s;
 }
 
 .classic-overview .ant-statistic-content {

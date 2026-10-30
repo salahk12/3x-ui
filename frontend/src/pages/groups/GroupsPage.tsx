@@ -1,4 +1,4 @@
-import { lazy, useCallback, useEffect, useId, useMemo, useState } from 'react';
+import { useCallback, useEffect, useId, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -47,7 +47,7 @@ import { useClients } from '@/hooks/useClients';
 import { HttpUtil, SizeFormatter } from '@/utils';
 import { setMessageInstance } from '@/utils/messageBus';
 import AppSidebar from '@/layouts/AppSidebar';
-import { LazyMount } from '@/components/utility';
+import { LazyMount, lazyWithPreload } from '@/components/utility';
 import { keys } from '@/api/queryKeys';
 import {
   ClientRecordSchema,
@@ -62,10 +62,10 @@ const ClientRecordListSchema = z
   .nullable()
   .transform((v) => v ?? []);
 
-const SubLinksModal = lazy(() => import('../clients/SubLinksModal'));
-const ClientBulkAdjustModal = lazy(() => import('../clients/ClientBulkAdjustModal'));
-const GroupAddClientsModal = lazy(() => import('./GroupAddClientsModal'));
-const GroupRemoveClientsModal = lazy(() => import('./GroupRemoveClientsModal'));
+const SubLinksModal = lazyWithPreload(() => import('../clients/SubLinksModal'));
+const ClientBulkAdjustModal = lazyWithPreload(() => import('../clients/ClientBulkAdjustModal'));
+const GroupAddClientsModal = lazyWithPreload(() => import('./GroupAddClientsModal'));
+const GroupRemoveClientsModal = lazyWithPreload(() => import('./GroupRemoveClientsModal'));
 
 const JSON_HEADERS = { headers: { 'Content-Type': 'application/json' } } as const;
 

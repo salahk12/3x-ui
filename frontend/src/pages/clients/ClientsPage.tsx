@@ -1,4 +1,4 @@
-import { lazy, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 import { useLocation, useSearchParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
@@ -74,24 +74,24 @@ import ClientCardComment from '@/components/clients/ClientCardComment';
 import AppSidebar from '@/layouts/AppSidebar';
 import { IntlUtil, SizeFormatter } from '@/utils';
 import { setMessageInstance } from '@/utils/messageBus';
-import { LazyMount } from '@/components/utility';
+import { LazyMount, lazyWithPreload } from '@/components/utility';
 import {
   SPEED_COLUMN_WIDTH,
   SPEED_TAG_CLASS_NAME,
   SPEED_TAG_STYLE,
 } from '@/components/utility/speedTagStyle';
-const ClientFormModal = lazy(() => import('./ClientFormModal'));
-const ClientInfoModal = lazy(() => import('./ClientInfoModal'));
-const ClientQrModal = lazy(() => import('./ClientQrModal'));
-const ClientBulkAddModal = lazy(() => import('./ClientBulkAddModal'));
-const ClientBulkAdjustModal = lazy(() => import('./ClientBulkAdjustModal'));
-const FilterDrawer = lazy(() => import('./FilterDrawer'));
-const SubLinksModal = lazy(() => import('./SubLinksModal'));
-const BulkAddToGroupModal = lazy(() => import('./BulkAddToGroupModal'));
-const BulkAttachInboundsModal = lazy(() => import('./BulkAttachInboundsModal'));
-const BulkDetachInboundsModal = lazy(() => import('./BulkDetachInboundsModal'));
-const TextModal = lazy(() => import('@/components/feedback/TextModal'));
-const PromptModal = lazy(() => import('@/components/feedback/PromptModal'));
+const ClientFormModal = lazyWithPreload(() => import('./ClientFormModal'));
+const ClientInfoModal = lazyWithPreload(() => import('./ClientInfoModal'));
+const ClientQrModal = lazyWithPreload(() => import('./ClientQrModal'));
+const ClientBulkAddModal = lazyWithPreload(() => import('./ClientBulkAddModal'));
+const ClientBulkAdjustModal = lazyWithPreload(() => import('./ClientBulkAdjustModal'));
+const FilterDrawer = lazyWithPreload(() => import('./FilterDrawer'));
+const SubLinksModal = lazyWithPreload(() => import('./SubLinksModal'));
+const BulkAddToGroupModal = lazyWithPreload(() => import('./BulkAddToGroupModal'));
+const BulkAttachInboundsModal = lazyWithPreload(() => import('./BulkAttachInboundsModal'));
+const BulkDetachInboundsModal = lazyWithPreload(() => import('./BulkDetachInboundsModal'));
+const TextModal = lazyWithPreload(() => import('@/components/feedback/TextModal'));
+const PromptModal = lazyWithPreload(() => import('@/components/feedback/PromptModal'));
 import { ClientInboundChips, ClientRowActions } from './RowCells';
 import { emptyFilters, activeFilterCount } from './filters';
 import type { ClientFilters } from './filters';

@@ -1,4 +1,4 @@
-import { lazy, useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Button,
@@ -39,20 +39,22 @@ import { useNodesQuery } from '@/api/queries/useNodesQuery';
 import { useHostsQuery } from '@/api/queries/useHostsQuery';
 import { withHostEndpoints } from '@/lib/hosts/host-link';
 import AppSidebar from '@/layouts/AppSidebar';
-const TextModal = lazy(() => import('@/components/feedback/TextModal'));
+const TextModal = lazyWithPreload(() => import('@/components/feedback/TextModal'));
 import type { TextModalTab } from '@/components/feedback/TextModal';
-const PromptModal = lazy(() => import('@/components/feedback/PromptModal'));
+const PromptModal = lazyWithPreload(() => import('@/components/feedback/PromptModal'));
 
 import { useInbounds } from './useInbounds';
 import { InboundList } from './list';
-import { LazyMount } from '@/components/utility';
-const InboundFormModal = lazy(() => import('./form/InboundFormModal'));
-const CloneInboundModal = lazy(() => import('./CloneInboundModal'));
-const InboundInfoModal = lazy(() => import('./info/InboundInfoModal'));
-const AttachClientsModal = lazy(() => import('./clients/AttachClientsModal'));
-const AttachExistingClientsModal = lazy(() => import('./clients/AttachExistingClientsModal'));
-const DetachClientsModal = lazy(() => import('./clients/DetachClientsModal'));
-const AddClientsToGroupModal = lazy(() => import('./clients/AddClientsToGroupModal'));
+import { LazyMount, lazyWithPreload } from '@/components/utility';
+const InboundFormModal = lazyWithPreload(() => import('./form/InboundFormModal'));
+const CloneInboundModal = lazyWithPreload(() => import('./CloneInboundModal'));
+const InboundInfoModal = lazyWithPreload(() => import('./info/InboundInfoModal'));
+const AttachClientsModal = lazyWithPreload(() => import('./clients/AttachClientsModal'));
+const AttachExistingClientsModal = lazyWithPreload(
+  () => import('./clients/AttachExistingClientsModal'),
+);
+const DetachClientsModal = lazyWithPreload(() => import('./clients/DetachClientsModal'));
+const AddClientsToGroupModal = lazyWithPreload(() => import('./clients/AddClientsToGroupModal'));
 
 type RowAction =
   | 'edit'
