@@ -358,7 +358,6 @@ export default function InboundList({
                               record,
                               subEnable,
                               t,
-                              isMobile: true,
                               hasClients: (clientCount[record.id]?.clients || 0) > 0,
                             }),
                             onClick: ({ key }) =>

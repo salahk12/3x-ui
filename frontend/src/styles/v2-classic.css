@@ -26,6 +26,8 @@ body.dark {
   --dark-color-surface-300: #2c3950;
   --dark-color-surface-400: rgba(65, 85, 119, 0.5);
   --dark-color-surface-500: #2c3950;
+  --dark-color-surface-600: #313f5a;
+  --dark-color-surface-700: #111929;
   --dark-color-text-primary: rgba(255, 255, 255, 0.75);
   --dark-color-table-ring: rgb(38 52 77);
   --dark-color-tag-bg: rgba(255, 255, 255, 0.05);
@@ -57,6 +59,8 @@ html[data-theme='ultra-dark'] body.dark {
   --dark-color-surface-300: #32353b;
   --dark-color-surface-400: rgba(255, 255, 255, 0.1);
   --dark-color-surface-500: #3b404b;
+  --dark-color-surface-600: #505663;
+  --dark-color-surface-700: #101113;
   --dark-color-text-primary: rgb(255 255 255 / 85%);
   --dark-color-table-ring: rgb(37 39 42);
   --dark-color-tag-green-border: 29, 95, 77;
@@ -291,9 +295,93 @@ body.dark .ant-collapse .ant-collapse-content {
   border-top-color: var(--dark-color-surface-300);
 }
 
-body.dark .ant-modal .ant-modal-content,
+/* v2 modal: flush header strip with a divider, 24px body, bordered footer. */
+.ant-modal .ant-modal-container {
+  padding: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ant-modal .ant-modal-header {
+  margin-bottom: 0;
+  padding: 16px 24px;
+  border-bottom: 1px solid #e8e8e8;
+  border-radius: 16px 16px 0 0;
+}
+
+.ant-modal .ant-modal-title {
+  font-weight: 500;
+}
+
+.ant-modal .ant-modal-close {
+  top: 0;
+  inset-inline-end: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 0 16px 0 0;
+}
+
+.ant-modal .ant-modal-close:hover {
+  background: transparent;
+}
+
+.ant-modal .ant-modal-body {
+  padding: 24px;
+}
+
+.ant-modal .ant-modal-footer {
+  margin-top: 0;
+  padding: 10px 16px;
+  border-top: 1px solid #e8e8e8;
+  border-radius: 0 0 16px 16px;
+}
+
+.ant-modal .ant-modal-confirm-body-wrapper,
+.ant-modal-confirm .ant-modal-body {
+  padding: 24px;
+}
+
+.ant-modal .ant-form-item {
+  margin-bottom: 8px;
+}
+
+body.light .ant-modal .ant-modal-title,
+body.light .ant-modal .ant-form-item-label > label {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+body.dark .ant-modal .ant-modal-container,
 body.dark .ant-modal .ant-modal-header {
-  background-color: var(--dark-color-surface-100);
+  background-color: var(--dark-color-surface-700);
+}
+
+body.dark .ant-modal .ant-modal-header {
+  border-bottom-color: var(--dark-color-surface-400);
+}
+
+body.dark .ant-modal .ant-modal-footer {
+  border-top-color: var(--dark-color-surface-300);
+}
+
+body.dark .ant-modal .ant-modal-title,
+body.dark .ant-modal .ant-form-item-label > label {
+  color: var(--dark-color-text-primary);
+}
+
+/* v2 toasts: pill on a surface tone, primary-coloured success icon. */
+.ant-message .ant-message-notice {
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ant-message .ant-message-notice-icon-success .anticon {
+  color: #008771;
+}
+
+body.dark .ant-message .ant-message-notice {
+  background-color: var(--dark-color-surface-200);
+  border: 1px solid var(--dark-color-surface-300);
+  color: var(--dark-color-text-primary);
 }
 
 body.dark .ant-popover .ant-popover-inner,

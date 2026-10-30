@@ -27,9 +27,9 @@ import {
   ClusterOutlined,
   CodeOutlined,
   DatabaseOutlined,
-  ExportOutlined,
   SettingOutlined,
   SwapOutlined,
+  UploadOutlined,
 } from '@ant-design/icons';
 import { JsonEditor } from '@/components/form';
 import { setMessageInstance } from '@/utils/messageBus';
@@ -385,7 +385,7 @@ export default function XrayPage() {
                           },
                           {
                             key: 'outbound',
-                            icon: <ExportOutlined aria-hidden />,
+                            icon: <UploadOutlined aria-hidden />,
                             label: t('pages.xray.Outbounds'),
                           },
                           {

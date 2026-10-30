@@ -30,9 +30,9 @@ import {
   CodeOutlined,
   DiscordOutlined,
   MailOutlined,
+  MessageOutlined,
   SafetyOutlined,
   SettingOutlined,
-  TelegramFilled,
 } from '@ant-design/icons';
 import GeneralTab from './GeneralTab';
 import SecurityTab from './SecurityTab';
@@ -329,7 +329,7 @@ export default function SettingsPage() {
                             },
                             {
                               key: 'telegram',
-                              icon: <TelegramFilled aria-hidden />,
+                              icon: <MessageOutlined aria-hidden />,
                               label: t('pages.settings.TGBotSettings'),
                             },
                             {

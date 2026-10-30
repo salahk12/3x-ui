@@ -7,12 +7,12 @@ import {
   DashboardOutlined,
   ExportOutlined,
   GlobalOutlined,
-  ImportOutlined,
   SettingOutlined,
   SwapOutlined,
   TagsOutlined,
   TeamOutlined,
   ToolOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 
 const IndexPage = lazy(() => import('@/pages/index/IndexPage'));
@@ -37,7 +37,7 @@ export interface PanelRoute {
 // page cannot go missing from one of them.
 export const PANEL_ROUTES: PanelRoute[] = [
   { path: '/', titleKey: 'menu.dashboard', icon: DashboardOutlined, component: IndexPage },
-  { path: '/inbounds', titleKey: 'menu.inbounds', icon: ImportOutlined, component: InboundsPage },
+  { path: '/inbounds', titleKey: 'menu.inbounds', icon: UserOutlined, component: InboundsPage },
   { path: '/clients', titleKey: 'menu.clients', icon: TeamOutlined, component: ClientsPage },
   { path: '/groups', titleKey: 'menu.groups', icon: TagsOutlined, component: GroupsPage },
   { path: '/nodes', titleKey: 'menu.nodes', icon: ClusterOutlined, component: NodesPage },

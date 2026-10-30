@@ -1,8 +1,9 @@
-.action-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
+.row-more-trigger.ant-btn {
+  font-size: 20px;
+}
+
+.row-more-trigger.ant-btn:hover {
+  background: transparent !important;
 }
 
 .protocol-tags {
@@ -11,13 +12,13 @@
   gap: 4px;
 }
 
-.client-count-tag {
-  font-variant-numeric: tabular-nums;
-}
-
 .row-action-trigger {
   font-size: 20px;
   cursor: pointer;
+}
+
+.client-count-tag {
+  font-variant-numeric: tabular-nums;
 }
 
 .client-email-list {

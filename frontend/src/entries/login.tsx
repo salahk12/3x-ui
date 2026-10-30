@@ -16,7 +16,7 @@ applyDocumentTitle();
 
 const messageContainer = document.getElementById('message');
 if (messageContainer) {
-  message.config({ getContainer: () => messageContainer });
+  message.config({ top: 16, getContainer: () => messageContainer });
 }
 
 readyI18n().then(() => {

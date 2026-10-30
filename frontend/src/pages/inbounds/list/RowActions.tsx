@@ -29,19 +29,17 @@ export function buildRowActionsMenu({
   record,
   subEnable,
   t,
-  isMobile,
   hasClients,
 }: {
   record: DBInboundRecord;
   subEnable: boolean;
   t: (k: string) => string;
-  isMobile?: boolean;
   hasClients?: boolean;
 }): MenuProps['items'] {
-  const items: MenuProps['items'] = [];
-  if (isMobile) {
-    items.push({ key: 'edit', icon: <EditOutlined aria-hidden />, label: t('edit') });
-  }
+  // v2 kept edit as the first entry of the single "more" menu.
+  const items: MenuProps['items'] = [
+    { key: 'edit', icon: <EditOutlined aria-hidden />, label: t('edit') },
+  ];
   if (isInboundMultiUser(record)) {
     items.push({
       key: 'export',
@@ -122,30 +120,20 @@ export function buildRowActionsMenu({
 export function RowActionsCell({ record, subEnable, hasClients, onClick }: RowActionsMenuProps) {
   const { t } = useTranslation();
   return (
-    <div className="action-buttons">
+    <Dropdown
+      trigger={['click']}
+      menu={{
+        items: buildRowActionsMenu({ record, subEnable, t, hasClients }),
+        onClick: ({ key }) => onClick(key as RowAction),
+      }}
+    >
       <Button
         type="text"
         size="small"
-        style={{ fontSize: 16 }}
-        icon={<EditOutlined aria-hidden />}
-        aria-label={t('edit')}
-        onClick={() => onClick('edit')}
+        className="row-more-trigger"
+        icon={<MoreOutlined aria-hidden />}
+        aria-label={t('more')}
       />
-      <Dropdown
-        trigger={['click']}
-        menu={{
-          items: buildRowActionsMenu({ record, subEnable, t, hasClients }),
-          onClick: ({ key }) => onClick(key as RowAction),
-        }}
-      >
-        <Button
-          type="text"
-          size="small"
-          style={{ fontSize: 16 }}
-          icon={<MoreOutlined aria-hidden />}
-          aria-label={t('more')}
-        />
-      </Dropdown>
-    </div>
+    </Dropdown>
   );
 }

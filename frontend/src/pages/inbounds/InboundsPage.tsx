@@ -18,13 +18,7 @@ import {
 } from 'antd';
 
 import { setMessageInstance } from '@/utils/messageBus';
-import {
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  PieChartOutlined,
-  BarsOutlined,
-  TeamOutlined,
-} from '@ant-design/icons';
+import { SwapOutlined, PieChartOutlined, BarsOutlined, TeamOutlined } from '@ant-design/icons';
 
 import { HttpUtil, SizeFormatter, RandomUtil } from '@/utils';
 import { buildClonePayload } from '@/lib/xray/inbound-clone';
@@ -774,16 +768,8 @@ export default function InboundsPage() {
                         <Col xs={12} sm={12} md={6}>
                           <Statistic
                             title={t('pages.inbounds.totalDownUp')}
-                            value={0}
-                            formatter={() => (
-                              <span>
-                                <ArrowUpOutlined aria-hidden />{' '}
-                                {SizeFormatter.sizeFormat(totals.up)}
-                                {' / '}
-                                <ArrowDownOutlined aria-hidden />{' '}
-                                {SizeFormatter.sizeFormat(totals.down)}
-                              </span>
-                            )}
+                            value={`${SizeFormatter.sizeFormat(totals.up)} / ${SizeFormatter.sizeFormat(totals.down)}`}
+                            prefix={<SwapOutlined aria-hidden />}
                           />
                         </Col>
                         <Col xs={12} sm={12} md={6}>

@@ -1,7 +1,6 @@
 import { useMemo, type ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Popover, Switch, Tag, Tooltip, type TableColumnType } from 'antd';
-import { TeamOutlined } from '@ant-design/icons';
 
 import { SizeFormatter, IntlUtil, ColorUtils } from '@/utils';
 import { InfinityIcon } from '@/components/ui';
@@ -18,7 +17,6 @@ import {
 import { InboundSpeedTag, isActiveSpeed } from './InboundSpeedTag';
 import {
   readStreamHints,
-  networkLabel,
   networkL4,
   shadowsocksNetworkLabel,
   tunnelNetworkLabel,
@@ -60,25 +58,6 @@ export function useInboundColumns({
   const { datepicker } = useDatepicker();
 
   return useMemo(() => {
-    const compareText = (a: string | undefined | null, b: string | undefined | null) =>
-      (a || '').localeCompare(b || '', undefined, { numeric: true, sensitivity: 'base' });
-
-    const nodeName = (record: DBInboundRecord) => {
-      if (record.nodeId == null) return t('pages.inbounds.localPanel');
-      return nodesById.get(record.nodeId)?.name || `node #${record.nodeId}`;
-    };
-
-    const clientTotal = (record: DBInboundRecord) =>
-      (clientCount[record.id] || fallbackClientCount(record))?.clients ?? 0;
-
-    const speedTotal = (record: DBInboundRecord) => {
-      const speed = inboundSpeed[record.id];
-      return speed ? speed.up + speed.down : 0;
-    };
-
-    const expirySortValue = (record: DBInboundRecord) =>
-      record.expiryTime > 0 ? record.expiryTime : Number.MAX_SAFE_INTEGER;
-
     const fallbackClientCount = (record: DBInboundRecord): ClientCountEntry | null => {
       const settings = coerceInboundJsonField(record.settings) as {
         clients?: { email?: string; enable?: boolean }[];
@@ -108,7 +87,6 @@ export function useInboundColumns({
         key: 'id',
         align: 'right',
         width: 60,
-        sorter: (a, b) => a.id - b.id,
       },
       {
         title: t('pages.inbounds.operate'),
@@ -146,7 +124,6 @@ export function useInboundColumns({
         key: 'remark',
         align: 'center',
         width: 120,
-        sorter: (a, b) => compareText(a.remark, b.remark),
         render: (_, record) => {
           const hostRemarks = hostRemarksByInboundId.get(record.id) ?? [];
           if (hostRemarks.length === 0) {
@@ -171,7 +148,6 @@ export function useInboundColumns({
         key: 'node',
         align: 'center',
         width: 130,
-        sorter: (a, b) => compareText(nodeName(a), nodeName(b)),
         render: (_, record) => {
           if (record.nodeId == null) {
             return <Tag color="default">{t('pages.inbounds.localPanel')}</Tag>;
@@ -196,7 +172,6 @@ export function useInboundColumns({
         key: 'subSortIndex',
         align: 'right',
         width: 90,
-        sorter: (a, b) => (a.subSortIndex ?? 1) - (b.subSortIndex ?? 1),
       });
     }
 
@@ -207,14 +182,12 @@ export function useInboundColumns({
         key: 'port',
         align: 'center',
         width: 80,
-        sorter: (a, b) => a.port - b.port,
       },
       {
         title: t('pages.inbounds.protocol'),
         key: 'protocol',
         align: 'left',
         width: 150,
-        sorter: (a, b) => compareText(a.protocol, b.protocol),
         render: (_, record) => {
           const tags: ReactElement[] = [
             <Tag key="p" color="purple">
@@ -256,7 +229,7 @@ export function useInboundColumns({
             const stream = readStreamHints(record.streamSettings);
             tags.push(
               <Tag key="n" color="green">
-                {networkLabel(stream.network)}
+                {stream.network || 'tcp'}
               </Tag>,
             );
             const l4 = networkL4(stream.network);
@@ -287,105 +260,39 @@ export function useInboundColumns({
         key: 'clients',
         align: 'left',
         width: 140,
-        sorter: (a, b) => clientTotal(a) - clientTotal(b),
         render: (_, record) => {
           const cc = clientCount[record.id] || fallbackClientCount(record);
           if (!cc) return null;
+          const groups: { key: string; title: string; color?: string; emails: string[] }[] = [
+            { key: 'deactive', title: t('disabled'), emails: cc.deactive },
+            { key: 'depleted', title: t('depleted'), color: 'red', emails: cc.depleted },
+            { key: 'expiring', title: t('depletingSoon'), color: 'orange', emails: cc.expiring },
+            { key: 'online', title: t('online'), color: 'blue', emails: cc.online },
+          ];
           return (
             <>
-              <Tag
-                className="client-count-tag"
-                style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-              >
-                <TeamOutlined aria-hidden /> {cc.clients}
+              <Tag color="green" style={{ margin: 0 }}>
+                {cc.clients}
               </Tag>
-              {cc.active.length > 0 ? (
-                <Popover
-                  title={t('subscription.active')}
-                  content={
-                    <div className="client-email-list">
-                      {cc.active.map((e) => (
-                        <div key={e}>{e}</div>
-                      ))}
-                    </div>
-                  }
-                >
-                  <Tag
-                    color="green"
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
+              {groups
+                .filter((group) => group.emails.length > 0)
+                .map((group) => (
+                  <Popover
+                    key={group.key}
+                    title={group.title}
+                    content={
+                      <div className="client-email-list">
+                        {group.emails.map((e) => (
+                          <div key={e}>{e}</div>
+                        ))}
+                      </div>
+                    }
                   >
-                    {cc.active.length}
-                  </Tag>
-                </Popover>
-              ) : (
-                <Tag
-                  color="green"
-                  className="client-count-tag"
-                  style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-                >
-                  0
-                </Tag>
-              )}
-              {cc.deactive.length > 0 && (
-                <Popover
-                  title={t('disabled')}
-                  content={
-                    <div className="client-email-list">
-                      {cc.deactive.map((e) => (
-                        <div key={e}>{e}</div>
-                      ))}
-                    </div>
-                  }
-                >
-                  <Tag
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-                  >
-                    {cc.deactive.length}
-                  </Tag>
-                </Popover>
-              )}
-              {cc.depleted.length > 0 && (
-                <Popover
-                  title={t('depleted')}
-                  content={
-                    <div className="client-email-list">
-                      {cc.depleted.map((e) => (
-                        <div key={e}>{e}</div>
-                      ))}
-                    </div>
-                  }
-                >
-                  <Tag
-                    color="red"
-                    className="client-count-tag"
-                    style={{ margin: 0, marginRight: 4, padding: '0 2px' }}
-                  >
-                    {cc.depleted.length}
-                  </Tag>
-                </Popover>
-              )}
-              {cc.online.length > 0 && (
-                <Popover
-                  title={t('online')}
-                  content={
-                    <div className="client-email-list">
-                      {cc.online.map((e) => (
-                        <div key={e}>{e}</div>
-                      ))}
-                    </div>
-                  }
-                >
-                  <Tag
-                    color="blue"
-                    className="client-count-tag"
-                    style={{ margin: 0, padding: '0 2px' }}
-                  >
-                    {cc.online.length}
-                  </Tag>
-                </Popover>
-              )}
+                    <Tag color={group.color} style={{ margin: 0, padding: '0 2px' }}>
+                      {group.emails.length}
+                    </Tag>
+                  </Popover>
+                ))}
             </>
           );
         },
@@ -395,7 +302,6 @@ export function useInboundColumns({
         key: 'traffic',
         align: 'center',
         width: 140,
-        sorter: (a, b) => a.up + a.down - (b.up + b.down),
         render: (_, record) => (
           <Popover
             content={
@@ -427,7 +333,6 @@ export function useInboundColumns({
         key: 'speed',
         align: 'center',
         width: SPEED_COLUMN_WIDTH,
-        sorter: (a, b) => speedTotal(a) - speedTotal(b),
         render: (_, record) => {
           const speed = inboundSpeed[record.id];
           if (!isActiveSpeed(speed)) {
@@ -445,7 +350,6 @@ export function useInboundColumns({
         key: 'expiryTime',
         align: 'center',
         width: 100,
-        sorter: (a, b) => expirySortValue(a) - expirySortValue(b),
         render: (_, record) => {
           if (record.expiryTime > 0) {
             return (
