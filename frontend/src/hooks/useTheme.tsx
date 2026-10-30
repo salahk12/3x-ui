@@ -48,6 +48,8 @@ const BASE_TOKENS = {
   colorLinkHover: '#18947b',
   borderRadius: 8,
   lineHeight: 1.5,
+  // v2's focus ring: a light teal glow. antd 6 derives a dark green one from the seed.
+  controlOutline: 'rgba(0, 135, 113, 0.2)',
   // antd 1.x popup shadow: one soft shadow instead of antd 6's layered one.
   boxShadowSecondary: '0 2px 8px rgba(0, 0, 0, 0.15)',
   fontFamily:
@@ -217,7 +219,16 @@ export function buildAntdThemeConfig(isDark: boolean, isUltra: boolean): ThemeCo
         Menu: MENU_TOKENS,
         Card: CARD_TOKENS,
         Table: LIGHT_TABLE_TOKENS,
-        Select: { ...CONTROL_TOKENS, borderRadiusLG: 16, optionActiveBg: '#e8f4f2' },
+        // Light v2 focused fields used the hover teal for their border.
+        Input: { ...CONTROL_TOKENS, activeBorderColor: '#18947b' },
+        InputNumber: { ...CONTROL_TOKENS, activeBorderColor: '#18947b' },
+        DatePicker: { ...CONTROL_TOKENS, activeBorderColor: '#18947b' },
+        Select: {
+          ...CONTROL_TOKENS,
+          borderRadiusLG: 16,
+          optionActiveBg: '#e8f4f2',
+          activeBorderColor: '#18947b',
+        },
         Dropdown: { borderRadiusLG: 16, controlItemBgHover: '#e8f4f2' },
       },
     };

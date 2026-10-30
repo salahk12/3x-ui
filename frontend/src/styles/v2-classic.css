@@ -723,17 +723,46 @@ body.light .ant-tabs .ant-tabs-tab:not(.ant-tabs-tab-disabled):hover {
   color: #18947b;
 }
 
-/* Dropdown/select option hover (v2 dark: teal-tinted). */
-body.dark
+/* Select options as in v2: selected rows are bold on a faint surface, the row
+   under the pointer gets the teal tint even when it is also selected. */
+.ant-select-dropdown .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  font-weight: 600;
+}
+
+body.light
+  .ant-select-dropdown
+  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: #fafafa;
+}
+
+body.light
   .ant-select-dropdown
   .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
-  background-color: rgb(0 93 78 / 0.3);
+  background-color: #e8f4f2;
 }
 
 body.dark
   .ant-select-dropdown
   .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
   background-color: var(--dark-color-surface-300);
+}
+
+body.dark
+  .ant-select-dropdown
+  .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+  background-color: rgb(0 93 78 / 0.3);
+}
+
+/* Multi-select chips: v2's bordered light chip instead of antd 6's grey wash. */
+.ant-select-multiple .ant-select-selection-item {
+  border: 1px solid #e8e8e8 !important;
+  border-radius: 8px !important;
+  background-color: #fafafa !important;
+}
+
+body.dark .ant-select-multiple .ant-select-selection-item {
+  border-color: var(--dark-color-surface-300) !important;
+  background-color: var(--dark-color-surface-200) !important;
 }
 
 body.dark .ant-pagination .ant-pagination-item:hover a,
