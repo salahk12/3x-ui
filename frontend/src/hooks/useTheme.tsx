@@ -48,6 +48,9 @@ const BASE_TOKENS = {
   colorLinkHover: '#18947b',
   borderRadius: 8,
   lineHeight: 1.5,
+  // antd 1.x timing and popup shadow: hover fades ran 0.3s, popups used one soft shadow.
+  motionDurationMid: '0.3s',
+  boxShadowSecondary: '0 2px 8px rgba(0, 0, 0, 0.15)',
   fontFamily:
     "system-ui, -apple-system, BlinkMacSystemFont, 'Vazirmatn', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
 };
@@ -167,7 +170,6 @@ const SHARED_COMPONENTS = {
   Button: BUTTON_TOKENS,
   Input: CONTROL_TOKENS,
   InputNumber: CONTROL_TOKENS,
-  Select: CONTROL_TOKENS,
   DatePicker: CONTROL_TOKENS,
   Tabs: {
     itemSelectedColor: V2_PRIMARY,
@@ -177,6 +179,8 @@ const SHARED_COMPONENTS = {
   },
   Collapse: { borderRadiusLG: 16 },
   Modal: { borderRadiusLG: 16 },
+  Dropdown: { borderRadiusLG: 16 },
+  Select: { ...CONTROL_TOKENS, borderRadiusLG: 16 },
   Tag: { borderRadiusSM: 16 },
 };
 
@@ -211,6 +215,8 @@ export function buildAntdThemeConfig(isDark: boolean, isUltra: boolean): ThemeCo
         Menu: MENU_TOKENS,
         Card: CARD_TOKENS,
         Table: LIGHT_TABLE_TOKENS,
+        Select: { ...CONTROL_TOKENS, borderRadiusLG: 16, optionActiveBg: '#e8f4f2' },
+        Dropdown: { borderRadiusLG: 16, controlItemBgHover: '#e8f4f2' },
       },
     };
   }

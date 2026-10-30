@@ -133,12 +133,13 @@ body.dark .ant-btn:disabled {
   border-color: var(--dark-color-surface-300);
 }
 
-body.dark .ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled) {
+.ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled) {
   background-color: #cd3838;
 }
 
-body.dark .ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled):hover {
+.ant-btn-color-dangerous.ant-btn-variant-solid:not(:disabled):hover {
   background-color: #e94b4b;
+  border-color: #e94b4b;
 }
 
 /* Inputs / selects / pickers: surface-200 fill, teal wash on hover/focus. */
@@ -384,13 +385,84 @@ body.dark .ant-message .ant-message-notice {
   color: var(--dark-color-text-primary);
 }
 
-body.dark .ant-popover .ant-popover-inner,
-body.dark .ant-dropdown .ant-dropdown-menu {
+body.dark .ant-popover .ant-popover-inner {
   background-color: var(--dark-color-surface-500);
 }
 
 body.dark .ant-popover .ant-popover-arrow::before {
   background-color: var(--dark-color-surface-500);
+}
+
+/* v2 dropdown menus: surface-200 panel, dimmer items, surface-600 hover. */
+.ant-dropdown .ant-dropdown-menu {
+  padding: 0.5rem;
+}
+
+body.dark .ant-dropdown .ant-dropdown-menu {
+  background-color: var(--dark-color-surface-200);
+}
+
+body.dark
+  .ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-danger) {
+  color: rgb(255 255 255 / 65%);
+}
+
+body.dark
+  .ant-dropdown
+  .ant-dropdown-menu
+  .ant-dropdown-menu-item:not(.ant-dropdown-menu-item-danger):hover {
+  background-color: var(--dark-color-surface-600);
+}
+
+/* v2 transitions: menu labels and tab titles fade their colour too. */
+.ant-menu .ant-menu-item,
+.ant-menu .ant-menu-submenu-title {
+  transition:
+    color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    border-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    padding 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+}
+
+.ant-tabs .ant-tabs-tab,
+.ant-tabs .ant-tabs-tab .ant-tabs-tab-btn {
+  transition: color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Primary buttons keep a primary border that follows the hover colour. */
+.ant-btn-variant-solid.ant-btn-color-primary:not(:disabled) {
+  border-color: var(--ant-color-primary);
+}
+
+.ant-btn-variant-solid.ant-btn-color-primary:not(:disabled):hover {
+  border-color: var(--ant-color-primary-hover);
+}
+
+/* Dark form icons and select arrows use the primary text tone, not the faint one. */
+body.dark .ant-form .anticon:not(.ant-btn .anticon),
+body.dark .ant-select .ant-select-suffix,
+body.dark .ant-modal-close {
+  color: var(--dark-color-text-primary);
+}
+
+/* Number spinners sit on the field colour with a divider, as in v2. */
+body.dark .ant-input-number .ant-input-number-actions {
+  background-color: var(--dark-color-surface-200);
+  border-inline-start: 1px solid var(--dark-color-surface-300);
+}
+
+body.dark .ant-input-number .ant-input-number-action {
+  color: var(--dark-color-text-primary);
+}
+
+body.dark .ant-input-number .ant-input-number-action:hover {
+  color: #fff;
+}
+
+body.dark .ant-input-number .ant-input-number-action:active {
+  background-color: var(--color-primary-100);
 }
 
 .ant-dropdown-menu-item,
@@ -598,6 +670,10 @@ body.dark .drawer-menu .ant-menu-item:not(.ant-menu-item-selected) {
 /* v2 switches don't change colour on hover. */
 .ant-switch.ant-switch-checked:hover:not(.ant-switch-disabled) {
   background: var(--ant-color-primary);
+}
+
+.ant-switch:not(.ant-switch-checked):hover:not(.ant-switch-disabled) {
+  background: var(--ant-color-text-quaternary);
 }
 
 /* Light hover states from v2: #e8f4f2 wash + #18947b accent. */
