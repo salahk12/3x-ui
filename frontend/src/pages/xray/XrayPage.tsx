@@ -32,7 +32,9 @@ import {
   UploadOutlined,
 } from '@ant-design/icons';
 import { JsonEditor } from '@/components/form';
+import { SectionSlide } from '@/components/ui';
 import { setMessageInstance } from '@/utils/messageBus';
+import { HttpUtil } from '@/utils';
 
 import { BasicsTab } from './basics';
 import { propagateOutboundTagRename } from './basics/helpers';
@@ -88,6 +90,20 @@ export default function XrayPage() {
     saveAll,
     resetToDefault,
   } = xs;
+
+  const [restarting, setRestarting] = useState(false);
+  // v2 kept Restart Xray next to Save so a saved template can be applied in place.
+  const restartXray = useCallback(async () => {
+    setRestarting(true);
+    try {
+      const msg = await HttpUtil.post('/panel/api/server/restartXrayService');
+      if (!msg?.success) return;
+      const result = await HttpUtil.get<string>('/panel/api/xray/getXrayResult');
+      if (result?.success && result.obj && result.obj.length > 1) messageApi.error(result.obj);
+    } finally {
+      setRestarting(false);
+    }
+  }, [messageApi]);
 
   const [warpOpen, setWarpOpen] = useState(false);
   const [nordOpen, setNordOpen] = useState(false);
@@ -319,6 +335,35 @@ export default function XrayPage() {
     }
   })();
 
+  const sectionItems = [
+    {
+      key: 'basic',
+      icon: <SettingOutlined aria-hidden />,
+      label: t('pages.xray.basicTemplate'),
+    },
+    {
+      key: 'routing',
+      icon: <SwapOutlined aria-hidden />,
+      label: t('pages.xray.Routings'),
+    },
+    {
+      key: 'outbound',
+      icon: <UploadOutlined aria-hidden />,
+      label: t('pages.xray.Outbounds'),
+    },
+    {
+      key: 'balancer',
+      icon: <ClusterOutlined aria-hidden />,
+      label: t('pages.xray.Balancers'),
+    },
+    { key: 'dns', icon: <DatabaseOutlined aria-hidden />, label: 'DNS' },
+    {
+      key: 'advanced',
+      icon: <CodeOutlined aria-hidden />,
+      label: t('pages.xray.advancedTemplate'),
+    },
+  ];
+
   return (
     <ConfigProvider theme={antdThemeConfig}>
       {messageContextHolder}
@@ -356,6 +401,15 @@ export default function XrayPage() {
                             <Button type="primary" disabled={saveDisabled} onClick={onSaveAll}>
                               {t('pages.xray.save')}
                             </Button>
+                            <Button
+                              type="primary"
+                              danger
+                              disabled={!saveDisabled}
+                              loading={restarting}
+                              onClick={restartXray}
+                            >
+                              {t('pages.xray.restart')}
+                            </Button>
                           </Space>
                         </Col>
                         <Col xs={24} sm={10} className="header-info">
@@ -372,36 +426,14 @@ export default function XrayPage() {
                         className="page-section-tabs"
                         activeKey={activeSection}
                         onChange={(key) => navigate(`/xray#${key}`)}
-                        items={[
-                          {
-                            key: 'basic',
-                            icon: <SettingOutlined aria-hidden />,
-                            label: t('pages.xray.basicTemplate'),
-                          },
-                          {
-                            key: 'routing',
-                            icon: <SwapOutlined aria-hidden />,
-                            label: t('pages.xray.Routings'),
-                          },
-                          {
-                            key: 'outbound',
-                            icon: <UploadOutlined aria-hidden />,
-                            label: t('pages.xray.Outbounds'),
-                          },
-                          {
-                            key: 'balancer',
-                            icon: <ClusterOutlined aria-hidden />,
-                            label: t('pages.xray.Balancers'),
-                          },
-                          { key: 'dns', icon: <DatabaseOutlined aria-hidden />, label: 'DNS' },
-                          {
-                            key: 'advanced',
-                            icon: <CodeOutlined aria-hidden />,
-                            label: t('pages.xray.advancedTemplate'),
-                          },
-                        ]}
+                        items={sectionItems}
                       />
-                      {sectionBody}
+                      <SectionSlide
+                        activeKey={activeSection}
+                        order={sectionItems.map((item) => item.key)}
+                      >
+                        {sectionBody}
+                      </SectionSlide>
                     </Card>
                   </Col>
                 </Row>

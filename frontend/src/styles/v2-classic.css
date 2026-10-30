@@ -794,3 +794,23 @@ body.dark .ant-collapse > .ant-collapse-item > .ant-collapse-header {
 body.light .ant-collapse > .ant-collapse-item > .ant-collapse-header {
   color: rgba(0, 0, 0, 0.85);
 }
+
+/* v2 tab panes faded in on switch (antd 6 swaps them instantly). */
+.ant-tabs .ant-tabs-tabpane-active {
+  animation: v2-tab-fade 0.45s;
+}
+
+@keyframes v2-tab-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ant-tabs .ant-tabs-tabpane-active {
+    animation: none;
+  }
+}

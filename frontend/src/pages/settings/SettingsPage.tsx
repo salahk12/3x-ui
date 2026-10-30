@@ -24,6 +24,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useAllSettings } from '@/api/queries/useAllSettings';
 import { AllSettingSchema } from '@/schemas/setting';
 import AppSidebar from '@/layouts/AppSidebar';
+import { SectionSlide } from '@/components/ui';
 import {
   ApartmentOutlined,
   CloudServerOutlined,
@@ -244,6 +245,57 @@ export default function SettingsPage() {
     }
   }, [activeSlug, allSetting, updateSetting, savePayload]);
 
+  const sectionItems = [
+    {
+      key: 'general',
+      icon: <SettingOutlined aria-hidden />,
+      label: t('pages.settings.panelSettings'),
+    },
+    {
+      key: 'security',
+      icon: <SafetyOutlined aria-hidden />,
+      label: t('pages.settings.securitySettings'),
+    },
+    {
+      key: 'telegram',
+      icon: <MessageOutlined aria-hidden />,
+      label: t('pages.settings.TGBotSettings'),
+    },
+    {
+      key: 'email',
+      icon: <MailOutlined aria-hidden />,
+      label: t('pages.settings.emailSettings'),
+    },
+    {
+      key: 'discord',
+      icon: <DiscordOutlined aria-hidden />,
+      label: t('pages.settings.discordSettings'),
+    },
+    {
+      key: 'subscription',
+      icon: <CloudServerOutlined aria-hidden />,
+      label: t('pages.settings.subSettings'),
+    },
+    ...(allSetting.subJsonEnable || allSetting.subClashEnable
+      ? [
+          {
+            key: 'subscription-formats',
+            icon: <CodeOutlined aria-hidden />,
+            label: t('menu.subFormats'),
+          },
+        ]
+      : []),
+    ...(allSetting.subJsonEnable
+      ? [
+          {
+            key: 'subscription-balancers',
+            icon: <ApartmentOutlined aria-hidden />,
+            label: t('pages.settings.subBalancers.menu'),
+          },
+        ]
+      : []),
+  ];
+
   return (
     <ConfigProvider theme={antdThemeConfig}>
       {messageContextHolder}
@@ -316,58 +368,14 @@ export default function SettingsPage() {
                           className="page-section-tabs"
                           activeKey={activeSlug}
                           onChange={(key) => navigate(`/settings#${key}`)}
-                          items={[
-                            {
-                              key: 'general',
-                              icon: <SettingOutlined aria-hidden />,
-                              label: t('pages.settings.panelSettings'),
-                            },
-                            {
-                              key: 'security',
-                              icon: <SafetyOutlined aria-hidden />,
-                              label: t('pages.settings.securitySettings'),
-                            },
-                            {
-                              key: 'telegram',
-                              icon: <MessageOutlined aria-hidden />,
-                              label: t('pages.settings.TGBotSettings'),
-                            },
-                            {
-                              key: 'email',
-                              icon: <MailOutlined aria-hidden />,
-                              label: t('pages.settings.emailSettings'),
-                            },
-                            {
-                              key: 'discord',
-                              icon: <DiscordOutlined aria-hidden />,
-                              label: t('pages.settings.discordSettings'),
-                            },
-                            {
-                              key: 'subscription',
-                              icon: <CloudServerOutlined aria-hidden />,
-                              label: t('pages.settings.subSettings'),
-                            },
-                            ...(allSetting.subJsonEnable || allSetting.subClashEnable
-                              ? [
-                                  {
-                                    key: 'subscription-formats',
-                                    icon: <CodeOutlined aria-hidden />,
-                                    label: t('menu.subFormats'),
-                                  },
-                                ]
-                              : []),
-                            ...(allSetting.subJsonEnable
-                              ? [
-                                  {
-                                    key: 'subscription-balancers',
-                                    icon: <ApartmentOutlined aria-hidden />,
-                                    label: t('pages.settings.subBalancers.menu'),
-                                  },
-                                ]
-                              : []),
-                          ]}
+                          items={sectionItems}
                         />
-                        {categoryBody}
+                        <SectionSlide
+                          activeKey={activeSlug}
+                          order={sectionItems.map((item) => item.key)}
+                        >
+                          {categoryBody}
+                        </SectionSlide>
                       </Card>
                     </Col>
                   </Row>
