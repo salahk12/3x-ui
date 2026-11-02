@@ -41,10 +41,14 @@ type PanelUpdateInfo struct {
 }
 
 const (
-	panelUpdaterURL      = "https://raw.githubusercontent.com/MHSanaei/3x-ui/main/update.sh"
+	// panelRepo/panelBranch point updates at the v2-UI fork, so "Update Panel"
+	// reinstalls this fork instead of replacing it with upstream 3x-ui.
+	panelRepo            = "salahk12/3x-ui"
+	panelBranch          = "v2-ui"
+	panelUpdaterURL      = "https://raw.githubusercontent.com/" + panelRepo + "/" + panelBranch + "/update.sh"
 	maxPanelUpdaterBytes = 2 << 20
 	// devReleaseTag is the fixed-tag rolling pre-release the CI force-moves to the
-	// newest main commit; the dev update channel installs from it.
+	// newest v2-ui commit; the dev update channel installs from it.
 	devReleaseTag = "dev-latest"
 
 	updateStatePending = "pending"
@@ -431,9 +435,9 @@ func fetchLatestPanelVersion() (string, error) {
 // fetchPanelRelease fetches a release from GitHub. An empty tag resolves the
 // latest stable release; a non-empty tag (e.g. dev-latest) resolves that tag.
 func fetchPanelRelease(tag string) (*service.Release, error) {
-	url := "https://api.github.com/repos/MHSanaei/3x-ui/releases/latest"
+	url := "https://api.github.com/repos/" + panelRepo + "/releases/latest"
 	if tag != "" {
-		url = "https://api.github.com/repos/MHSanaei/3x-ui/releases/tags/" + tag
+		url = "https://api.github.com/repos/" + panelRepo + "/releases/tags/" + tag
 	}
 	client := (&service.SettingService{}).NewProxiedHTTPClient(10 * time.Second)
 	req, reqErr := http.NewRequestWithContext(context.Background(), http.MethodGet, url, nil)

@@ -40,7 +40,7 @@ import { formatPanelVersion } from '@/lib/panel-version';
 import type { Status } from '@/models/status';
 import './ClassicOverview.css';
 
-const RELEASES_URL = 'https://github.com/MHSanaei/3x-ui/releases';
+const RELEASES_URL = 'https://github.com/salahk12/3x-ui/releases';
 const CHANNEL_URL = 'https://t.me/XrayUI';
 const DOCS_URL = 'https://docs.sanaei.dev/';
 

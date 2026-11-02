@@ -1,48 +1,56 @@
-[English](/README.md) | [فارسی](/README.fa_IR.md) | [العربية](/README.ar_EG.md) | [中文](/README.zh_CN.md) | [Español](/README.es_ES.md) | [Русский](/README.ru_RU.md) | [Türkçe](/README.tr_TR.md)
+[English](/README.md) | [فارسی](/README.fa_IR.md)
+
+# 3X-UI · Classic v2 UI
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./media/3x-ui-dark.png">
-    <img alt="3x-ui" src="./media/3x-ui-light.png">
+    <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/overview-dark.png">
+    <img alt="3X-UI with the classic v2 interface" src="./media/v2ui/overview-light.png">
   </picture>
 </p>
 
 <p align="center">
-  <a href="https://github.com/MHSanaei/3x-ui/releases"><img src="https://img.shields.io/github/v/release/mhsanaei/3x-ui" alt="Release"></a>
-  <a href="https://github.com/MHSanaei/3x-ui/actions"><img src="https://img.shields.io/github/actions/workflow/status/mhsanaei/3x-ui/release.yml.svg" alt="Build"></a>
-  <a href="#"><img src="https://img.shields.io/github/go-mod/go-version/mhsanaei/3x-ui.svg" alt="GO Version"></a>
-  <a href="https://github.com/MHSanaei/3x-ui/releases/latest"><img src="https://img.shields.io/github/downloads/mhsanaei/3x-ui/total.svg" alt="Downloads"></a>
-  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/license-GPL%20V3-blue.svg?longCache=true" alt="License"></a>
-  <a href="https://pkg.go.dev/github.com/mhsanaei/3x-ui/v3"><img src="https://pkg.go.dev/badge/github.com/mhsanaei/3x-ui/v3.svg" alt="Go Reference"></a>
-  <a href="https://docs.sanaei.dev"><img src="https://img.shields.io/badge/docs-docs.sanaei.dev-22d3ee" alt="Documentation"></a>
+  <a href="https://github.com/salahk12/3x-ui/releases"><img src="https://img.shields.io/github/v/release/salahk12/3x-ui" alt="Release"></a>
+  <a href="https://github.com/salahk12/3x-ui/actions/workflows/release.yml"><img src="https://img.shields.io/github/actions/workflow/status/salahk12/3x-ui/release.yml?branch=v2-ui" alt="Build"></a>
+  <a href="https://www.gnu.org/licenses/gpl-3.0.en.html"><img src="https://img.shields.io/badge/license-GPL%20V3-blue.svg" alt="License"></a>
+  <a href="https://github.com/MHSanaei/3x-ui"><img src="https://img.shields.io/badge/based%20on-MHSanaei%2F3x--ui%20v3.11-008771" alt="Based on 3x-ui v3.11"></a>
 </p>
 
-**3X-UI** is an advanced, open-source web control panel for managing [Xray-core](https://github.com/XTLS/Xray-core) servers. It provides a clean, multi-language interface for deploying, configuring, and monitoring a wide range of proxy and VPN protocols — from a single VPS to multi-node deployments.
+A fork of [MHSanaei/3x-ui](https://github.com/MHSanaei/3x-ui) that keeps the **v3.11 backend and features**
+but brings back the look and feel of the **v2.9.4 interface**.
 
-Built as an enhanced fork of the original X-UI project, 3X-UI adds broader protocol support, improved stability, per-client traffic accounting, and many quality-of-life features.
+The v3 release rewrote the panel UI in React. This fork keeps that code and all of v3's capabilities,
+and restyles it to match the familiar v2 panel: colours, layout, hover effects, modals and the subscription page.
 
 > [!IMPORTANT]
-> This project is intended for personal use only. Please do not use it for illegal purposes or in a production environment.
+> This project is intended for personal use only. Do not use it for illegal purposes.
 
-## Features
+## What is different from upstream 3x-ui
 
-- **Multi-protocol inbounds** — VLESS, VMess, Trojan, Shadowsocks, WireGuard, AmneziaWG, TUIC v5, Hysteria2, MTProto, HTTP, SOCKS (Mixed), Dokodemo-door / Tunnel, and TUN.
-- **Modern transports & security** — TCP (Raw), mKCP, WebSocket, gRPC, HTTPUpgrade, and XHTTP, secured with TLS, XTLS, and REALITY.
-- **AmneziaWG built in** — DPI-resistant WireGuard runs inside the panel on a userspace network stack, with no kernel module, DKMS, or extra packages to install.
-- **Native TUIC v5 server** — In-process Go QUIC server with Xray routing and per-client traffic accounting; BBR and New Reno are available server-side. CUBIC is preserved in the client profile but currently falls back to New Reno on the server.
-- **MTProto proxies** — per-client FakeTLS secrets, ad-tags, and quotas, applied live without dropping existing connections.
-- **Fallbacks** — serve multiple protocols on a single port (e.g. VLESS and Trojan on 443) using Xray's fallback support.
-- **Per-client management** — traffic quotas, expiry dates, IP limits with trusted-address exemptions, HWID device limits, scheduled renewal cycles, live online status, and one-click share links, QR codes, and subscriptions.
-- **Traffic statistics** — per inbound, per client, and per outbound, with reset controls.
-- **Multi-node support** — manage and scale across multiple servers from a single panel, including cloning inbounds onto other nodes.
-- **Outbound & routing** — WARP, NordVPN, PIA, custom routing rules, load balancers with balancer-to-balancer fallback, and outbound proxy chaining. Bundled geosite and geoip categories are browsable straight from the rule editor.
-- **Built-in subscription server** — raw, JSON, and Clash output, auto-selected from the client's User-Agent, plus [custom page templates](docs/custom-subscription-templates.md).
-- **Telegram and Discord bots** for remote monitoring and management.
-- **RESTful API** with scoped, optionally expiring tokens and an in-panel API reference.
-- **Installable panel (PWA)** — pin 3X-UI to a desktop or phone home screen.
-- **Flexible storage** — SQLite (default) or PostgreSQL.
-- **14 UI languages** with dark and light themes.
-- **Fail2ban integration** for enforcing per-client IP limits.
+The backend is upstream v3.11 with no changes to protocols, the database or the API. Inbounds, clients, nodes,
+the API and the bots behave exactly as in upstream. The changes are:
+
+**Interface (v2.9.4 look)**
+
+- The v2 teal palette, rounded cards and the Vazirmatn font, in light, dark and ultra-dark themes.
+- The classic dashboard: CPU/RAM/swap/disk gauges and the Xray, Manage, Uptime, System Load, Usage, Speed, Data, IP and Connections cards.
+- The v2 sidebar: 200 px wide and collapsible, with the theme switcher at the top.
+- The v2 login page with its animated waves, and a settings popover for theme and language.
+- The inbound table: v2 columns, a single "⋮" action menu, client counters and no sortable headers.
+- Settings and Xray pages: tabs at the top, collapsible sections, and the **Restart Xray** button next to Save.
+- The v2 subscription page: QR codes in a rotating frame, usage details, links and Android/iOS app menus.
+- v2 modals, toasts, dropdowns, select options, focus rings, multi-select chips, number spinners and tags.
+- v2 hover transitions and animated tab switching.
+
+**Speed**
+
+- Modals such as *Add Inbound* and *Add Client* open immediately. Their code loads in the background,
+  and the hidden tabs render after the modal is shown.
+
+**Updates come from this fork**
+
+- `install.sh`, `update.sh`, the `x-ui` menu and the panel's **Update Panel** button install releases
+  from this repository. Updating does not replace the panel with upstream 3x-ui.
 
 ## Screenshots
 
@@ -50,182 +58,153 @@ Built as an enhanced fork of the original X-UI project, 3X-UI adds broader proto
 <summary>Click to expand</summary>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./media/01-overview-dark.png">
-  <img alt="Overview" src="./media/01-overview-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/inbounds-dark.png">
+  <img alt="Inbounds" src="./media/v2ui/inbounds-light.png">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./media/02-add-inbound-dark.png">
-  <img alt="Inbounds" src="./media/02-add-inbound-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/add-inbound-dark.png">
+  <img alt="Add inbound" src="./media/v2ui/add-inbound-light.png">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./media/03-add-client-dark.png">
-  <img alt="Add client" src="./media/03-add-client-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/xray-dark.png">
+  <img alt="Xray configs" src="./media/v2ui/xray-light.png">
 </picture>
 
 <picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./media/05-add-nodes-dark.png">
-  <img alt="Configs" src="./media/05-add-nodes-light.png">
+  <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/settings-dark.png">
+  <img alt="Panel settings" src="./media/v2ui/settings-light.png">
+</picture>
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./media/v2ui/login-dark.png">
+  <img alt="Login" src="./media/v2ui/login-light.png">
 </picture>
 
 </details>
 
-## Quick Start
+## Install
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/salahk12/3x-ui/v2-ui/install.sh)
 ```
 
-To install a specific version, append its tag (e.g. `v3.7.0`):
+The installer generates a random username, password and access path. When it finishes, run `x-ui`
+to open the management menu, where you can start or stop the service, view or reset the login,
+manage SSL certificates and more.
+
+To install a specific release, add its tag:
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) v3.7.0
+bash <(curl -Ls https://raw.githubusercontent.com/salahk12/3x-ui/v2-ui/install.sh) v3.11.0
 ```
 
-To install the rolling **dev** build (latest per-commit pre-release from `main`, not a stable release), pass `dev-latest`:
+To install the rolling development build (built from every commit on `v2-ui`, not a stable release):
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh) dev-latest
+bash <(curl -Ls https://raw.githubusercontent.com/salahk12/3x-ui/v2-ui/install.sh) dev-latest
 ```
 
-During installation a random username, password, and access path are generated. After installation, run `x-ui` to open the management menu, where you can start/stop the service, view or reset your login credentials, manage SSL certificates, and more.
+Each release archive is published with a `.sha256` file. The installer and the updater check
+the archive against it and stop if the checksum does not match.
 
-Every release asset is published with a `.sha256` sum next to it. Both `install.sh` and the updater verify the archive against that sum and abort on a mismatch.
+### Switch an existing 3x-ui v3 server to this fork
 
-For full documentation — installation, configuration, operations, and the complete API reference — visit **[docs.sanaei.dev](https://docs.sanaei.dev)**.
+Your inbounds, clients and settings stay in `/etc/x-ui`. Only the panel binary and scripts are replaced.
+Back up the database first:
+
+```bash
+cp -a /etc/x-ui /etc/x-ui.backup
+bash <(curl -Ls https://raw.githubusercontent.com/salahk12/3x-ui/v2-ui/update.sh)
+```
+
+To go back to upstream, run upstream's `update.sh`. The database format is the same.
 
 ### Unattended install
 
-The installer also runs **non-interactively** for cloud-init.
-Set `XUI_NONINTERACTIVE=1` (or pipe with no TTY) and it installs end-to-end with
-zero prompts, generating random credentials and writing them to
-`/etc/x-ui/install-result.env`. See [`deploy/`](deploy/) for:
+Set `XUI_NONINTERACTIVE=1`, or run the installer without a terminal, and it installs with no prompts.
+The generated credentials are written to `/etc/x-ui/install-result.env`. See [`deploy/`](deploy/)
+for a cloud-init example.
 
-- [Cloud-init user-data](deploy/cloud-init/) — unattended install on any cloud (Hetzner/AWS/DO/Vultr/GCP/Azure/Oracle)
-- [Hetzner Cloud notes](deploy/marketplace/hetzner/) — cloud-init deployment on Hetzner
+### Install from another repository or branch
 
-## Supported Platforms
+The scripts read `XUI_REPO` (default `salahk12/3x-ui`) and `XUI_BRANCH` (default `v2-ui`),
+so you can point them at a mirror or your own fork:
 
-**Operating systems:** Ubuntu, Debian, Armbian, Fedora, CentOS, RHEL, AlmaLinux, Rocky Linux, Oracle Linux, Amazon Linux, Virtuozzo, Arch, Manjaro, Parch, openSUSE (Tumbleweed / Leap), Alpine, and Windows.
+```bash
+XUI_REPO=you/3x-ui XUI_BRANCH=v2-ui bash <(curl -Ls https://raw.githubusercontent.com/you/3x-ui/v2-ui/install.sh)
+```
 
-**Architectures:** `amd64` · `386` · `arm64` (aarch64) · `armv7` · `armv6` · `armv5` · `s390x`.
+## Supported platforms
 
-## Database Options
+**Operating systems:** Ubuntu, Debian, Armbian, Fedora, CentOS, RHEL, AlmaLinux, Rocky Linux,
+Oracle Linux, Amazon Linux, Virtuozzo, Arch, Manjaro, Parch, openSUSE, Alpine and Windows.
 
-3X-UI supports two backends, chosen during the install:
+**Architectures:** `amd64` · `386` · `arm64` · `armv7` · `armv6` · `armv5` · `s390x`.
 
-- **SQLite** (default) — a single file at `/etc/x-ui/x-ui.db`. Zero setup, ideal for small and medium deployments.
-- **PostgreSQL** — recommended for high client counts or multi-node setups. The installer can install PostgreSQL locally for you, or accept a DSN to an existing server.
+## Database
 
-At runtime the backend is selected via environment variables (the installer writes these to `/etc/default/x-ui` for you):
+The installer asks which backend to use:
+
+- **SQLite** (default): a single file at `/etc/x-ui/x-ui.db`.
+- **PostgreSQL**: better for many clients or multi-node setups. The installer can set it up locally or use an existing server.
+
+The backend is selected with environment variables in `/etc/default/x-ui`:
 
 ```
 XUI_DB_TYPE=postgres
 XUI_DB_DSN=postgres://xui:password@127.0.0.1:5432/xui?sslmode=disable
 ```
 
-### Migrating an existing SQLite install to PostgreSQL
+To move an existing SQLite install to PostgreSQL:
 
 ```bash
 x-ui migrate-db --dsn "postgres://xui:password@127.0.0.1:5432/xui?sslmode=disable"
-# then set XUI_DB_TYPE and XUI_DB_DSN in /etc/default/x-ui and restart:
 systemctl restart x-ui
 ```
 
-The source SQLite file is left untouched; remove it manually once you have verified the new backend.
-
-### Docker
-
-The default `docker compose up -d` keeps using SQLite. To run with the bundled PostgreSQL service, uncomment the two `XUI_DB_*` env lines in `docker-compose.yml` and start with the profile:
-
-```bash
-docker compose --profile postgres up -d
-```
-
-The image bundles Fail2ban (enabled by default) to enforce per-client **IP limits**. Fail2ban bans offenders with `iptables`, which requires the `NET_ADMIN` capability. `docker-compose.yml` already grants it via `cap_add`; if you start the container with `docker run` instead, add the capabilities yourself, otherwise bans are logged but never applied:
-
-```bash
-docker run -d --cap-add=NET_ADMIN --cap-add=NET_RAW ... ghcr.io/mhsanaei/3x-ui
-```
-
-## Environment Variables
+## Environment variables
 
 | Variable | Description | Default |
 | --- | --- | --- |
+| `XUI_REPO` | GitHub repository the scripts install from | `salahk12/3x-ui` |
+| `XUI_BRANCH` | Branch the scripts and menu are fetched from | `v2-ui` |
 | `XUI_DB_TYPE` | Database backend: `sqlite` or `postgres` | `sqlite` |
-| `XUI_DB_DSN` | PostgreSQL connection string (when `XUI_DB_TYPE=postgres`) | — |
-| `XUI_DB_FOLDER` | Directory for the SQLite database file | `/etc/x-ui` |
-| `XUI_DB_MAX_OPEN_CONNS` | Maximum open connections (PostgreSQL pool) | — |
-| `XUI_DB_MAX_IDLE_CONNS` | Maximum idle connections (PostgreSQL pool) | — |
-| `XUI_INIT_WEB_BASE_PATH` | The initial URI path for the web panel | `/` |
-| `XUI_ENABLE_FAIL2BAN` | Enable Fail2ban-based IP-limit enforcement | `true` |
-| `XUI_LOG_LEVEL` | Log verbosity (`debug`, `info`, `warning`, `error`) | `info` |
-| `XUI_DEBUG` | Enable debug mode | `false` |
-| `XUI_TUNNEL_HEALTH_MONITOR` | Enable the tunnel health monitor (probes a URL and restarts xray after repeated failures; a restart drops all clients) | `false` |
-| `XUI_TUNNEL_HEALTH_PROXY` | Proxy the probe is sent through; point it at a local xray inbound so the probe tests the tunnel (e.g. `socks5://127.0.0.1:1080`). Empty means the probe only checks host connectivity | — |
-| `XUI_TUNNEL_HEALTH_URL` | URL probed for tunnel health | `https://www.cloudflare.com/cdn-cgi/trace` |
-| `XUI_TUNNEL_HEALTH_INTERVAL` | Interval between probes | `30s` |
-| `XUI_TUNNEL_HEALTH_TIMEOUT` | Per-probe timeout | `10s` |
-| `XUI_TUNNEL_HEALTH_FAILURES` | Consecutive failures before a restart is triggered | `3` |
-| `XUI_TUNNEL_HEALTH_COOLDOWN` | Minimum delay between consecutive restarts | `5m` |
-| `NODE_TOKEN_ENCRYPTION` | Encryption at rest for node API tokens: `off`, `migration`, or `required` (note: no `XUI_` prefix) | `off` |
-| `XUI_NODE_TOKEN_KEY_FILE` | JSON keyring (mode `0600`) holding the active key id and its base64 32-byte keys | `/etc/x-ui/node_token_key.json` |
-| `XUI_NODE_TOKEN_KEY` | A single base64 32-byte key, used only when the key file cannot be loaded | — |
+| `XUI_DB_DSN` | PostgreSQL connection string | — |
+| `XUI_DB_FOLDER` | Directory of the SQLite database | `/etc/x-ui` |
+| `XUI_INIT_WEB_BASE_PATH` | Initial URL path of the panel | `/` |
+| `XUI_ENABLE_FAIL2BAN` | Enforce per-client IP limits with Fail2ban | `true` |
+| `XUI_LOG_LEVEL` | `debug`, `info`, `warning` or `error` | `info` |
 
-The complete list is on the [environment variables reference](https://docs.sanaei.dev/docs/reference/env-vars).
+Every other setting works as in upstream; see the
+[upstream environment variable reference](https://docs.sanaei.dev/docs/reference/env-vars).
 
-## Supported Languages
+## Build from source
 
-The panel UI is available in 14 languages:
+You need Node.js 26 or newer and Go 1.27 or newer.
 
-English · فارسی · العربية · 中文（简体） · 中文（繁體） · Español · Русский · Українська · Türkçe · Tiếng Việt · 日本語 · Bahasa Indonesia · Português (Brasil) · Slovenčina
+```bash
+git clone -b v2-ui https://github.com/salahk12/3x-ui.git
+cd 3x-ui/frontend && npm ci && npm run build   # writes the UI into internal/web/dist
+cd .. && go build -ldflags "-w -s" -o x-ui .
+```
 
-## Contributing
+The UI lives in `frontend/`. The v2 styling is in `frontend/src/styles/v2-classic.css` and
+`frontend/src/hooks/useTheme.tsx`. Run `npm test` in `frontend/` before sending changes.
 
-Contributions are welcome. Please read the [Contributing Guide](/CONTRIBUTING.md) before opening an issue or pull request.
+## Releases
 
-## A Special Thanks to
+Pushing a `vX.Y.Z` tag builds every architecture with GitHub Actions and publishes a release.
+Each push to `v2-ui` refreshes the `dev-latest` pre-release. Fork versions start from the upstream
+version they are based on. Fork-only fixes bump the last number.
 
-- [alireza0](https://github.com/alireza0/)
+## Credits
 
-## Acknowledgment
+- [MHSanaei/3x-ui](https://github.com/MHSanaei/3x-ui) and its contributors, for the panel this fork is built on.
+- [alireza0](https://github.com/alireza0/), for the original X-UI work.
+- [Iran v2ray rules](https://github.com/chocolate4u/Iran-v2ray-rules) and [Russia v2ray rules](https://github.com/runetfreedom/russia-v2ray-rules-dat), the bundled routing data.
 
-- [Iran v2ray rules](https://github.com/chocolate4u/Iran-v2ray-rules) (License: **GPL-3.0**): _Enhanced v2ray/xray and v2ray/xray-clients routing rules with built-in Iranian domains and a focus on security and adblocking._
-- [Russia v2ray rules](https://github.com/runetfreedom/russia-v2ray-rules-dat) (License: **GPL-3.0**): _This repository contains automatically updated V2Ray routing rules based on data on blocked domains and addresses in Russia._
+## License
 
-## Community Tools
-
-Tools and integrations built by the community around 3x-ui.
-
-- [terraform-provider-3x-ui](https://github.com/batonogov/terraform-provider-threexui) (License: **MIT**): _Manage inbounds, clients, panel settings, and Xray configuration as code with Terraform / OpenTofu._
-- [3X-UI Manager](https://github.com/yukh975/3X-UI-Manager) (License: **MIT**): _Native Android client for 3x-ui — dashboard, inbounds, clients with QR sharing, nodes and multi-panel management. Available on F-Droid._
-
-## Support project
-
-**If this project is helpful to you, you may wish to give it a**:star2:
-
-<a href="https://www.buymeacoffee.com/MHSanaei" target="_blank">
-<img src="./media/default-yellow.png" alt="Buy Me A Coffee" style="height: 70px !important;width: 277px !important;" >
-</a>
-
-</br>
-<a href="https://nowpayments.io/donation/hsanaei" target="_blank" rel="noreferrer noopener">
-   <img src="./media/donation-button-black.svg" alt="Crypto donation button by NOWPayments">
-</a>
-
-## Star History
-
-<a href="https://www.star-history.com/?repos=mhsanaei%2F3x-ui&type=date&legend=top-left">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=mhsanaei/3x-ui&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=mhsanaei/3x-ui&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=mhsanaei/3x-ui&type=date&legend=top-left" />
- </picture>
-</a>
-
-<p align="center">
- <a href="https://www.star-history.com/mhsanaei/3x-ui">
-  <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=rank&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=rank" /><img alt="Star History Rank" src="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=rank" /></picture> <picture><source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=trending&theme=dark" /><source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=trending" /><img alt="GitHub Trending Repository of the Day" src="https://api.star-history.com/badge?repo=MHSanaei/3x-ui&type=trending" /></picture>
- </a>
-</p>
+[GPL-3.0](LICENSE), the same license as upstream 3x-ui.
