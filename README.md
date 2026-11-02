@@ -22,6 +22,16 @@ but brings back the look and feel of the **v2.9.4 interface**.
 The v3 release rewrote the panel UI in React. This fork keeps that code and all of v3's capabilities,
 and restyles it to match the familiar v2 panel: colours, layout, hover effects, modals and the subscription page.
 
+## Quick install
+
+Run this on your server as root:
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/salahk12/3x-ui/v2-ui/install.sh)
+```
+
+More options are in the [Install](#install) section below.
+
 > [!IMPORTANT]
 > This project is intended for personal use only. Do not use it for illegal purposes.
 
